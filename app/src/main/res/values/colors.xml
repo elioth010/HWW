@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="white">#FFFFFF</color>
+    <color name="gray_light">#E5E5E5</color>
+    <color name="indigo_300">#7986cb</color>
+    <color name="indigo_400">#5c6bc0</color>
+    <color name="indigo_500">#3F51B5</color> <!--primary -->
+    <color name="indigo_900">#1A237E</color> <!--primary dark -->
+    <color name="indigo_a700">#304ffe</color>
+    <color name="red_300">#e57373</color>
+    <color name="red_400">#ef5350</color>
+    <color name="red_500">#f44336</color> <!--accent-->
+    <color name="red_900">#b71c1c</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#727272</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#B6B6B6</color>
+    <color name="light_green">#32CD32</color>
+    <color name="light_red">#FF1919</color>
+    <color name="light_blue_50">#E1F5FE</color>
+    <color name="light_blue_300">#4fc3f7</color>
+    <color name="light_blue_400">#29b6f6</color>
+    <color name="grey_50">#FAFAFA</color>
+    <color name="grey_100">#F5F5F5</color>
+    <color name="grey_200">#EEEEEE</color>
+    <color name="grey_300">#E0E0E0</color>
+    <color name="grey_400">#BDBDBD</color>
+    <color name="grey_500">#9E9E9E</color>
+    <color name="grey_600">#757575</color>
+    <color name="grey_700">#616161</color>
+    <color name="grey_800">#424242</color>
+    <color name="grey_900">#212121</color>
+    <color name="green_300">#81c784</color>
+    <color name="green_400">#66bb6a</color>
+    <color name="green_800">#2e7d32</color>
+    <color name="deep_orange_400">#ff7043</color>
+    <color name="deep_orange_300">#ff8a65</color>
+    <color name="primary_dark">#1976D2</color>
+    <color name="primary">#2196F3</color>
+    <color name="accent">#FF5252</color>
+    <color name="primary_light">#BBDEFB</color>
+
+    <color name="blue_dark">#387c9f</color>
+    <color name="blue_grey_400">#78909c</color>
+    <color name="blue_grey_50">#ECEFF1</color>
+    <color name="yellow">#FFEB3B</color>
+    <color name="yellow_300">#FFF176</color>
+    <color name="deep_purple">#673AB7</color>
+
+    <color name="blue_50">#E3F2FD</color>
+    <color name="blue_100">#BBDEFB</color>
+    <color name="blue_500">#2196f3</color>
+    <color name="blue_700">#1976d2</color>
+    <color name="blue_800">#1565c0</color>
+    <color name="blue_900">#0d47a1</color>
+
+    <item name="blue" type="color">#FF33B5E5</item>
+    <item name="purple" type="color">#FFAA66CC</item>
+    <item name="green" type="color">#FF99CC00</item>
+    <item name="orange" type="color">#FFFFBB33</item>
+    <item name="red" type="color">#FFFF4444</item>
+    <item name="darkblue" type="color">#FF0099CC</item>
+    <item name="darkpurple" type="color">#FF9933CC</item>
+    <item name="darkgreen" type="color">#FF669900</item>
+    <item name="darkorange" type="color">#FFFF8800</item>
+    <item name="darkred" type="color">#FFCC0000</item>
+    <item name="pink_accent" type="color">#FF4081</item>
+
+    <integer-array name="cardcolors">
+        <item>@color/blue</item>
+        <item>@color/purple</item>
+        <item>@color/indigo_400</item>
+        <item>@color/deep_orange_400</item>
+        <item>@color/indigo_300</item>
+        <item>@color/darkblue</item>
+        <item>@color/darkpurple</item>
+        <item>@color/green_300</item>
+        <item>@color/red_300</item>
+        <item>@color/light_blue_300</item>
+        <item>@color/indigo_500</item>
+    </integer-array>
+
+</resources>

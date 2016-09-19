@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:elevation="8dp"
+    android:gravity="center"
+    android:minHeight="72dp"
+    android:visibility="gone"
+    android:orientation="vertical"
+    android:translationZ="2dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:textColor="@color/secondary_text"
+        android:id="@+id/text_view_descripcion_campo"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="@dimen/margin_standard"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/edit_campo_servicio"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/custom_input_selector"
+        android:hint="@string/app_textView_empyValue"
+        android:maxLines="1"
+        android:layout_below="@+id/text_view_descripcion_campo"
+        android:paddingLeft="15dp"
+        android:imeOptions="actionUnspecified"
+        android:singleLine="true"
+        android:textSize="20sp"
+        android:theme="@android:style/Widget.EditText"
+        android:textColor="@color/grey_900" />
+
+    <Spinner
+        android:id="@+id/select_campo_servicio"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"></Spinner>
+
+
+
+
+</RelativeLayout>

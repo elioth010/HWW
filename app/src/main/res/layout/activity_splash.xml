@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activity.SplashActivity"
+    android:id="@+id/splashTelered"
+    android:background="@color/white">
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:id="@+id/nombre"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/logo_hww" />
+
+    <TextView
+        android:id="@+id/splash_text_health"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/secondary_text"
+        android:textSize="28sp"
+        android:text="@string/app_textview_splash_health"
+        android:layout_marginTop="54dp"
+        android:layout_marginRight="@dimen/margin_short"
+        android:layout_below="@+id/nombre"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textAlignment="textEnd"
+        android:gravity="end"
+        android:layout_toLeftOf="@+id/splash_text_without"
+        android:layout_toStartOf="@+id/splash_text_without" />
+
+    <TextView
+        android:id="@+id/splash_text_without"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/secondary_text"
+        android:textSize="28sp"
+        android:text="@string/app_textview_splash_without"
+        android:layout_alignTop="@+id/splash_text_health"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/splash_text_worries"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/secondary_text"
+        android:textSize="28sp"
+        android:layout_marginLeft="@dimen/margin_short"
+        android:text="@string/app_textview_splash_worries"
+        android:layout_alignTop="@+id/splash_text_without"
+        android:layout_toRightOf="@+id/splash_text_without"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>

@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/widget_toolbar" android:id="@+id/include_toolbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/include_toolbar"
+        android:layout_marginTop="@dimen/margin_standard"
+        android:orientation="vertical">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/RelativeLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/list_view_ripple"
+            android:elevation="8dp"
+            android:translationZ="2dp"
+            android:gravity="center"
+            android:minHeight="72dp"
+            android:onClick="irCapturaDatosPago"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/list_item_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="14dp"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/abc_btn_default_mtrl_shape" />
+
+            <ImageView
+                android:id="@+id/list_item_state"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:elevation="2dp"
+                android:src="@drawable/cableonda"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/list_item_state"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="8dp"
+                android:layout_toLeftOf="@+id/list_item_state"
+                android:layout_toRightOf="@+id/list_item_icon"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/list_items_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:height="22dp"
+                    android:minHeight="22dp"
+                    android:text="Cable Onda"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/list_items_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:height="22dp"
+                    android:singleLine="true"
+                    android:minHeight="22dp"
+                    android:text="Realiza tus pagos de linea fija"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/RelativeLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/list_view_ripple"
+            android:elevation="8dp"
+            android:translationZ="2dp"
+            android:layout_marginTop="@dimen/margin_extra_short"
+            android:gravity="center"
+            android:minHeight="72dp"
+            android:onClick="irCapturaDatosPago"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/list_item_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="14dp"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/abc_btn_default_mtrl_shape" />
+
+            <ImageView
+                android:id="@+id/list_item_state"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:elevation="2dp"
+                android:src="@drawable/movistar"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/list_item_state"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="8dp"
+                android:layout_toLeftOf="@+id/list_item_state"
+                android:layout_toRightOf="@+id/list_item_icon"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/list_items_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:height="22dp"
+                    android:minHeight="22dp"
+                    android:text="Movistar"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/list_items_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:height="22dp"
+                    android:singleLine="true"
+                    android:minHeight="22dp"
+                    android:text="Compartida la vida es mas por eso realiza tus pagos de linea fija y recargas electronicas"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/RelativeLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/list_view_ripple"
+            android:elevation="8dp"
+            android:translationZ="2dp"
+            android:layout_marginTop="@dimen/margin_extra_short"
+            android:gravity="center"
+            android:minHeight="72dp"
+            android:onClick="irCapturaDatosPago"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/list_item_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="14dp"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/abc_btn_default_mtrl_shape" />
+
+            <ImageView
+                android:id="@+id/list_item_state"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:elevation="2dp"
+                android:src="@drawable/digicel"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/list_item_state"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="8dp"
+                android:layout_toLeftOf="@+id/list_item_state"
+                android:layout_toRightOf="@+id/list_item_icon"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/list_items_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:height="22dp"
+                    android:minHeight="22dp"
+                    android:text="Digicel"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/list_items_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:height="22dp"
+                    android:singleLine="true"
+                    android:minHeight="22dp"
+                    android:text="Be extraordinary, y realiza tus pagos de linea fija y recargas electronicas"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/RelativeLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/list_view_ripple"
+            android:elevation="8dp"
+            android:translationZ="2dp"
+            android:layout_marginTop="@dimen/margin_extra_short"
+            android:gravity="center"
+            android:minHeight="72dp"
+            android:onClick="irCapturaDatosPago"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/list_item_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="14dp"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/abc_btn_default_mtrl_shape" />
+
+            <ImageView
+                android:id="@+id/list_item_state"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:elevation="2dp"
+                android:src="@drawable/cwp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/list_item_state"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="8dp"
+                android:layout_toLeftOf="@+id/list_item_state"
+                android:layout_toRightOf="@+id/list_item_icon"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/list_items_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:height="22dp"
+                    android:minHeight="22dp"
+                    android:text="Cable &amp; Wireless Panamá"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/list_items_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:height="22dp"
+                    android:singleLine="true"
+                    android:minHeight="22dp"
+                    android:text="Nuestro país, nuestro compromiso nuestro Realiza tus pagos de linea fija y recargas electronicas"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/RelativeLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/list_view_ripple"
+            android:elevation="8dp"
+            android:translationZ="2dp"
+            android:layout_marginTop="@dimen/margin_extra_short"
+            android:gravity="center"
+            android:minHeight="72dp"
+            android:onClick="irCapturaDatosPago"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/list_item_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="14dp"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/abc_btn_default_mtrl_shape" />
+
+            <ImageView
+                android:id="@+id/list_item_state"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:elevation="2dp"
+                android:src="@drawable/claro"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/list_item_state"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="8dp"
+                android:layout_toLeftOf="@+id/list_item_state"
+                android:layout_toRightOf="@+id/list_item_icon"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/list_items_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:height="22dp"
+                    android:minHeight="22dp"
+                    android:text="Claro"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/list_items_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:height="22dp"
+                    android:singleLine="true"
+                    android:minHeight="22dp"
+                    android:text="Claro que sí!, realiza tus pagos de linea fija y recargas electronicas"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

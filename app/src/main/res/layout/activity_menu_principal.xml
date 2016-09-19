@@ -1,0 +1,25 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/divider"
+    android:orientation="vertical"
+    android:clipToPadding="false">
+
+    <include
+        android:id="@+id/include_toolbar"
+        layout="@layout/widget_toolbar"
+        android:elevation="8dp"/>
+
+    <FrameLayout
+        android:id="@+id/main_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="4dp"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/list_view_shape">
+    </FrameLayout>
+
+</LinearLayout>

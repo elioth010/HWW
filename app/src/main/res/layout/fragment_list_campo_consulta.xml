@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:elevation="8dp"
+    android:gravity="center"
+    android:minHeight="72dp"
+    android:orientation="vertical"
+    android:translationZ="2dp">
+
+    <EditText
+        android:id="@+id/edit_campo_servicio_consulta"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/custom_input_selector"
+        android:hint="@string/app_textView_empyValue"
+        android:maxLines="1"
+        android:paddingLeft="15dp"
+        android:singleLine="true"
+        android:imeOptions="actionUnspecified"
+        android:textSize="20sp"
+        android:theme="@android:style/Widget.EditText"
+        android:textColor="@color/grey_900" />
+
+    <Spinner
+        android:id="@+id/select_campo_servicio_consulta"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"></Spinner>
+
+
+
+
+</RelativeLayout>

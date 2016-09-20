@@ -59,7 +59,7 @@ public class LoginTask extends AbstractGetTask<Void, Void, Boolean> {
 	@Override
 	protected Boolean doInBackground(Void... params) {
 		try {
-			final String url = super.BASE_URL+"/oauth/token?grant_type=" + this.grantType + "&scope=" + this.scope;
+			/*final String url = super.BASE_URL+"/oauth/token?grant_type=" + this.grantType + "&scope=" + this.scope;
 			RestTemplate restTemplate = new RestTemplate(super.clientHttpRequestFactory());
 			ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<String>(getHeaders(this.user, this.password)), String.class);
 			Map<String, String> tokenInfo = fetchToken(restTemplate, response);
@@ -70,7 +70,7 @@ public class LoginTask extends AbstractGetTask<Void, Void, Boolean> {
 			manager.setTokenType(tokenInfo.get("tokenType"));
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			UserToken userLogged = new UserToken(1, user, manager.getToken(), manager.getTokenType(), dateFormat.format(new GregorianCalendar().getTime()));
-			this.parentActivity.save(userLogged);
+			this.parentActivity.save(userLogged);*/
 			return true;
 		} catch (Exception ex) {
 			if (ex instanceof ResourceAccessException) {

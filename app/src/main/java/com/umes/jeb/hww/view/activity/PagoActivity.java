@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.umes.jeb.hww.R;
-import com.umes.jeb.hww.bs.service.InformacionCampoCobranzaTask;
 import com.umes.jeb.hww.eis.dto.AccionCampo;
 import com.umes.jeb.hww.eis.dto.CobranzaCampoDTO;
 import com.umes.jeb.hww.eis.dto.InfoServicioCobranzaResponseDTO;
@@ -118,8 +117,8 @@ public class PagoActivity extends AbstractActivity {
             }
 
             if (activityName != null && activityName.equalsIgnoreCase("cobranzaActivity") || activityName != null && activityName.equalsIgnoreCase("servicioActivity")) {
-                new InformacionCampoCobranzaTask(this, getSession().getToken(), getSession().getUser(), getSession().getTokenType()).execute(servicioBean.getCodigoCobranza().toString(),
-                        servicioBean.getId().toString(), servicioBean.getCodigo().toString(), servicioBean.getVersionCampos().toString());
+                /*new InformacionCampoCobranzaTask(this, getSession().getToken(), getSession().getUser(), getSession().getTokenType()).execute(servicioBean.getCodigoCobranza().toString(),
+                        servicioBean.getId().toString(), servicioBean.getCodigo().toString(), servicioBean.getVersionCampos().toString());*/
             }
         }
 

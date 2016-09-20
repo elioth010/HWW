@@ -1,22 +1,16 @@
 package com.umes.jeb.hww.view.activity;
 
-import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.PersistableBundle;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,16 +20,13 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.umes.jeb.hww.R;
-import com.umes.jeb.hww.bs.service.InformacionCobranzaTask;
 import com.umes.jeb.hww.eis.dto.CobranzaDTO;
 import com.umes.jeb.hww.eis.dto.InfoCobranzasResponseDTO;
 import com.umes.jeb.hww.view.adapter.BusquedaAdapter;
-import com.umes.jeb.hww.view.adapter.NavigationItemsAdapter;
 import com.umes.jeb.hww.view.bean.CobranzaBean;
 import com.umes.jeb.hww.view.bean.CobranzaCampoBean;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by elioth010 on 4/19/16.

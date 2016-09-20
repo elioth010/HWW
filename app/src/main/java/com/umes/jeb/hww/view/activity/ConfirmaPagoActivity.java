@@ -17,13 +17,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.umes.jeb.hww.R;
-import com.umes.jeb.hww.bs.service.PagoServicioTask;
-import com.umes.jeb.hww.eis.dto.AccionCampo;
 import com.umes.jeb.hww.eis.dto.PayBillResponseDTO;
 import com.umes.jeb.hww.eis.dto.TipoDato;
-import com.umes.jeb.hww.eis.dto.TipoPago;
 import com.umes.jeb.hww.view.adapter.ConfirmaPagoAdapter;
-import com.umes.jeb.hww.view.adapter.PagoAdapter;
 import com.umes.jeb.hww.view.bean.CobranzaBean;
 import com.umes.jeb.hww.view.bean.CobranzaCampoBean;
 import com.umes.jeb.hww.view.bean.ServicioBean;
@@ -177,8 +173,8 @@ public class ConfirmaPagoActivity extends AbstractActivity {
                 producto = prod.getCodigo();
             }
         }*/
-        new PagoServicioTask(this, getSession().getToken(), getSession().getUser(), getSession().getTokenType(), camposCobranza).execute(servicioBean.getCodigoCobranza().toString(),
-                servicioBean.getCodigoFacturador().toString(), servicioBean.getCodigo().toString(), servicioBean.getMoneda(), "12345678", producto, getMontoSinImpuestos().toString(), getImpuestos().toString(), getMontoTotal().toString());
+        /*new PagoServicioTask(this, getSession().getToken(), getSession().getUser(), getSession().getTokenType(), camposCobranza).execute(servicioBean.getCodigoCobranza().toString(),
+                servicioBean.getCodigoFacturador().toString(), servicioBean.getCodigo().toString(), servicioBean.getMoneda(), "12345678", producto, getMontoSinImpuestos().toString(), getImpuestos().toString(), getMontoTotal().toString());*/
     }
 
     @Override

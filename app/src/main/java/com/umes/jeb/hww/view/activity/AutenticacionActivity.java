@@ -86,10 +86,10 @@ public class AutenticacionActivity extends AbstractActivity {
             this.getSession().setToken(tokens.get(0).getToken());
             this.getSession().setTokenType(tokens.get(0).getTokenType());
             this.getSession().setUser(tokens.get(0).getUsername());
-            CheckLoginTask checkLoginTask = new CheckLoginTask(this, tokens.get(0).getToken(), tokens.get(0).getTokenType());
+            //CheckLoginTask checkLoginTask = new CheckLoginTask(this, tokens.get(0).getToken(), tokens.get(0).getTokenType());
             try {
-                return checkLoginTask.execute().get();
-            } catch (InterruptedException | ExecutionException e) {
+                //return checkLoginTask.execute().get();
+            } catch (Exception e) {
                 e.printStackTrace();
                 return false;
             }

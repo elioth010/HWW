@@ -145,13 +145,15 @@ Quam libero nulla netus eu porta curae, ut nulla bibendum facilisis et urna sed,
     <string name="resouce_name">Nombre Apellido</string>
 
     <string-array name="nav_options">
-        <item>Afiliar Medio</item>
+        <item>Perfil</item>
+        <item>Configuraciones</item>
     <!--    <item>Leer QR</item>
         <item>Transferencias</item> -->
         <item>Salir</item>
     </string-array>
     <string-array name="nav_icons">
-        <item>@mipmap/ic_medio</item>
+        <item>@drawable/ic_profile</item>
+        <item>@drawable/ic_setting_light</item>
         <item>@mipmap/ic_signout</item>
         <!--<item>@mipmap/ic_intercambio</item>-->
         <!--<item>@mipmap/ic_signout</item>-->
@@ -161,10 +163,10 @@ Quam libero nulla netus eu porta curae, ut nulla bibendum facilisis et urna sed,
     <string name="app_textView_pago_valor_a_pagar">Valor a pagar</string>
     <string name="app_textView_cuenta_seleccionada">Cuenta Seleccionada</string>
 
-    <string name="app_tab_view_categorias">Categorias</string>
-    <string name="app_tab_view_favoritos">Favoritos</string>
-    <string name="app_tab_view_todos">Todos</string>
-    <string name="app_tab_view_recientes">Recientes</string>
+    <string name="app_tab_view_dashboard">Dashboard</string>
+    <string name="app_tab_view_pulse_monitor">Pulse Monitor</string>
+    <string name="app_tab_view_breath_monitor">Breath Monitor</string>
+    <string name="app_tab_view_blood_pressure_monitor">Blood Pressure Monitor</string>
 
     <!-- CATEGORIAS -->
     <string name="nombre_categoria">Cobranzas</string>

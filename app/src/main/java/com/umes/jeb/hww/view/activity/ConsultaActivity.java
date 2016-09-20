@@ -16,8 +16,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.umes.jeb.hww.R;
-import com.umes.jeb.hww.bs.service.ConsultaServicioTask;
-import com.umes.jeb.hww.bs.service.InformacionCampoCobranzaTask;
 import com.umes.jeb.hww.eis.dto.CobranzaCampoDTO;
 import com.umes.jeb.hww.eis.dto.GetBalanceResponseDTO;
 import com.umes.jeb.hww.eis.dto.InfoServicioCobranzaResponseDTO;
@@ -28,8 +26,6 @@ import com.umes.jeb.hww.view.bean.CobranzaCampoBean;
 import com.umes.jeb.hww.view.bean.ServicioBean;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 
@@ -105,8 +101,8 @@ public class ConsultaActivity extends AbstractActivity {
             }
         }
 
-        new InformacionCampoCobranzaTask(this, getSession().getToken(), getSession().getUser(), getSession().getTokenType()).execute(servicioBean.getCodigoCobranza().toString(),
-                servicioBean.getId().toString(), servicioBean.getCodigo().toString(), servicioBean.getVersionCampos().toString());
+        /*new InformacionCampoCobranzaTask(this, getSession().getToken(), getSession().getUser(), getSession().getTokenType()).execute(servicioBean.getCodigoCobranza().toString(),
+                servicioBean.getId().toString(), servicioBean.getCodigo().toString(), servicioBean.getVersionCampos().toString());*/
 
         Button boton = (Button) this.findViewById(R.id.button_action_service);
         boton.setText("Continuar");
@@ -166,8 +162,8 @@ public class ConsultaActivity extends AbstractActivity {
             }
         }
 
-        new ConsultaServicioTask(this, getSession().getToken(), getSession().getUser(), getSession().getTokenType(), mAdapter.getCobranzaCampoBeans()).execute(servicioBean.getCodigoCobranza().toString(),
-                servicioBean.getCodigoFacturador().toString(), servicioBean.getCodigo().toString());
+
+
     }
 
     public void afterOnConsultaServicioTask(GetBalanceResponseDTO response) {

@@ -12,10 +12,10 @@
 <!--         android:showAsAction="never" -->
 <!--         android:title="@string/action_settings"/> -->
 
-    <item android:id="@+id/menu_busqueda"
+    <!--<item android:id="@+id/menu_busqueda"
         app:showAsAction="always"
         android:icon="@android:drawable/ic_menu_search"
-        android:title="@string/abc_searchview_description_query" />
+        android:title="@string/abc_searchview_description_query" />-->
 
     <item android:id="@+id/logout_task"
         app:showAsAction="never"

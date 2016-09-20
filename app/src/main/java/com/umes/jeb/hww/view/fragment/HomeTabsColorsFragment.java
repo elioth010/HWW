@@ -54,8 +54,6 @@ public class HomeTabsColorsFragment extends Fragment {
      */
     private SlidingTabLayout mSlidingTabLayout;
 
-    private List<HomeBean> listHomeBean;
-
     /**
      * A {@link ViewPager} which will be used in conjunction with the {@link SlidingTabLayout} above.
      */
@@ -76,36 +74,36 @@ public class HomeTabsColorsFragment extends Fragment {
          * color, which are used by {@link SlidingTabLayout}.
          */
 
-        for(HomeBean categorias : listHomeBean){
+        /*for(HomeBean categorias : listHomeBean){
             mTabs.add(new TabPagerItem(
                     categorias.getNombre(), // Title
                     getResources().getColor(R.color.yellow), // Indicator color
                     Color.GRAY // Divider color
             ));
-        }
-        /*mTabs.add(new TabPagerItem(
-                getString(R.string.app_tab_view_categorias), // Title
-                Color.WHITE, // Indicator color
+        }*/
+        mTabs.add(new TabPagerItem(
+                getString(R.string.app_tab_view_dashboard), // Title
+                getResources().getColor(R.color.accent), // Indicator color
                 Color.GRAY // Divider color
         ));
 
         mTabs.add(new TabPagerItem(
-                getString(R.string.app_tab_view_todos), // Title
-                Color.WHITE, // Indicator color
+                getString(R.string.app_tab_view_pulse_monitor), // Title
+                getResources().getColor(R.color.accent), // Indicator color
                 Color.GRAY // Divider color
         ));
 
         mTabs.add(new TabPagerItem(
-                getString(R.string.app_tab_view_favoritos), // Title
-                Color.WHITE, // Indicator color
+                getString(R.string.app_tab_view_breath_monitor), // Title
+                getResources().getColor(R.color.accent), // Indicator color
                 Color.GRAY // Divider color
         ));
 
         mTabs.add(new TabPagerItem(
-                getString(R.string.app_tab_view_favoritos), // Title
-                Color.WHITE, // Indicator color
+                getString(R.string.app_tab_view_blood_pressure_monitor), // Title
+                getResources().getColor(R.color.accent), // Indicator color
                 Color.GRAY // Divider color
-        ));*/
+        ));
 
         // END_INCLUDE (populate_tabs)
     }
@@ -168,29 +166,6 @@ public class HomeTabsColorsFragment extends Fragment {
     // END_INCLUDE (fragment_onviewcreated)
 
     /**
-     * @return Return the each Tab to display in the Fragment and contents the list of beans to
-     * display on screen by each Fragment
-     */
-    public List<HomeBean> getListHomeBean() {
-        return listHomeBean;
-    }
-
-    /**
-     * Set the List of {@link HomeBean} to display on Fragments Tab
-     */
-    public void setListHomeBean(List<HomeBean> listHomeBean) {
-        this.listHomeBean = listHomeBean;
-    }
-
-    /**
-     * @return Return the Fragment to display on current Tab
-     */
-
-    public HomeBean getHomeBean(int position) {
-        return listHomeBean.get(position);
-    }
-
-    /**
      * The {@link FragmentPagerAdapter} used to display pages in this sample. The individual pages
      * are instances of {@link ContentFragment} which just display three lines of text. Each page is
      * created by the relevant {@link TabPagerItem} for the requested position.
@@ -212,7 +187,7 @@ public class HomeTabsColorsFragment extends Fragment {
         @Override
         public Fragment getItem(int i) {
             //return mTabs.get(i).createFragment();
-            HomeBean bean = getHomeBean(i);
+            /*HomeBean bean = getHomeBean(i);
             if (bean.getIsCategoria()) {
                 CategoriasFragment fragment = new CategoriasFragment();
                 fragment.setHomeBean(bean);
@@ -225,7 +200,7 @@ public class HomeTabsColorsFragment extends Fragment {
                 RecientesFragment fragment = new RecientesFragment();
                 fragment.setHomeBean(bean);
                 return fragment;
-            }
+            }*/
             return new Fragment();
         }
 

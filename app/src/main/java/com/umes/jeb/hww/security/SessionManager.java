@@ -6,6 +6,8 @@ import com.umes.jeb.hww.bs.dao.impl.SugarDAOImpl;
 import com.orm.SugarApp;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
 
 public class SessionManager extends SugarApp {
 
@@ -14,6 +16,12 @@ public class SessionManager extends SugarApp {
 	private String user;
 	
 	private SugarDAO sugarDAO;
+
+	@Override
+	protected void attachBaseContext(Context base) {
+		super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 
 	@Override
 	public void onCreate() {

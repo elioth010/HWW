@@ -22,7 +22,6 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.umes.jeb.hww.R;
-import com.umes.jeb.hww.bs.service.InformacionCobranzaTask;
 import com.umes.jeb.hww.eis.dto.CobranzaDTO;
 import com.umes.jeb.hww.eis.dto.InfoCobranzasResponseDTO;
 import com.umes.jeb.hww.view.adapter.HomeAdapter;
@@ -126,7 +125,7 @@ public class HomeActivity extends AbstractActivity {
                 mDrawerToggle.syncState();
             }
         });
-        new InformacionCobranzaTask(this, getSession().getToken(), getSession().getUser(), getSession().getTokenType()).execute();
+        //new InformacionCobranzaTask(this, getSession().getToken(), getSession().getUser(), getSession().getTokenType()).execute();
     }
 
     @Override

@@ -17,12 +17,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.umes.jeb.hww.R;
-import com.umes.jeb.hww.bs.service.CobranzaRecienteTask;
-import com.umes.jeb.hww.bs.service.InformacionCampoCobranzaTask;
-import com.umes.jeb.hww.bs.service.PagoServicioTask;
 import com.umes.jeb.hww.eis.dto.CobranzaCampoDTO;
 import com.umes.jeb.hww.eis.dto.InfoServicioCobranzaResponseDTO;
-import com.umes.jeb.hww.util.validator.ValidatorRegex;
 import com.umes.jeb.hww.view.adapter.ResultadoAdapter;
 import com.umes.jeb.hww.view.bean.CobranzaBean;
 import com.umes.jeb.hww.view.bean.CobranzaCampoBean;
@@ -147,7 +143,7 @@ public class ResultadoActivity extends AbstractActivity {
 
     public void ejecutaAccionOnClickActionService(View v) {
 
-        new CobranzaRecienteTask(this, getSession().getToken(), getSession().getUser(), getSession().getTokenType(),servicioBean.getCodigoCobranza(), new Date()).execute();
+        //new CobranzaRecienteTask(this, getSession().getToken(), getSession().getUser(), getSession().getTokenType(),servicioBean.getCodigoCobranza(), new Date()).execute();
         Intent pago = new Intent(this, HomeTabActivity.class);
         pago.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         this.startActivity(pago);

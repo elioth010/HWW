@@ -9,7 +9,6 @@ import android.os.PersistableBundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -23,7 +22,6 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.umes.jeb.hww.R;
-import com.umes.jeb.hww.bs.service.InformacionCobranzaTask;
 import com.umes.jeb.hww.eis.dto.CobranzaDTO;
 import com.umes.jeb.hww.eis.dto.InfoCobranzasResponseDTO;
 import com.umes.jeb.hww.view.adapter.HomeAdapter;
@@ -87,7 +85,7 @@ public class HomeTabActivity extends AbstractActivity {
         if (mToolbar != null) {
 //            mToolbar.setLogo(R.mipmap.ic_launcher);
             setSupportActionBar(mToolbar);
-            mToolbar.setTitle("Boton de Pagos");
+            mToolbar.setTitle(getString(R.string.app_name));
             setSupportActionBar(mToolbar);
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_drawer);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -96,7 +94,7 @@ public class HomeTabActivity extends AbstractActivity {
 
         drawerRecyclerView = (RecyclerView) findViewById(R.id.drawer_home_recycler_view);
         drawerRecyclerView.setHasFixedSize(true);
-
+        getSession().setUser("Ejemplo Usuario");
         drawerAdapter = new NavigationItemsAdapter(getResources().getStringArray(R.array.nav_options), getResources().obtainTypedArray(R.array.nav_icons), getResources().getString(R.string.resouce_name), getResources().getString(R.string.resouce_secondary_text));
         drawerLayoutManager = new LinearLayoutManager(this);
         drawerRecyclerView.setLayoutManager(drawerLayoutManager);
@@ -129,7 +127,13 @@ public class HomeTabActivity extends AbstractActivity {
                 mDrawerToggle.syncState();
             }
         });
-        new InformacionCobranzaTask(this, getSession().getToken(), getSession().getUser(), getSession().getTokenType()).execute();
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        HomeTabsColorsFragment fragment = new HomeTabsColorsFragment();
+        //fragment.setListHomeBean(beans);
+        transaction.replace(R.id.content_fragment, fragment);
+        transaction.commit();
+        //new InformacionCobranzaTask(this, getSession().getToken(), getSession().getUser(), getSession().getTokenType()).execute();
     }
 
     @Override
@@ -150,15 +154,15 @@ public class HomeTabActivity extends AbstractActivity {
         }*/
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
-        } else if (id == R.id.menu_busqueda) {
-            Intent intent = new Intent(HomeTabActivity.this, BusquedaActivity.class);
+        } /*else if (id == R.id.menu_busqueda) {
+            *//*Intent intent = new Intent(HomeTabActivity.this, BusquedaActivity.class);
             for (HomeBean bean : beans) {
                 if (bean.getIsListaCobranza()) {
                     intent.putExtra("listaCobranzas", (Serializable)bean.getListaCobranzas());
                 }
             }
-            HomeTabActivity.this.startActivity(intent);
-        }
+            HomeTabActivity.this.startActivity(intent);*//*
+        }*/
         return super.onOptionsItemSelected(item);
     }
 
@@ -217,8 +221,6 @@ public class HomeTabActivity extends AbstractActivity {
     @Override
     public void onPostExecuteTask(Object response) {
         super.onPostExecuteTask(response);
-        InfoCobranzasResponseDTO resp = (InfoCobranzasResponseDTO) response;
-        beans = getHomeBean(resp);
         /*mRecyclerView = (RecyclerView) findViewById(R.id.recycle_view_home);
         mRecyclerView.setHasFixedSize(true);
 
@@ -243,62 +245,9 @@ public class HomeTabActivity extends AbstractActivity {
         mRecyclerView.setAdapter(mAdapter);*/
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         HomeTabsColorsFragment fragment = new HomeTabsColorsFragment();
-        fragment.setListHomeBean(beans);
+        //fragment.setListHomeBean(beans);
         transaction.replace(R.id.content_fragment, fragment);
         transaction.commit();
-    }
-
-    public List<HomeBean> getHomeBean(InfoCobranzasResponseDTO resp) {
-        List<HomeBean> beans = new ArrayList<>();
-        if (resp != null) {
-            Map<Integer, CategoriaBean> mapCategoria = new HashMap<Integer, CategoriaBean>();
-            HomeBean beanCategoria = new HomeBean();
-            beanCategoria.setNombre("Categorias");
-            beanCategoria.setImagen("categoria.png");
-            beanCategoria.setIsCategoria(true);
-            HomeBean beanCobranza = new HomeBean();
-            beanCobranza.setIsListaCobranza(true);
-            beanCobranza.setNombre("Todas");
-            beanCobranza.setImagen("todas_cobranzas.png");
-            for (CobranzaDTO dto : resp.getListaCobranzas()) {
-                CategoriaBean cat = mapCategoria.get(dto.getCodigoCategoria());
-                CobranzaBean cob = new CobranzaBean(dto, resp.getProductosColector());
-                if (cat == null) {
-                    cat = new CategoriaBean(dto.getCodigoCategoria(), dto.getNombreCategoria(), dto.getLogoCategoria(), cob);
-                    mapCategoria.put(cat.getCodigo(), cat);
-                    beanCategoria.getListaCategorias().add(cat);
-                } else {
-                    cat.getCobranzas().add(cob);
-                    mapCategoria.put(cat.getCodigo(), cat);
-                }
-                beanCobranza.getListaCobranzas().add(cob);
-            }
-            if (beanCobranza.getListaCobranzas() != null && beanCobranza.getListaCobranzas().size() > 0) {
-                beans.add(beanCategoria);
-                beans.add(beanCobranza);
-            }
-            if (resp.getCobranzasFavoritas() != null && resp.getCobranzasFavoritas().size() > 0) {
-                HomeBean beanFavorita = new HomeBean();
-                beanFavorita.setNombre("Favoritas");
-                beanFavorita.setImagen("cobranzas_favorito.png");
-                beanFavorita.setIsFavorita(true);
-                for (CobranzaDTO dto : resp.getCobranzasFavoritas()) {
-                    beanFavorita.getListaCobranzas().add(new CobranzaBean(dto, resp.getProductosColector()));
-                }
-                beans.add(beanFavorita);
-            }
-            if (resp.getCobranzasRecientes() != null && resp.getCobranzasRecientes().size() > 0) {
-                HomeBean beanReciente = new HomeBean();
-                beanReciente.setNombre("Recientes");
-                beanReciente.setImagen("cobranzas_recientes.png");
-                beanReciente.setIsUsoReciente(true);
-                for (CobranzaDTO dto : resp.getCobranzasRecientes()) {
-                    beanReciente.getListaCobranzas().add(new CobranzaBean(dto, resp.getProductosColector()));
-                }
-                beans.add(beanReciente);
-            }
-        }
-        return beans;
     }
 
     @Override

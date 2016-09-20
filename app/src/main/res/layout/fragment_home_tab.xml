@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:background="@color/grey_100">
 
-    <com.bytesw.hubpagos.botonpagos.android.view.res.SlidingTabLayout
+    <com.umes.jeb.hww.view.res.SlidingTabLayout
         android:id="@+id/sliding_tabs"
         android:layout_width="match_parent"
         android:background="@color/indigo_900"

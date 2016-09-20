@@ -3,92 +3,88 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="@color/white"
+    style="?android:textAppearanceSmall">
 
     <!--<include layout="@layout/widget_toolbar" android:layout_height="52dp" android:layout_width="match_parent"/>-->
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:orientation="vertical"
 
-        android:padding="16dp">
+        android:layout_margin="@dimen/margin_standard">
 
         <!--<com.google.android.gms.common.SignInButton android:id="@+id/plus_sign_in_button"-->
         <!--android:layout_width="match_parent" android:layout_height="wrap_content"-->
         <!--android:layout_marginBottom="32dp" />-->
 
-        <LinearLayout
-            android:id="@+id/plus_sign_out_buttons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:weightSum="2">
-
-            <Button
-                android:id="@+id/plus_sign_out_button"
-                style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/plus_sign_out" />
-
-            <Button
-                android:id="@+id/plus_disconnect_button"
-                style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/plus_disconnect" />
-
-        </LinearLayout>
-
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="fill_parent"
-            android:layout_height="200dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/banco_multibank" />
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_gravity="top|center_horizontal"
+            android:src="@drawable/logo_hww"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="65dp" />
 
         <LinearLayout
             android:id="@+id/email_login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_gravity="bottom"
+            android:gravity="bottom">
 
-            <AutoCompleteTextView
+            <EditText
                 android:id="@+id/Usuario"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:hint="@string/prompt_email"
                 android:inputType="text"
                 android:maxLines="1"
-                android:singleLine="true" />
+                android:theme="@android:style/Widget.EditText"
+                android:singleLine="true"
+                android:background="@drawable/custom_input_selector"
+                android:textSize="15sp"
+                android:paddingLeft="15dp" />
 
             <EditText
                 android:id="@+id/Contraseña"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:hint="@string/prompt_password"
-                android:imeActionId="2"
                 android:imeActionLabel="@string/action_sign_in_short"
-                android:imeOptions="actionUnspecified"
+                android:imeOptions="actionDone"
+                android:imeActionId="6"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:singleLine="true" />
+                android:theme="@android:style/Widget.EditText"
+                android:singleLine="true"
+                android:background="@drawable/custom_input_selector"
+                android:textSize="15sp"
+                android:paddingLeft="15dp" />
 
-            <Button
-                android:id="@+id/email_sign_in_button"
-                style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="#ff1565bf"
-                android:elevation="4dp"
-                android:onClick="irListaServicios"
-                android:text="@string/action_sign_in"
-                android:textColor="#ffffffff"
-                android:textStyle="bold" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="30dp">
+                <Button
+                    android:id="@+id/email_sign_in_button"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:onClick="userAuthentication"
+                    android:text="@string/action_sign_in"
+                    android:textColor="#ffffffff"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/custom_button_ripple_indigo"
+                    android:textSize="20sp"
+                    android:elevation="0dp"
+                    android:layout_gravity="bottom" />
+            </LinearLayout>
+
 
         </LinearLayout>
     </LinearLayout>

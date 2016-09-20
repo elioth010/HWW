@@ -11,6 +11,7 @@ import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.umes.jeb.hww.R;
@@ -18,7 +19,6 @@ import com.umes.jeb.hww.R;
 
 public class SplashActivity extends ActionBarActivity {
 
-    private String urlQR;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +57,9 @@ public class SplashActivity extends ActionBarActivity {
 //        }
 
         ImageView nameImage = (ImageView) this.findViewById(R.id.nombre);
+        TextView textHealt = (TextView) this.findViewById(R.id.splash_text_health);
+        TextView textWithout = (TextView) this.findViewById(R.id.splash_text_without);
+        TextView textWorries = (TextView) this.findViewById(R.id.splash_text_worries);
         AnimationSet animationSet1 = new AnimationSet(false);
         if(nameImage!=null && animationSet1!=null){
             Animation fade = AnimationUtils.loadAnimation(this, R.anim.transparent);
@@ -71,6 +74,34 @@ public class SplashActivity extends ActionBarActivity {
                 animationSet1.addAnimation(scale);
             }
             nameImage.startAnimation(animationSet1);
+        }
+
+        if(textHealt!=null && animationSet1!=null){
+            Animation fade = AnimationUtils.loadAnimation(this, R.anim.transparent);
+            if(fade!=null){
+                fade.reset();
+                animationSet1.addAnimation(fade);
+            }
+            textHealt.startAnimation(animationSet1);
+        }
+
+        if(textWithout!=null && animationSet1!=null){
+            Animation fade = AnimationUtils.loadAnimation(this, R.anim.transparent);
+            if(fade!=null){
+                fade.reset();
+                animationSet1.addAnimation(fade);
+            }
+            textWithout.startAnimation(animationSet1);
+        }
+
+
+        if(textWorries!=null && animationSet1!=null){
+            Animation fade = AnimationUtils.loadAnimation(this, R.anim.transparent);
+            if(fade!=null){
+                fade.reset();
+                animationSet1.addAnimation(fade);
+            }
+            textWorries.startAnimation(animationSet1);
         }
     }
 
@@ -93,9 +124,6 @@ public class SplashActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         return super.onOptionsItemSelected(item);
     }
 }

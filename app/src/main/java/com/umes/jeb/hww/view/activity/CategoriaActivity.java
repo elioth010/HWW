@@ -1,7 +1,5 @@
 package com.umes.jeb.hww.view.activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -18,11 +16,10 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.umes.jeb.hww.R;
-import com.umes.jeb.hww.view.adapter.CategoriaAdapter;
+import com.umes.jeb.hww.view.adapter.DashboardAdapter;
 import com.umes.jeb.hww.view.bean.CategoriaBean;
 import com.umes.jeb.hww.view.bean.HomeBean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -32,7 +29,7 @@ import java.util.List;
 public class CategoriaActivity extends AbstractActivity {
 
     private RecyclerView mRecyclerView;
-    private CategoriaAdapter mAdapter;
+    private DashboardAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private DrawerLayout mDrawer;
     private int originalOrientation;
@@ -95,8 +92,8 @@ public class CategoriaActivity extends AbstractActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.recycle_view_cobranza);
         mRecyclerView.setHasFixedSize(true);
 
-        mAdapter = new CategoriaAdapter(beans, this);
-        mAdapter.setCallBack(new CategoriaAdapter.CallBack() {
+        mAdapter = new DashboardAdapter(beans, this);
+        mAdapter.setCallBack(new DashboardAdapter.CallBack() {
             @Override
             public void onClick(View v, CategoriaBean dto) {
                 Intent intent = new Intent(CategoriaActivity.this, CobranzaActivity.class);

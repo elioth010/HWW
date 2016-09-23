@@ -144,134 +144,18 @@ public class NavigationItemsAdapter extends	RecyclerView.Adapter<NavigationItems
 			//Toast.makeText(context, "The position :" + getPosition(), Toast.LENGTH_SHORT).show();
 
 			if(getPosition() == 1){
-                Intent intent = new Intent(context, MedioPagoAfiliarActivity.class);
-                context.startActivity(intent);
-                ((AbstractActivity)context).finish();
+                //Intent intent = new Intent(context, MedioPagoAfiliarActivity.class);
+                //context.startActivity(intent);
+                //((AbstractActivity)context).finish();
             }
             if(getPosition() == 2){
 				//((HomeActivity)context).scanBarCode();
-				((AbstractActivity)context).closeSession();
+				//((AbstractActivity)context).closeSession();
 			}
 			if (getPosition() == 3){
-				locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-
-				boolean networkEnabled = false;
-				boolean gpsEnabled = false;
-
-				try {
-					networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-				} catch (Exception ex) {
-
-				}
-
-				try {
-					gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-				} catch (Exception ex) {
-
-				}
-
-				if(!gpsEnabled && !networkEnabled) {
-					// notify user
-					AlertDialog.Builder dialog = new AlertDialog.Builder((AbstractActivity)context);
-					Resources res = context.getResources();
-					dialog.setMessage(res.getString(R.string.gps_network_not_enabled));
-					dialog.setPositiveButton(res.getString(R.string.open_location_settings), new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-							// TODO Auto-generated method stub
-							Intent myIntent = new Intent( Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-							context.startActivity(myIntent);
-							//get gps
-						}
-					});
-					dialog.setNegativeButton(res.getString(R.string.Cancel), new DialogInterface.OnClickListener() {
-
-						@Override
-						public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-							// TODO Auto-generated method stub
-
-						}
-					});
-					dialog.show();
-				} else {
-					/*AlertDialog.Builder builder = new AlertDialog.Builder((HomeActivity)context);
-
-					final CharSequence[] items = new CharSequence[2];
-
-					items[0] = "POR UBICACION";
-					items[1] = "POR NOMBRE";
-
-					builder.setTitle("Buscar Cajero")
-							.setItems(items, new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog, int which) {
-									if (items[which].equals("POR UBICACION")) {
-										Intent intent = new Intent(context, MapaCajeroActivity.class);
-										context.startActivity(intent);
-										((AbstractActivity)context).finish();
-									} else {
-										Intent intent = new Intent(context, NombreCajeroActivity.class);
-										context.startActivity(intent);
-										((AbstractActivity)context).finish();
-									}
-								}
-							});
-					builder.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
-							dialog.dismiss();
-						}
-					});
-					builder.show();*/
-				}
-				//Toast.makeText(AddTokenActivity.this, "Seleccionario: "+osArray[position], Toast.LENGTH_LONG).show();
-			}
-			if(getPosition() == 4){
-				final AlertDialog alertDialog = new AlertDialog.Builder((HomeActivity)context).create();
-				alertDialog.setTitle("Cancelar Proceso");
-				alertDialog.setMessage("Realmente desea Cancelar?");
-				alertDialog.setCancelable(false);
-				alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "ACEPTAR", new DialogInterface.OnClickListener() {
-
-					public void onClick(DialogInterface dialog, int which) {
-						Intent intent = new Intent(context,AutenticacionActivity.class);
-						context.startActivity(intent);
-						((AbstractActivity)context).finish();
-					}
-				});
-				alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "CANCELAR", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();
-					}
-				});
-				alertDialog.setIcon(R.drawable.telered);
-				alertDialog.show();
+				((AbstractActivity)context).closeSession();
 			}
 
-			if(getPosition()>0){
-				if(Build.VERSION.SDK_INT < 21){
-					//v.setBackgroundResource(R.color.gray_light);
-					Drawable backgrounds[] = new Drawable[2];
-			        Resources res = context.getResources();
-			        backgrounds[0] = res.getDrawable(R.drawable.custom_list_view_shape_pressed);
-			        backgrounds[1] = res.getDrawable(R.drawable.custom_button_shape_pressed);
-			        TransitionDrawable transition = new TransitionDrawable(backgrounds);
-					v.setBackground(transition);
-					transition.startTransition(600);
-					LinearLayout layout = (LinearLayout) v;
-					((TextView)layout.getChildAt(1)).setTextColor(context.getResources().getColor(R.color.blue_700));
-				}else{
-					v.setSelected(true);
-					Drawable backgrounds[] = new Drawable[2];
-			        Resources res = context.getResources();
-			        backgrounds[0] = res.getDrawable(R.drawable.list_view_ripple);
-			        backgrounds[1] = res.getDrawable(R.drawable.custom_button_shape_pressed);
-					TransitionDrawable transition = new TransitionDrawable(backgrounds);
-					v.setBackground(transition);
-					transition.startTransition(600);
-					LinearLayout layout = (LinearLayout) v;
-					((TextView)layout.getChildAt(1)).setTextColor(context.getResources().getColor(R.color.blue_700));
-					//v.setBackgroundResource(R.color.gray_light);
-				}
-			}
 		}
 
 		private int getString(int cancel) {

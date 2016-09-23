@@ -189,7 +189,7 @@ public class HomeTabsColorsFragment extends Fragment {
             //return mTabs.get(i).createFragment();
             /*HomeBean bean = getHomeBean(i);
             if (bean.getIsCategoria()) {
-                CategoriasFragment fragment = new CategoriasFragment();
+                DashboardFragment fragment = new DashboardFragment();
                 fragment.setHomeBean(bean);
                 return fragment;
             }else if(bean.getIsListaCobranza()){

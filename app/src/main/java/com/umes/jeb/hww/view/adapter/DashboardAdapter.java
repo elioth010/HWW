@@ -1,13 +1,10 @@
 package com.umes.jeb.hww.view.adapter;
 
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,7 +19,7 @@ import java.util.List;
 /**
  * Created by Ccalito on 06/04/2016.
  */
-public class CategoriaAdapter extends RecyclerView.Adapter<CategoriaAdapter.CategoriaViewHolder> {
+public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.DashboardViewHolder> {
 
     protected List<CategoriaBean> categoriaBeans;
     private AbstractActivity mContext;
@@ -33,7 +30,7 @@ public class CategoriaAdapter extends RecyclerView.Adapter<CategoriaAdapter.Cate
         void onClick(View v, CategoriaBean dto);
     }
 
-    public CategoriaAdapter() {
+    public DashboardAdapter() {
         super();
     }
 
@@ -41,7 +38,7 @@ public class CategoriaAdapter extends RecyclerView.Adapter<CategoriaAdapter.Cate
         return categoriaBeans.get(position);
     }
 
-    public CategoriaAdapter(List<CategoriaBean> categoriaBeans, AbstractActivity activity) {
+    public DashboardAdapter(List<CategoriaBean> categoriaBeans, AbstractActivity activity) {
         this.categoriaBeans = categoriaBeans;
         this.mContext = activity;
     }
@@ -54,12 +51,12 @@ public class CategoriaAdapter extends RecyclerView.Adapter<CategoriaAdapter.Cate
     }
 
     @Override
-    public void onBindViewHolder(CategoriaViewHolder categoriaViewHolder, int position) {
+    public void onBindViewHolder(DashboardViewHolder dashboardViewHolder, int position) {
         CategoriaBean dto = categoriaBeans.get(position);
-        loadBitmap(dto.getImage(), categoriaViewHolder.imagenCategoria, categoriaViewHolder.progressBarImage);
-        //categoriaViewHolder.nombreCategoria.setText(dto.getNombreCategoria());
-        categoriaViewHolder.descripcionCobranza.setText("");
-        categoriaViewHolder.textCategoria.setText(dto.getNombre());
+        loadBitmap(dto.getImage(), dashboardViewHolder.imagenCategoria, dashboardViewHolder.progressBarImage);
+        //dashboardViewHolder.nombreCategoria.setText(dto.getNombreCategoria());
+        dashboardViewHolder.descripcionCobranza.setText("");
+        dashboardViewHolder.textCategoria.setText(dto.getNombre());
     }
 
     public void loadBitmap(String url, ImageView imageView, ProgressBar progressBar) {
@@ -71,11 +68,11 @@ public class CategoriaAdapter extends RecyclerView.Adapter<CategoriaAdapter.Cate
     }
 
     public void setCallBack(CallBack mCallBack) {
-        CategoriaAdapter.mCallBack = mCallBack;
+        DashboardAdapter.mCallBack = mCallBack;
     }
 
     @Override
-    public CategoriaViewHolder onCreateViewHolder(ViewGroup parent, int position) {
+    public DashboardViewHolder onCreateViewHolder(ViewGroup parent, int position) {
         View cardView = LayoutInflater.from(mContext).inflate(R.layout.fragment_cardview, parent, false);
         RelativeLayout.LayoutParams layoutParams =
                 (RelativeLayout.LayoutParams) (cardView.findViewById(R.id.contenedor)).getLayoutParams();
@@ -86,10 +83,10 @@ public class CategoriaAdapter extends RecyclerView.Adapter<CategoriaAdapter.Cate
         ((RelativeLayout)cardView.findViewById(R.id.relative_cardview)).removeView(((cardView.findViewById(R.id.relative_cardview)).findViewById(R.id.image_card_view_cat)));
 
 
-        return new CategoriaViewHolder(cardView, parent, categoriaBeans);
+        return new DashboardViewHolder(cardView, parent, categoriaBeans);
     }
 
-    public static class CategoriaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class DashboardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         protected ImageView imagenCategoria;
         protected TextView textCategoria;
@@ -100,7 +97,7 @@ public class CategoriaAdapter extends RecyclerView.Adapter<CategoriaAdapter.Cate
         //private ViewGroup parent;
         protected List<CategoriaBean> items;
 
-        public CategoriaViewHolder(View itemView, ViewGroup parent, List<CategoriaBean> list) {
+        public DashboardViewHolder(View itemView, ViewGroup parent, List<CategoriaBean> list) {
             super(itemView);
             imagenCategoria = (ImageView) itemView.findViewById(R.id.image_card_view);
             textCategoria = (TextView) itemView.findViewById(R.id.text_card_view);

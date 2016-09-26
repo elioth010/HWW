@@ -18,7 +18,7 @@ import com.umes.jeb.hww.R;
 import com.umes.jeb.hww.eis.bo.UserToken;
 import com.umes.jeb.hww.security.SessionManager;
 import com.umes.jeb.hww.view.activity.AbstractActivity;
-import com.umes.jeb.hww.view.activity.CobranzaActivity;
+import com.umes.jeb.hww.view.activity.HomeTabActivity;
 
 
 public class CheckLoginTask extends AbstractGetTask<Void, Void, Boolean> {
@@ -85,7 +85,7 @@ public class CheckLoginTask extends AbstractGetTask<Void, Void, Boolean> {
 		super.onPostExecute(result);
 		if(result!=null){
 			if(result){
-				Intent logout = new Intent(this.parentActivity, CobranzaActivity.class);
+				Intent logout = new Intent(this.parentActivity, HomeTabActivity.class);
 				this.parentActivity.startActivity(logout);
 				super.onPostExecute(result);
 				this.parentActivity.finish();

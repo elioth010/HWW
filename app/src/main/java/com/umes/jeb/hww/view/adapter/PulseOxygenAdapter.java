@@ -6,42 +6,38 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.umes.jeb.hww.R;
 import com.umes.jeb.hww.bs.service.GetImageFromURLTask;
+import com.umes.jeb.hww.eis.dto.BitacoraDTO;
 import com.umes.jeb.hww.view.activity.AbstractActivity;
-import com.umes.jeb.hww.view.bean.CobranzaBean;
 
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Ccalito on 06/04/2016.
  */
-public class CobranzaAdapter extends RecyclerView.Adapter<CobranzaAdapter.CobranzaViewHolder> {
+public class PulseOxygenAdapter extends RecyclerView.Adapter<PulseOxygenAdapter.PulseOxygenViewHolder> {
 
-    protected List<CobranzaBean> cobranzaBeans;
+    protected List<BitacoraDTO> cobranzaBeans;
     private AbstractActivity mContext;
 
     static CallBack mCallBack;
 
     public interface CallBack {
-        void onClick(View v, CobranzaBean dto);
+        void onClick(View v, BitacoraDTO dto);
     }
 
-    public CobranzaAdapter() {
+    public PulseOxygenAdapter() {
         super();
     }
 
-    public CobranzaBean getItem(int position) {
+    public BitacoraDTO getItem(int position) {
         return cobranzaBeans.get(position);
     }
 
-    public CobranzaAdapter(List<CobranzaBean> cobranzaBeans, AbstractActivity activity) {
+    public PulseOxygenAdapter(List<BitacoraDTO> cobranzaBeans, AbstractActivity activity) {
         this.cobranzaBeans = cobranzaBeans;
         this.mContext = activity;
     }
@@ -54,13 +50,13 @@ public class CobranzaAdapter extends RecyclerView.Adapter<CobranzaAdapter.Cobran
     }
 
     @Override
-    public void onBindViewHolder(CobranzaViewHolder cobranzaViewHolder, int position) {
-        CobranzaBean dto = cobranzaBeans.get(position);
-        loadBitmap(dto.getLogo(), cobranzaViewHolder.imagenCobranza, cobranzaViewHolder.progressBarImage);
-        cobranzaViewHolder.nombreCategoria.setText(dto.getNombreCategoria());
-        cobranzaViewHolder.descripcionCobranza.setText(dto.getPalabraClave());
-        cobranzaViewHolder.textCobranza.setText(dto.getNombre());
-        loadBitmap(dto.getLogoCategoria(), cobranzaViewHolder.imageCategoria, cobranzaViewHolder.progressBarImage);
+    public void onBindViewHolder(PulseOxygenViewHolder pulseOxygenViewHolder, int position) {
+        BitacoraDTO dto = cobranzaBeans.get(position);
+        //loadBitmap(dto.getLogo(), pulseOxygenViewHolder.imagenCobranza, pulseOxygenViewHolder.progressBarImage);
+        pulseOxygenViewHolder.nombreCategoria.setText(dto.getDato().toString());
+        pulseOxygenViewHolder.descripcionCobranza.setText(dto.getMedidaSensor().getUnidadMedida().getTitulo());
+        pulseOxygenViewHolder.textCobranza.setText(dto.getMedidaSensor().getSensor().getTitulo());
+        //loadBitmap(dto.getLogoCategoria(), pulseOxygenViewHolder.imageCategoria, pulseOxygenViewHolder.progressBarImage);
     }
 
     public void loadBitmap(String url, ImageView imageView, ProgressBar progressBar) {
@@ -72,18 +68,18 @@ public class CobranzaAdapter extends RecyclerView.Adapter<CobranzaAdapter.Cobran
     }
 
     public void setCallBack(CallBack mCallBack) {
-        CobranzaAdapter.mCallBack = mCallBack;
+        PulseOxygenAdapter.mCallBack = mCallBack;
     }
 
     @Override
-    public CobranzaViewHolder onCreateViewHolder(ViewGroup parent, int position) {
+    public PulseOxygenViewHolder onCreateViewHolder(ViewGroup parent, int position) {
         View cardView = LayoutInflater.from(mContext).inflate(R.layout.fragment_cardview, parent, false);
         (cardView.findViewById(R.id.relative_cardview)).setBackground(this.mContext.getResources().getDrawable(R.color.icons));
 
-        return new CobranzaViewHolder(cardView, parent, cobranzaBeans);
+        return new PulseOxygenViewHolder(cardView, parent, cobranzaBeans);
     }
 
-    public static class CobranzaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class PulseOxygenViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         protected ImageView imageCategoria;
         protected ImageView imagenCobranza;
@@ -95,9 +91,9 @@ public class CobranzaAdapter extends RecyclerView.Adapter<CobranzaAdapter.Cobran
 
 
         //private ViewGroup parent;
-        protected List<CobranzaBean> items;
+        protected List<BitacoraDTO> items;
 
-        public CobranzaViewHolder(View itemView, ViewGroup parent, List<CobranzaBean> list) {
+        public PulseOxygenViewHolder(View itemView, ViewGroup parent, List<BitacoraDTO> list) {
             super(itemView);
             imageCategoria  = (ImageView) itemView.findViewById(R.id.image_card_view_cat);
             imagenCobranza = (ImageView) itemView.findViewById(R.id.image_card_view);

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.umes.jeb.hww.R;
 import com.umes.jeb.hww.bs.service.GetImageFromURLTask;
 import com.umes.jeb.hww.view.activity.AbstractActivity;
-import com.umes.jeb.hww.view.bean.CategoriaBean;
+import com.umes.jeb.hww.view.bean.SensorBean;
 
 import java.util.List;
 
@@ -21,38 +21,38 @@ import java.util.List;
  */
 public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.DashboardViewHolder> {
 
-    protected List<CategoriaBean> categoriaBeans;
+    protected List<SensorBean> sensorBeen;
     private AbstractActivity mContext;
 
     static CallBack mCallBack;
 
     public interface CallBack {
-        void onClick(View v, CategoriaBean dto);
+        void onClick(View v, SensorBean dto);
     }
 
     public DashboardAdapter() {
         super();
     }
 
-    public CategoriaBean getItem(int position) {
-        return categoriaBeans.get(position);
+    public SensorBean getItem(int position) {
+        return sensorBeen.get(position);
     }
 
-    public DashboardAdapter(List<CategoriaBean> categoriaBeans, AbstractActivity activity) {
-        this.categoriaBeans = categoriaBeans;
+    public DashboardAdapter(List<SensorBean> sensorBeen, AbstractActivity activity) {
+        this.sensorBeen = sensorBeen;
         this.mContext = activity;
     }
 
     @Override
     public int getItemCount() {
-        if (categoriaBeans == null)
+        if (sensorBeen == null)
             return 0;
-        return this.categoriaBeans.size();
+        return this.sensorBeen.size();
     }
 
     @Override
     public void onBindViewHolder(DashboardViewHolder dashboardViewHolder, int position) {
-        CategoriaBean dto = categoriaBeans.get(position);
+        SensorBean dto = sensorBeen.get(position);
         loadBitmap(dto.getImage(), dashboardViewHolder.imagenCategoria, dashboardViewHolder.progressBarImage);
         //dashboardViewHolder.nombreCategoria.setText(dto.getNombreCategoria());
         dashboardViewHolder.descripcionCobranza.setText("");
@@ -83,7 +83,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
         ((RelativeLayout)cardView.findViewById(R.id.relative_cardview)).removeView(((cardView.findViewById(R.id.relative_cardview)).findViewById(R.id.image_card_view_cat)));
 
 
-        return new DashboardViewHolder(cardView, parent, categoriaBeans);
+        return new DashboardViewHolder(cardView, parent, sensorBeen);
     }
 
     public static class DashboardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -95,9 +95,9 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
         protected TextView nombreCategoria;
 
         //private ViewGroup parent;
-        protected List<CategoriaBean> items;
+        protected List<SensorBean> items;
 
-        public DashboardViewHolder(View itemView, ViewGroup parent, List<CategoriaBean> list) {
+        public DashboardViewHolder(View itemView, ViewGroup parent, List<SensorBean> list) {
             super(itemView);
             imagenCategoria = (ImageView) itemView.findViewById(R.id.image_card_view);
             textCategoria = (TextView) itemView.findViewById(R.id.text_card_view);

@@ -22,20 +22,16 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.umes.jeb.hww.R;
-import com.umes.jeb.hww.eis.dto.CobranzaDTO;
-import com.umes.jeb.hww.eis.dto.InfoCobranzasResponseDTO;
+import com.umes.jeb.hww.eis.bo.dominio.SensorType;
+import com.umes.jeb.hww.eis.dto.BitacoraDTO;
 import com.umes.jeb.hww.view.adapter.HomeAdapter;
 import com.umes.jeb.hww.view.adapter.NavigationItemsAdapter;
-import com.umes.jeb.hww.view.bean.CategoriaBean;
-import com.umes.jeb.hww.view.bean.CobranzaBean;
 import com.umes.jeb.hww.view.bean.HomeBean;
+import com.umes.jeb.hww.view.bean.SensorBean;
 import com.umes.jeb.hww.view.fragment.HomeTabsColorsFragment;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by elioth010 on 4/19/16.
@@ -59,7 +55,7 @@ public class HomeTabActivity extends AbstractActivity {
     private String[] osArray = null;
 
     private String mActivityTitle;
-    private List<HomeBean> beans = null;
+    private List<HomeBean> beans = new ArrayList<>();
 
 
     @Override
@@ -130,7 +126,11 @@ public class HomeTabActivity extends AbstractActivity {
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         HomeTabsColorsFragment fragment = new HomeTabsColorsFragment();
-        //fragment.setListHomeBean(beans);
+        beans.add(new HomeBean("Dashboard", "", new ArrayList<BitacoraDTO>(), new SensorBean()));
+        beans.add(new HomeBean("Pulse Monitor", "", new ArrayList<BitacoraDTO>(), new SensorBean(SensorType.PO)));
+        beans.add(new HomeBean("Breath Monitor", "", new ArrayList<BitacoraDTO>(), new SensorBean(SensorType.BS)));
+        beans.add(new HomeBean("Temperature Monitor", "", new ArrayList<BitacoraDTO>(), new SensorBean(SensorType.TP)));
+        fragment.setListHomeBean(beans);
         transaction.replace(R.id.content_fragment, fragment);
         transaction.commit();
         //new InformacionCobranzaTask(this, getSession().getToken(), getSession().getUser(), getSession().getTokenType()).execute();

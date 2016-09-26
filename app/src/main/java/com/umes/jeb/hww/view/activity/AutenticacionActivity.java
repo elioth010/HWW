@@ -42,7 +42,7 @@ public class AutenticacionActivity extends AbstractActivity {
             }
 
             if (checkIfAlreadyLogged()) {
-                Intent intent = new Intent(this, CobranzaActivity.class);
+                Intent intent = new Intent(this, HomeTabActivity.class);
                 this.startActivity(intent);
                 this.finish();
             }

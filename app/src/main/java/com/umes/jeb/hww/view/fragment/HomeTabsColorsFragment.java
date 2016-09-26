@@ -27,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.umes.jeb.hww.R;
+import com.umes.jeb.hww.eis.bo.dominio.SensorType;
 import com.umes.jeb.hww.view.bean.HomeBean;
 import com.umes.jeb.hww.view.res.SlidingTabLayout;
 import com.umes.jeb.hww.view.res.TabPagerItem;
@@ -40,6 +41,8 @@ import java.util.List;
  * when scrolling.
  */
 public class HomeTabsColorsFragment extends Fragment {
+
+    private List<HomeBean> listHomeBean;
 
     /**
      * This class represents a tab to be displayed by {@link ViewPager} and it's associated
@@ -74,14 +77,14 @@ public class HomeTabsColorsFragment extends Fragment {
          * color, which are used by {@link SlidingTabLayout}.
          */
 
-        /*for(HomeBean categorias : listHomeBean){
+        for(HomeBean categorias : listHomeBean){
             mTabs.add(new TabPagerItem(
                     categorias.getNombre(), // Title
-                    getResources().getColor(R.color.yellow), // Indicator color
+                    getResources().getColor(R.color.accent), // Indicator color
                     Color.GRAY // Divider color
             ));
-        }*/
-        mTabs.add(new TabPagerItem(
+        }
+        /*mTabs.add(new TabPagerItem(
                 getString(R.string.app_tab_view_dashboard), // Title
                 getResources().getColor(R.color.accent), // Indicator color
                 Color.GRAY // Divider color
@@ -97,14 +100,7 @@ public class HomeTabsColorsFragment extends Fragment {
                 getString(R.string.app_tab_view_breath_monitor), // Title
                 getResources().getColor(R.color.accent), // Indicator color
                 Color.GRAY // Divider color
-        ));
-
-        mTabs.add(new TabPagerItem(
-                getString(R.string.app_tab_view_blood_pressure_monitor), // Title
-                getResources().getColor(R.color.accent), // Indicator color
-                Color.GRAY // Divider color
-        ));
-
+        ));*/
         // END_INCLUDE (populate_tabs)
     }
 
@@ -187,20 +183,24 @@ public class HomeTabsColorsFragment extends Fragment {
         @Override
         public Fragment getItem(int i) {
             //return mTabs.get(i).createFragment();
-            /*HomeBean bean = getHomeBean(i);
-            if (bean.getIsCategoria()) {
+            HomeBean bean = getHomeBean(i);
+            if (bean.getSensorBean().getType()==null) {
                 DashboardFragment fragment = new DashboardFragment();
                 fragment.setHomeBean(bean);
                 return fragment;
-            }else if(bean.getIsListaCobranza()){
-                TodasCobranzasFragment fragment = new TodasCobranzasFragment();
+            }else if(bean.getSensorBean().getType() == SensorType.PO){
+                PulseOxygenFragment fragment = new PulseOxygenFragment();
                 fragment.setHomeBean(bean);
                 return fragment;
-            }else if(bean.getIsUsoReciente()){
-                RecientesFragment fragment = new RecientesFragment();
+            }else if(bean.getSensorBean().getType() == SensorType.BS){
+                BreathFragment fragment = new BreathFragment();
                 fragment.setHomeBean(bean);
                 return fragment;
-            }*/
+            }else if(bean.getSensorBean().getType() == SensorType.TP){
+                TemperatureFragment fragment = new TemperatureFragment();
+                fragment.setHomeBean(bean);
+                return fragment;
+            }
             return new Fragment();
         }
 
@@ -223,5 +223,17 @@ public class HomeTabsColorsFragment extends Fragment {
         }
         // END_INCLUDE (pageradapter_getpagetitle)
 
+    }
+
+    protected HomeBean getHomeBean(Integer i){
+        return listHomeBean.get(i);
+    }
+
+    public List<HomeBean> getListHomeBean() {
+        return listHomeBean;
+    }
+
+    public void setListHomeBean(List<HomeBean> listHomeBean) {
+        this.listHomeBean = listHomeBean;
     }
 }

@@ -1,6 +1,5 @@
 package com.umes.jeb.hww.view.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
@@ -10,23 +9,16 @@ import android.support.v4.util.LruCache;
 import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 
 import com.umes.jeb.hww.R;
 import com.umes.jeb.hww.bs.service.GetImageFromURLMenuTask;
-import com.umes.jeb.hww.bs.service.GetImageFromURLTask;
 import com.umes.jeb.hww.bs.service.LogOutTask;
 import com.umes.jeb.hww.bs.service.sugar.SugarService;
 import com.umes.jeb.hww.bs.service.sugar.impl.SugarServiceImpl;
 import com.umes.jeb.hww.eis.bo.BaseBO;
-import com.umes.jeb.hww.eis.dto.TipoDato;
-import com.umes.jeb.hww.eis.dto.TipoPago;
 import com.umes.jeb.hww.security.SessionManager;
 import com.umes.jeb.hww.util.persistence.ListaParametrosDTO;
-import com.umes.jeb.hww.view.bean.CobranzaBean;
-import com.umes.jeb.hww.view.bean.CobranzaCampoBean;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -213,28 +205,6 @@ public abstract class AbstractActivity extends ActionBarActivity {
 
     public void setMontoTotal(BigDecimal montoTotal) {
         this.montoTotal = montoTotal;
-    }
-
-    protected CobranzaCampoBean getCobranzaTotal(CobranzaBean cobranzaSeleccionada) {
-        CobranzaCampoBean bean = new CobranzaCampoBean();
-        if (cobranzaSeleccionada.getTipoPago() != TipoPago.STO) {
-            bean.setVisiblePago(true);
-            bean.setPermiteIngresoPago(true);
-            bean.setIngresoObligatorioPago(true);
-            bean.setVisibleConsulta(false);
-            bean.setDescripcion(getString(R.string.app_textView_pago_valor_a_pagar));
-            bean.setTipoDato(TipoDato.D);
-            bean.setLongitud(15);
-            bean.setCantidadDecimales(2);
-            bean.setVisibleResultado(true);
-            bean.setEsTotal(false);
-            bean.setEsIdPago(false);
-            bean.setEsFavorito(false);
-            bean.setEsImpuesto(false);
-            bean.setEsCampoPagoTotal(true);
-            return bean;
-        }
-        return null;
     }
 
     public void addBitmapToMemoryCache(String key, Bitmap bitmap) {

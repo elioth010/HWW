@@ -1,6 +1,5 @@
 package com.umes.jeb.hww.view.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -10,21 +9,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.umes.jeb.hww.R;
+import com.umes.jeb.hww.eis.dto.BitacoraDTO;
 import com.umes.jeb.hww.view.activity.AbstractActivity;
-import com.umes.jeb.hww.view.adapter.DashboardAdapter;
+import com.umes.jeb.hww.view.adapter.BreathAdapter;
 import com.umes.jeb.hww.view.bean.HomeBean;
-import com.umes.jeb.hww.view.bean.SensorBean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by elioth010 on 4/19/16.
  */
-public class DashboardFragment extends Fragment {
+public class BreathFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
-    private DashboardAdapter mAdapter;
+    private BreathAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private HomeBean homeBean;
 
@@ -35,19 +33,17 @@ public class DashboardFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        List<SensorBean> beans = new ArrayList<>();
+        List<BitacoraDTO> beans = homeBean.getHistorialBeanList();
         mRecyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_recyclerview, container, false);
         mRecyclerView.setHasFixedSize(true);
         //mRecyclerView.setBackgroundColor(getResources().getColor(R.color.white));
-        mAdapter = new DashboardAdapter(beans, (AbstractActivity)getContext());
-        mAdapter.setCallBack(new DashboardAdapter.CallBack() {
+        mRecyclerView.setHasFixedSize(true);
+
+        mAdapter = new BreathAdapter(beans, (AbstractActivity)getActivity());
+        mAdapter.setCallBack(new BreathAdapter.CallBack() {
             @Override
-            public void onClick(View v, SensorBean dto) {
-               /* Intent intent = new Intent(getContext(), CobranzaActivity.class);
-                intent.putExtra("categoriaBean", dto);
-                intent.putExtra("activity", "categoriaActivity");
-                startActivity(intent);*/
-                //CategoriaActivity.this.finish();
+            public void onClick(View v, BitacoraDTO dto) {
+
             }
         });
         mLayoutManager = new GridLayoutManager(getContext(), 1);
@@ -64,11 +60,11 @@ public class DashboardFragment extends Fragment {
         this.mRecyclerView = mRecyclerView;
     }
 
-    public DashboardAdapter getmAdapter() {
+    public BreathAdapter getmAdapter() {
         return mAdapter;
     }
 
-    public void setmAdapter(DashboardAdapter mAdapter) {
+    public void setmAdapter(BreathAdapter mAdapter) {
         this.mAdapter = mAdapter;
     }
 

@@ -1,16 +1,12 @@
 package com.umes.jeb.hww.view.adapter;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.location.LocationManager;
 import android.os.Build;
-import android.provider.Settings;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,13 +15,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.umes.jeb.hww.R;
 import com.umes.jeb.hww.view.activity.AbstractActivity;
-import com.umes.jeb.hww.view.activity.AutenticacionActivity;
-import com.umes.jeb.hww.view.activity.HomeActivity;
-import com.umes.jeb.hww.view.activity.MedioPagoAfiliarActivity;
 
 
 public class NavigationItemsAdapter extends	RecyclerView.Adapter<NavigationItemsAdapter.ViewHolder> {

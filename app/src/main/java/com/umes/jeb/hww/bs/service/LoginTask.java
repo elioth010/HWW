@@ -2,14 +2,10 @@ package com.umes.jeb.hww.bs.service;
 
 import java.io.IOException;
 import java.net.ConnectException;
-import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.http.conn.ConnectTimeoutException;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
@@ -21,12 +17,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.umes.jeb.hww.R;
-import com.umes.jeb.hww.eis.bo.UserToken;
-import com.umes.jeb.hww.security.SessionManager;
 import com.umes.jeb.hww.view.activity.AbstractActivity;
-import com.umes.jeb.hww.view.activity.BusquedaActivity;
-import com.umes.jeb.hww.view.activity.CobranzaActivity;
-import com.umes.jeb.hww.view.activity.HomeActivity;
 import com.umes.jeb.hww.view.activity.HomeTabActivity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

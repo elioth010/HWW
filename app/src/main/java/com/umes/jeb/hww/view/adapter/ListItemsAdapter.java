@@ -11,15 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.umes.jeb.hww.R;
-import com.umes.jeb.hww.eis.bo.MedioPago;
-import com.umes.jeb.hww.util.persistence.ListaParametrosDTO;
-import com.umes.jeb.hww.util.persistence.Parametro;
+import com.umes.jeb.hww.eis.dto.BitacoraDTO;
+import com.umes.jeb.hww.eis.dto.SensorDTO;
 import com.umes.jeb.hww.view.activity.AbstractActivity;
-import com.umes.jeb.hww.view.activity.ConfirmaPagoActivity;
-import com.umes.jeb.hww.view.activity.DatosFacturacionActivity;
-import com.umes.jeb.hww.view.bean.CobranzaCampoBean;
+import com.umes.jeb.hww.view.activity.SplashActivity;
 import com.umes.jeb.hww.view.bean.ItemBean;
-import com.umes.jeb.hww.view.bean.ServicioBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,10 +31,10 @@ public class ListItemsAdapter extends BaseAdapter {
     private boolean clave;
     private String monto;
 
-    private ServicioBean servicioBean;
-    private ArrayList<CobranzaCampoBean> beans;
+    private SensorDTO servicioBean;
+    private ArrayList<BitacoraDTO> beans;
 
-    public ListItemsAdapter(Activity context, List<ItemBean> rowItem, Integer medioDePagoSeleccionado, String nameActivity, String cajero, boolean clave, String monto,ArrayList<CobranzaCampoBean> beans, ServicioBean servicioBean) {
+    public ListItemsAdapter(Activity context, List<ItemBean> rowItem, Integer medioDePagoSeleccionado, String nameActivity, String cajero, boolean clave, String monto,ArrayList<BitacoraDTO> beans, SensorDTO servicioBean) {
         super();
         this.mContext = context;
         this.rowItem = rowItem;
@@ -99,15 +95,15 @@ public class ListItemsAdapter extends BaseAdapter {
                     }
                     mContext.startActivity(intent);
                     mContext.finish();*/
-                    Intent intent = new Intent(mContext, ConfirmaPagoActivity.class);
+                    /*Intent intent = new Intent(mContext, SplashActivity.class);
                     intent.putExtra("listaBeans", beans);
                     intent.putExtra("servicioBean", servicioBean);
                     intent.putExtra("tarjetaSeleccionada", row.getTitle());
                     intent.putExtra("total", ((AbstractActivity) mContext).getMontoTotal());
                     intent.putExtra("totalSinImpuestos", ((AbstractActivity)mContext).getMontoSinImpuestos());
-                    intent.putExtra("impuestos", ((AbstractActivity) mContext).getImpuestos());
-                    mContext.startActivity(intent);
-                    mContext.finish();
+                    intent.putExtra("impuestos", ((AbstractActivity) mContext).getImpuestos());*/
+                    //mContext.startActivity(intent);
+                    //mContext.finish();
 
                 }
 

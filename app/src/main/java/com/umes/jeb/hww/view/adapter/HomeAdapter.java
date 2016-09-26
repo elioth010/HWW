@@ -53,7 +53,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
     public void onBindViewHolder(HomeViewHolder homeViewHolder, int position) {
         HomeBean dto = homeBeans.get(position);
 
-        if(dto.getIsCategoria()) {
+        /*if(dto.getIsCategoria()) {
            // loadBitmap(dto.getImagen(), homeViewHolder.imageCobranza, homeViewHolder.progressBarImage);
             homeViewHolder.imagenHome.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.categorias));
         }else if(dto.getIsListaCobranza()){
@@ -62,7 +62,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
             homeViewHolder.imagenHome.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.cobranzas_favorito));
         }else if(dto.getIsUsoReciente()){
             homeViewHolder.imagenHome.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.cobranzas_recientes));
-        }
+        }*/
         homeViewHolder.textHome.setText(dto.getNombre());
     }
 

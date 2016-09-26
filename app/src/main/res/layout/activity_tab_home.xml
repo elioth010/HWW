@@ -34,8 +34,9 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/indigo_900"
-                android:id="@+id/view" />
+                android:background="@color/primary"
+                android:id="@+id/view"
+                android:layout_alignParentTop="true" />
 
             <FrameLayout
                 android:id="@+id/content_fragment"

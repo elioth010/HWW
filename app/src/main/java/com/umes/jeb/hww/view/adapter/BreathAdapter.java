@@ -73,7 +73,7 @@ public class BreathAdapter extends RecyclerView.Adapter<BreathAdapter.BreathView
 
     @Override
     public BreathViewHolder onCreateViewHolder(ViewGroup parent, int position) {
-        View cardView = LayoutInflater.from(mContext).inflate(R.layout.fragment_cardview, parent, false);
+        View cardView = LayoutInflater.from(mContext).inflate(R.layout.fragment_cardview_pie, parent, false);
         (cardView.findViewById(R.id.relative_cardview)).setBackground(this.mContext.getResources().getDrawable(R.color.icons));
 
         return new BreathViewHolder(cardView, parent, cobranzaBeans);
@@ -81,10 +81,9 @@ public class BreathAdapter extends RecyclerView.Adapter<BreathAdapter.BreathView
 
     public static class BreathViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        protected ImageView imageCategoria;
+        protected View chartSensor;
         protected ImageView imagenCobranza;
         protected TextView textCobranza;
-        protected ProgressBar progressBarImage;
 
         protected TextView nombreCategoria;
         protected TextView descripcionCobranza;
@@ -95,12 +94,9 @@ public class BreathAdapter extends RecyclerView.Adapter<BreathAdapter.BreathView
 
         public BreathViewHolder(View itemView, ViewGroup parent, List<BitacoraDTO> list) {
             super(itemView);
-            imageCategoria  = (ImageView) itemView.findViewById(R.id.image_card_view_cat);
+            chartSensor  = (View) itemView.findViewById(R.id.chart_card_view);
             imagenCobranza = (ImageView) itemView.findViewById(R.id.image_card_view);
-            nombreCategoria= (TextView) itemView.findViewById(R.id.text_view_nombre_cat);
             textCobranza = (TextView) itemView.findViewById(R.id.text_card_view);
-            descripcionCobranza= (TextView) itemView.findViewById(R.id.text_card_view_descripcion);
-            progressBarImage = (ProgressBar) itemView.findViewById(R.id.progress_bar_img_load);
             items=list;
             itemView.setOnClickListener(this);
         }

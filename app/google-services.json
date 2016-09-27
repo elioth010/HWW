@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "302679969591",
+    "firebase_url": "https://healthwithoutworries.firebaseio.com",
+    "project_id": "healthwithoutworries",
+    "storage_bucket": "healthwithoutworries.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:302679969591:android:64f9b8c7395ad1ae",
+        "android_client_info": {
+          "package_name": "com.umes.jeb.hww"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "302679969591-096e23ji0knni5tqsqlkdn8352fa5ob3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.umes.jeb.hww",
+            "certificate_hash": "C162CBEA40FE437199D8CA3717E6B6071552FD7F"
+          }
+        },
+        {
+          "client_id": "302679969591-shhjq225n6h6rjfbfke9vafk59qmcjed.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2PZVa4yDSA-l6vvWQ_0xrENChCdydEPc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "302679969591-shhjq225n6h6rjfbfke9vafk59qmcjed.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

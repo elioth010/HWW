@@ -44,7 +44,7 @@ public class LogOutTask extends AbstractGetTask<Void, Void, Void> {
 	@Override
 	protected Void doInBackground(Void... params) {
 		try {
-			final String url = super.BASE_URL+"/oauth/token/revoke";
+			/*final String url = super.BASE_URL+"/oauth/token/revoke";
 			RestTemplate restTemplate = new RestTemplate(super.clientHttpRequestFactory());
 			HttpEntity<String> httpEntity = new HttpEntity<String>(token, getBearerHeaders(tokenType, token));
             ResponseEntity<Boolean> revoke = restTemplate.exchange(url, HttpMethod.POST, httpEntity, Boolean.class);
@@ -62,7 +62,8 @@ public class LogOutTask extends AbstractGetTask<Void, Void, Void> {
 				}
 				this.parentActivity.startActivity(logout);
 				this.parentActivity.finish();
-			}	
+			}*/
+
 		} catch (Exception ex) {
 			if (ex instanceof ResourceAccessException) {
 				if (ex.getCause() instanceof ConnectException) {

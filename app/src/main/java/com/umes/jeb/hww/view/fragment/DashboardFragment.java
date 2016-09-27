@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.umes.jeb.hww.R;
+import com.umes.jeb.hww.eis.dto.BitacoraDTO;
 import com.umes.jeb.hww.view.activity.AbstractActivity;
 import com.umes.jeb.hww.view.adapter.DashboardAdapter;
 import com.umes.jeb.hww.view.bean.HomeBean;
@@ -35,14 +36,13 @@ public class DashboardFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        List<SensorBean> beans = new ArrayList<>();
         mRecyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_recyclerview, container, false);
         mRecyclerView.setHasFixedSize(true);
         //mRecyclerView.setBackgroundColor(getResources().getColor(R.color.white));
-        mAdapter = new DashboardAdapter(beans, (AbstractActivity)getContext());
+        mAdapter = new DashboardAdapter(homeBean.getHistorialBeanList(), (AbstractActivity)getContext());
         mAdapter.setCallBack(new DashboardAdapter.CallBack() {
             @Override
-            public void onClick(View v, SensorBean dto) {
+            public void onClick(View v, BitacoraDTO dto) {
                /* Intent intent = new Intent(getContext(), CobranzaActivity.class);
                 intent.putExtra("categoriaBean", dto);
                 intent.putExtra("activity", "categoriaActivity");

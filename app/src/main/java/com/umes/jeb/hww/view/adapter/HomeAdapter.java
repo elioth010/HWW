@@ -81,7 +81,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
 
     @Override
     public HomeViewHolder onCreateViewHolder(ViewGroup parent, int position) {
-        View cardView = LayoutInflater.from(mContext).inflate(R.layout.fragment_cardview, parent, false);
+        View cardView = LayoutInflater.from(mContext).inflate(R.layout.fragment_cardview_pie, parent, false);
         (cardView.findViewById(R.id.relative_cardview)).setBackground(this.mContext.getResources().getDrawable(R.color.icons));
         return new HomeViewHolder(cardView, parent, homeBeans);
     }

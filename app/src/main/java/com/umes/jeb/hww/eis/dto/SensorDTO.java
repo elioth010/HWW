@@ -1,5 +1,7 @@
 package com.umes.jeb.hww.eis.dto;
 
+import com.umes.jeb.hww.eis.bo.dominio.SensorType;
+
 import java.io.Serializable;
 
 /**
@@ -11,17 +13,19 @@ public class SensorDTO implements Serializable {
     private Integer id;
     private String titulo;
     private String descripcion;
+    private SensorType sensorType;
     private Integer estado;
 
     public SensorDTO() {
         super();
     }
 
-    public SensorDTO(Integer id, String titulo, String descripcion, Integer estado) {
+    public SensorDTO(Integer id, String titulo, String descripcion, Integer estado, SensorType type) {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.estado = estado;
+        this.sensorType = type;
     }
 
     public Integer getId() {
@@ -54,5 +58,13 @@ public class SensorDTO implements Serializable {
 
     public void setEstado(Integer estado) {
         this.estado = estado;
+    }
+
+    public SensorType getSensorType() {
+        return sensorType;
+    }
+
+    public void setSensorType(SensorType sensorType) {
+        this.sensorType = sensorType;
     }
 }

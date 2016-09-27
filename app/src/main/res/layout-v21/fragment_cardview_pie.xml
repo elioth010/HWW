@@ -30,16 +30,17 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp">
 
-            <View
+            <lecho.lib.hellocharts.view.PieChartView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:id="@+id/chart_card_view"
-                android:layout_alignParentTop="true"
                 android:paddingLeft="12dp"
                 android:paddingTop="0dp"
                 android:paddingRight="12dp"
                 android:paddingBottom="12dp"
-                android:layout_marginRight="15dp" />
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -51,19 +52,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/nombre_categoria"
-                    android:id="@+id/text_view_nombre_cat"
-                    android:textColor="@color/indigo_900"
+                    android:id="@+id/text_view_nombre_sensor"
+                    android:textColor="@color/primary_text"
                     android:textStyle="bold"
                     android:textSize="20sp" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/descripcion_categoria"
-                    android:layout_below="@+id/text_view_nombre_cat"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp">
-                </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nombre_categoria"
+                    android:id="@+id/text_view_fecha_sensor"
+                    android:textColor="@color/secondary_text"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_alignParentEnd="true"/>
+
             </RelativeLayout>
 
         </RelativeLayout>

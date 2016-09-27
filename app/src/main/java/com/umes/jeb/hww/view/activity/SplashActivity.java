@@ -33,28 +33,6 @@ public class SplashActivity extends ActionBarActivity {
                 SplashActivity.this.finish();
             }
         });
-//        ImageView circularImage = (ImageView) this.findViewById(R.id.fondo);
-//        AnimationSet animationSet = new AnimationSet(false);
-//        if(circularImage!=null && animationSet!=null){
-//            Animation fade = AnimationUtils.loadAnimation(this, R.anim.transparent);
-//            if(fade!=null){
-//                fade.reset();
-//                animationSet.addAnimation(fade);
-//            }
-//
-//            Animation rotar = AnimationUtils.loadAnimation(this, R.anim.rotate);
-//            if(rotar!=null){
-//                rotar.reset();
-//                animationSet.addAnimation(rotar);
-//            }
-//
-//            Animation scale = AnimationUtils.loadAnimation(this, R.anim.scale);
-//            if(scale!=null){
-//                scale.reset();
-//                animationSet.addAnimation(scale);
-//            }
-//            circularImage.startAnimation(animationSet);
-//        }
 
         ImageView nameImage = (ImageView) this.findViewById(R.id.nombre);
         TextView textHealt = (TextView) this.findViewById(R.id.splash_text_health);

@@ -24,6 +24,10 @@ import android.widget.Toast;
 import com.umes.jeb.hww.R;
 import com.umes.jeb.hww.eis.bo.dominio.SensorType;
 import com.umes.jeb.hww.eis.dto.BitacoraDTO;
+import com.umes.jeb.hww.eis.dto.MedidaSensorDTO;
+import com.umes.jeb.hww.eis.dto.SensorDTO;
+import com.umes.jeb.hww.eis.dto.UnidadMedidaDTO;
+import com.umes.jeb.hww.eis.dto.UsuarioDTO;
 import com.umes.jeb.hww.view.adapter.HomeAdapter;
 import com.umes.jeb.hww.view.adapter.NavigationItemsAdapter;
 import com.umes.jeb.hww.view.bean.HomeBean;
@@ -31,6 +35,7 @@ import com.umes.jeb.hww.view.bean.SensorBean;
 import com.umes.jeb.hww.view.fragment.HomeTabsColorsFragment;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -123,16 +128,7 @@ public class HomeTabActivity extends AbstractActivity {
                 mDrawerToggle.syncState();
             }
         });
-
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        HomeTabsColorsFragment fragment = new HomeTabsColorsFragment();
-        beans.add(new HomeBean("Dashboard", "", new ArrayList<BitacoraDTO>(), new SensorBean()));
-        beans.add(new HomeBean("Pulse Monitor", "", new ArrayList<BitacoraDTO>(), new SensorBean(SensorType.PO)));
-        beans.add(new HomeBean("Breath Monitor", "", new ArrayList<BitacoraDTO>(), new SensorBean(SensorType.BS)));
-        beans.add(new HomeBean("Temperature Monitor", "", new ArrayList<BitacoraDTO>(), new SensorBean(SensorType.TP)));
-        fragment.setListHomeBean(beans);
-        transaction.replace(R.id.content_fragment, fragment);
-        transaction.commit();
+        onPostExecuteTask(null);
         //new InformacionCobranzaTask(this, getSession().getToken(), getSession().getUser(), getSession().getTokenType()).execute();
     }
 
@@ -243,9 +239,48 @@ public class HomeTabActivity extends AbstractActivity {
         mLayoutManager = new GridLayoutManager(this, 2);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);*/
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        /*FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         HomeTabsColorsFragment fragment = new HomeTabsColorsFragment();
         //fragment.setListHomeBean(beans);
+        transaction.replace(R.id.content_fragment, fragment);
+        transaction.commit();*/
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        HomeTabsColorsFragment fragment = new HomeTabsColorsFragment();
+
+        List<BitacoraDTO> datos = new ArrayList<>();
+
+        UsuarioDTO usuario = new UsuarioDTO(2,1,"Javier Morales", "mrlsjavi@gmail.com", "6540sd4f45640as5d4f504s0f", "Amatitlan", 42365855, 1);
+
+        SensorDTO sensorPulso = new SensorDTO(1,"Pulse And Oxigen Sensor", "Monitor de pulso y oxigeno", 1, SensorType.PO);
+        SensorDTO sensorRespiracion = new SensorDTO(2,"Airflow Sensor", "Contador de respiraciones y flujo de aire", 1, SensorType.BS);
+        SensorDTO sensorTemperatura = new SensorDTO(2,"Temperature Sensor", "Contador de respiraciones y flujo de aire", 1, SensorType.TP);
+
+        UnidadMedidaDTO unidadPulso = new UnidadMedidaDTO(1, "PRbpm", 1);
+        UnidadMedidaDTO unidadOxigeno = new UnidadMedidaDTO(2, "%SPo2", 1);
+        UnidadMedidaDTO unidadRespiracion = new UnidadMedidaDTO(2, "Bpm", 1);
+        UnidadMedidaDTO unidadTemperatura = new UnidadMedidaDTO(2, "C", 1);
+
+        MedidaSensorDTO medidaSensorPulso = new MedidaSensorDTO(1,sensorPulso,unidadPulso,1);
+        MedidaSensorDTO medidaSensorOxigeno = new MedidaSensorDTO(1,sensorPulso,unidadOxigeno,1);
+        MedidaSensorDTO medidaSensorRespiracion = new MedidaSensorDTO(1,sensorRespiracion,unidadRespiracion,1);
+        MedidaSensorDTO medidaSensorTemperatura = new MedidaSensorDTO(1,sensorTemperatura,unidadTemperatura,1);
+
+
+        BitacoraDTO bitacoraPulso = new BitacoraDTO(usuario, medidaSensorPulso, 85d, new Date());
+        BitacoraDTO bitacoraOxigeno = new BitacoraDTO(usuario, medidaSensorOxigeno, 98d, new Date());
+        BitacoraDTO bitacoraRespiracion = new BitacoraDTO(usuario, medidaSensorRespiracion, 98d, new Date());
+        BitacoraDTO bitacoraTemperatura = new BitacoraDTO(usuario, medidaSensorTemperatura, 34d, new Date());
+
+        datos.add(bitacoraPulso);
+        datos.add(bitacoraOxigeno);
+        datos.add(bitacoraRespiracion);
+        datos.add(bitacoraTemperatura);
+        beans.add(new HomeBean("Dashboard", "", datos, new SensorBean()));
+        beans.add(new HomeBean("Pulse Monitor", "", new ArrayList<BitacoraDTO>(), new SensorBean(SensorType.PO)));
+        beans.add(new HomeBean("Breath Monitor", "", new ArrayList<BitacoraDTO>(), new SensorBean(SensorType.BS)));
+        beans.add(new HomeBean("Temperature Monitor", "", new ArrayList<BitacoraDTO>(), new SensorBean(SensorType.TP)));
+        fragment.setListHomeBean(beans);
         transaction.replace(R.id.content_fragment, fragment);
         transaction.commit();
     }

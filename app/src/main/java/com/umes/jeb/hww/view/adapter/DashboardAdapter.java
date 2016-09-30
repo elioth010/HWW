@@ -19,8 +19,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import lecho.lib.hellocharts.model.Axis;
+import lecho.lib.hellocharts.model.AxisValue;
+import lecho.lib.hellocharts.model.Column;
+import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.PieChartData;
 import lecho.lib.hellocharts.model.SliceValue;
+import lecho.lib.hellocharts.model.SubcolumnValue;
+import lecho.lib.hellocharts.view.ColumnChartView;
 import lecho.lib.hellocharts.view.PieChartView;
 
 /**
@@ -30,12 +36,6 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
 
     protected List<BitacoraDTO> sensorBeen;
     private AbstractActivity mContext;
-
-    static CallBack mCallBack;
-
-    public interface CallBack {
-        void onClick(View v, BitacoraDTO dto);
-    }
 
     public DashboardAdapter() {
         super();
@@ -90,6 +90,59 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
             chartView.startDataAnimation();
             parent.addView(chartView, index);*/
 
+        }else if(dto.getMedidaSensor().getSensor().getSensorType() == SensorType.TP){
+            ColumnChartData data = new ColumnChartData();
+            ColumnChartView chartView = (ColumnChartView) dashboardViewHolder.chartSensor;
+            List<Column> columns = new ArrayList<Column>();
+            Column columnTemp = new Column();
+            columnTemp.setHasLabels(true);
+            columnTemp.setHasLabels(true);
+            List<SubcolumnValue> values = new ArrayList<>();
+            if(Build.VERSION.SDK_INT>=23) {
+                values.add(new SubcolumnValue(dto.getDato().floatValue(), mContext.getColor(R.color.green_400)));
+            } else {
+                values.add(new SubcolumnValue(dto.getDato().floatValue(), mContext.getResources().getColor(R.color.green_400)));
+            }
+            columnTemp.setValues(values);
+            columns.add(columnTemp);
+            data.setColumns(columns);
+            Axis axisX = new Axis();
+            Axis axisY = new Axis().setHasLines(true);
+            List<AxisValue> axisValues = new ArrayList<>();
+            axisValues.add(new AxisValue(1));
+            axisX.setValues(axisValues);
+            axisX.setName("Temperatura Sensor");
+            axisY.setName(dto.getMedidaSensor().getUnidadMedida().getTitulo());
+            data.setAxisXBottom(axisX);
+            data.setAxisYLeft(axisY);
+            chartView.setColumnChartData(data);
+        }else if(dto.getMedidaSensor().getSensor().getSensorType() == SensorType.BS){
+            ColumnChartData data = new ColumnChartData();
+            ColumnChartView chartView = (ColumnChartView) dashboardViewHolder.chartSensor;
+
+            List<Column> columns = new ArrayList<Column>();
+            Column columnTemp = new Column();
+            columnTemp.setHasLabels(true);
+            columnTemp.setHasLabels(true);
+            List<SubcolumnValue> values = new ArrayList<>();
+            if(Build.VERSION.SDK_INT>=23) {
+                values.add(new SubcolumnValue(dto.getDato().floatValue(), mContext.getColor(R.color.green_400)));
+            } else {
+                values.add(new SubcolumnValue(dto.getDato().floatValue(), mContext.getResources().getColor(R.color.green_400)));
+            }
+            columnTemp.setValues(values);
+            columns.add(columnTemp);
+            data.setColumns(columns);
+            Axis axisX = new Axis();
+            Axis axisY = new Axis().setHasLines(true);
+            List<AxisValue> axisValues = new ArrayList<>();
+            axisValues.add(new AxisValue(1));
+            axisX.setValues(axisValues);
+            axisX.setName("Respiraciones Sensor");
+            axisY.setName(dto.getMedidaSensor().getUnidadMedida().getTitulo());
+            data.setAxisXBottom(axisX);
+            data.setAxisYLeft(axisY);
+            chartView.setColumnChartData(data);
         }
         dashboardViewHolder.textSensor.setText(dto.getMedidaSensor().getSensor().getTitulo());
         dashboardViewHolder.dateSensor.setText(df.format(dto.getFechaHora()));
@@ -99,17 +152,9 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
         new GetImageFromURLTask(mContext, url, imageView, progressBar).execute();
     }
 
-    public CallBack getCallBack() {
-        return mCallBack;
-    }
-
-    public void setCallBack(CallBack mCallBack) {
-        DashboardAdapter.mCallBack = mCallBack;
-    }
-
     @Override
     public DashboardViewHolder onCreateViewHolder(ViewGroup parent, int position) {
-        if(getItem(position).getMedidaSensor().getSensor().getSensorType() == SensorType.PO){
+        if(getItem(parent.getChildCount()).getMedidaSensor().getSensor().getSensorType() == SensorType.PO){
             View cardView = LayoutInflater.from(mContext).inflate(R.layout.fragment_cardview_pie, parent, false);
             return new DashboardViewHolder(cardView, parent, sensorBeen);
         }else{
@@ -118,7 +163,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
         }
     }
 
-    public static class DashboardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class DashboardViewHolder extends RecyclerView.ViewHolder {
 
         protected View chartSensor;
         protected TextView textSensor;
@@ -133,14 +178,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
             textSensor = (TextView) itemView.findViewById(R.id.text_view_nombre_sensor);
             dateSensor = (TextView) itemView.findViewById(R.id.text_view_fecha_sensor);
             items=list;
-            itemView.setOnClickListener(this);
+            //itemView.setOnClickListener(this);
         }
 
-        @Override
-        public void onClick(View v) {
-            if (mCallBack != null) {
-                mCallBack.onClick(v, items.get(super.getPosition()));
-            }
-        }
     }
 }

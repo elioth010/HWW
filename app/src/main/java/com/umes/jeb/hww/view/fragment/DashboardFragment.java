@@ -40,16 +40,6 @@ public class DashboardFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         //mRecyclerView.setBackgroundColor(getResources().getColor(R.color.white));
         mAdapter = new DashboardAdapter(homeBean.getHistorialBeanList(), (AbstractActivity)getContext());
-        mAdapter.setCallBack(new DashboardAdapter.CallBack() {
-            @Override
-            public void onClick(View v, BitacoraDTO dto) {
-               /* Intent intent = new Intent(getContext(), CobranzaActivity.class);
-                intent.putExtra("categoriaBean", dto);
-                intent.putExtra("activity", "categoriaActivity");
-                startActivity(intent);*/
-                //CategoriaActivity.this.finish();
-            }
-        });
         mLayoutManager = new GridLayoutManager(getContext(), 1);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);

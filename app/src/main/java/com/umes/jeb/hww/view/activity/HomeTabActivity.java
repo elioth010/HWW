@@ -17,8 +17,6 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.umes.jeb.hww.R;
@@ -269,7 +267,7 @@ public class HomeTabActivity extends AbstractActivity {
 
         BitacoraDTO bitacoraPulso = new BitacoraDTO(usuario, medidaSensorPulso, 85d, new Date());
         BitacoraDTO bitacoraOxigeno = new BitacoraDTO(usuario, medidaSensorOxigeno, 98d, new Date());
-        BitacoraDTO bitacoraRespiracion = new BitacoraDTO(usuario, medidaSensorRespiracion, 98d, new Date());
+        BitacoraDTO bitacoraRespiracion = new BitacoraDTO(usuario, medidaSensorRespiracion, 45d, new Date());
         BitacoraDTO bitacoraTemperatura = new BitacoraDTO(usuario, medidaSensorTemperatura, 34d, new Date());
 
         datos.add(bitacoraPulso);

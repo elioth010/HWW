@@ -13,6 +13,7 @@ import com.umes.jeb.hww.bs.service.GetImageFromURLTask;
 import com.umes.jeb.hww.eis.dto.BitacoraDTO;
 import com.umes.jeb.hww.view.activity.AbstractActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ import java.util.List;
  */
 public class PulseOxygenAdapter extends RecyclerView.Adapter<PulseOxygenAdapter.PulseOxygenViewHolder> {
 
-    protected List<BitacoraDTO> cobranzaBeans;
+    protected List<BitacoraDTO> bitacoraDTOList;
     private AbstractActivity mContext;
 
     static CallBack mCallBack;
@@ -34,28 +35,29 @@ public class PulseOxygenAdapter extends RecyclerView.Adapter<PulseOxygenAdapter.
     }
 
     public BitacoraDTO getItem(int position) {
-        return cobranzaBeans.get(position);
+        return bitacoraDTOList.get(position);
     }
 
-    public PulseOxygenAdapter(List<BitacoraDTO> cobranzaBeans, AbstractActivity activity) {
-        this.cobranzaBeans = cobranzaBeans;
+    public PulseOxygenAdapter(List<BitacoraDTO> bitacoraDTOList, AbstractActivity activity) {
+        this.bitacoraDTOList = bitacoraDTOList;
         this.mContext = activity;
     }
 
     @Override
     public int getItemCount() {
-        if (cobranzaBeans == null)
+        if (bitacoraDTOList == null)
             return 0;
-        return this.cobranzaBeans.size();
+        return this.bitacoraDTOList.size();
     }
 
     @Override
     public void onBindViewHolder(PulseOxygenViewHolder pulseOxygenViewHolder, int position) {
-        BitacoraDTO dto = cobranzaBeans.get(position);
+        BitacoraDTO dto = bitacoraDTOList.get(position);
         //loadBitmap(dto.getLogo(), pulseOxygenViewHolder.imagenCobranza, pulseOxygenViewHolder.progressBarImage);
-        pulseOxygenViewHolder.nombreCategoria.setText(dto.getDato().toString());
-        pulseOxygenViewHolder.descripcionCobranza.setText(dto.getMedidaSensor().getUnidadMedida().getTitulo());
-        pulseOxygenViewHolder.textCobranza.setText(dto.getMedidaSensor().getSensor().getTitulo());
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yy");
+        pulseOxygenViewHolder.textSensor.setText(dto.getMedidaSensor().getSensor().getSensorType().getValue());
+        pulseOxygenViewHolder.textFecha.setText(df.format(dto.getFechaHora()));
+        pulseOxygenViewHolder.textValor.setText(String.format("%2.2f", dto.getDato()));
         //loadBitmap(dto.getLogoCategoria(), pulseOxygenViewHolder.imageCategoria, pulseOxygenViewHolder.progressBarImage);
     }
 
@@ -73,21 +75,15 @@ public class PulseOxygenAdapter extends RecyclerView.Adapter<PulseOxygenAdapter.
 
     @Override
     public PulseOxygenViewHolder onCreateViewHolder(ViewGroup parent, int position) {
-        View cardView = LayoutInflater.from(mContext).inflate(R.layout.fragment_cardview_pie, parent, false);
-        (cardView.findViewById(R.id.relative_cardview)).setBackground(this.mContext.getResources().getDrawable(R.color.icons));
-
-        return new PulseOxygenViewHolder(cardView, parent, cobranzaBeans);
+        View cardView = LayoutInflater.from(mContext).inflate(R.layout.fragment_list_items, parent, false);
+        return new PulseOxygenViewHolder(cardView, parent, bitacoraDTOList);
     }
 
     public static class PulseOxygenViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        protected View chartSensor;
-        protected ImageView imagenCobranza;
-        protected TextView textCobranza;
-        protected ProgressBar progressBarImage;
-
-        protected TextView nombreCategoria;
-        protected TextView descripcionCobranza;
+        protected TextView textSensor;
+        protected TextView textValor;
+        protected TextView textFecha;
 
 
         //private ViewGroup parent;
@@ -95,9 +91,9 @@ public class PulseOxygenAdapter extends RecyclerView.Adapter<PulseOxygenAdapter.
 
         public PulseOxygenViewHolder(View itemView, ViewGroup parent, List<BitacoraDTO> list) {
             super(itemView);
-            chartSensor  = (View) itemView.findViewById(R.id.chart_card_view);
-            imagenCobranza = (ImageView) itemView.findViewById(R.id.image_card_view);
-            textCobranza = (TextView) itemView.findViewById(R.id.text_card_view);
+            textSensor = (TextView) itemView.findViewById(R.id.list_items_sensor);
+            textValor = (TextView) itemView.findViewById(R.id.list_items_valor);
+            textFecha = (TextView) itemView.findViewById(R.id.list_items_fecha);
             items=list;
             itemView.setOnClickListener(this);
         }

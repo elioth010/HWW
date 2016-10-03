@@ -168,6 +168,13 @@ Quam libero nulla netus eu porta curae, ut nulla bibendum facilisis et urna sed,
     <string name="app_tab_view_breath_monitor">Breath Monitor</string>
     <string name="app_tab_view_blood_pressure_monitor">Blood Pressure Monitor</string>
 
+    <string name="sensor_pulse_oxigen_name">Pulse &amp; Oxygen</string>
+    <string name="sensor_breath_name">Breath</string>
+    <string name="sensor_temperature_name">Temperature</string>
+    <string name="sensor_blood_pressure_name">Blood Pressure</string>
+
+    <string name="chart_historic_text">Historical</string>
+
     <!-- CATEGORIAS -->
     <string name="nombre_categoria">Cobranzas</string>
 

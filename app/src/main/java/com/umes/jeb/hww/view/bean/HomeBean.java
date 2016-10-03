@@ -14,12 +14,14 @@ public class HomeBean implements Serializable {
     private String nombre;
     private String imagen;
     private List<BitacoraDTO> historialBeanList = new ArrayList<BitacoraDTO>();
+    private List<BitacoraDTO> historialResumenBeanList = new ArrayList<BitacoraDTO>();
     private SensorBean sensorBean;
 
-    public HomeBean(String nombre, String imagen, List<BitacoraDTO> historialBeanList, SensorBean sensorBean) {
+    public HomeBean(String nombre, String imagen, List<BitacoraDTO> historialBeanList, List<BitacoraDTO> historialResumenBeanList, SensorBean sensorBean) {
         this.nombre = nombre;
         this.imagen = imagen;
         this.historialBeanList = historialBeanList;
+        this.historialResumenBeanList = historialResumenBeanList;
         this.sensorBean = sensorBean;
     }
 
@@ -49,6 +51,14 @@ public class HomeBean implements Serializable {
 
     public void setHistorialBeanList(List<BitacoraDTO> historialBeanList) {
         this.historialBeanList = historialBeanList;
+    }
+
+    public List<BitacoraDTO> getHistorialResumenBeanList() {
+        return historialResumenBeanList;
+    }
+
+    public void setHistorialResumenBeanList(List<BitacoraDTO> historialResumenBeanList) {
+        this.historialResumenBeanList = historialResumenBeanList;
     }
 
     public SensorBean getSensorBean() {

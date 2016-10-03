@@ -32,6 +32,8 @@ import com.umes.jeb.hww.view.bean.HomeBean;
 import com.umes.jeb.hww.view.bean.SensorBean;
 import com.umes.jeb.hww.view.fragment.HomeTabsColorsFragment;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -274,10 +276,40 @@ public class HomeTabActivity extends AbstractActivity {
         datos.add(bitacoraOxigeno);
         datos.add(bitacoraRespiracion);
         datos.add(bitacoraTemperatura);
-        beans.add(new HomeBean("Dashboard", "", datos, new SensorBean()));
-        beans.add(new HomeBean("Pulse Monitor", "", new ArrayList<BitacoraDTO>(), new SensorBean(SensorType.PO)));
-        beans.add(new HomeBean("Breath Monitor", "", new ArrayList<BitacoraDTO>(), new SensorBean(SensorType.BS)));
-        beans.add(new HomeBean("Temperature Monitor", "", new ArrayList<BitacoraDTO>(), new SensorBean(SensorType.TP)));
+
+        List<BitacoraDTO> pulseBinnacle = new ArrayList<>();
+        try {
+            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            BitacoraDTO bitacoraPulso1 = new BitacoraDTO(usuario, medidaSensorPulso, 85d, new Date());
+            BitacoraDTO bitacoraOxigeno1 = new BitacoraDTO(usuario, medidaSensorOxigeno, 98d, new Date());
+            BitacoraDTO bitacoraPulso2 = new BitacoraDTO(usuario, medidaSensorPulso, 85d, df.parse("01/09/2016 08:51"));
+            BitacoraDTO bitacoraOxigeno2 = new BitacoraDTO(usuario, medidaSensorOxigeno, 98d, df.parse("01/09/2016 08:51"));
+            BitacoraDTO bitacoraPulso3 = new BitacoraDTO(usuario, medidaSensorPulso, 85d, df.parse("01/08/2016 08:51"));
+            BitacoraDTO bitacoraOxigeno3 = new BitacoraDTO(usuario, medidaSensorOxigeno, 98d, df.parse("01/08/2016 08:51"));
+            BitacoraDTO bitacoraPulso4 = new BitacoraDTO(usuario, medidaSensorPulso, 85d, df.parse("01/07/2016 08:51"));
+            BitacoraDTO bitacoraOxigeno4 = new BitacoraDTO(usuario, medidaSensorOxigeno, 98d, df.parse("01/07/2016 08:51"));
+            BitacoraDTO bitacoraPulso5 = new BitacoraDTO(usuario, medidaSensorPulso, 85d, df.parse("01/06/2016 08:51"));
+            BitacoraDTO bitacoraOxigeno5 = new BitacoraDTO(usuario, medidaSensorOxigeno, 98d, df.parse("01/06/2016 08:51"));
+
+            pulseBinnacle.add(bitacoraPulso1);
+            pulseBinnacle.add(bitacoraOxigeno1);
+            pulseBinnacle.add(bitacoraPulso2);
+            pulseBinnacle.add(bitacoraOxigeno2);
+            pulseBinnacle.add(bitacoraPulso3);
+            pulseBinnacle.add(bitacoraOxigeno3);
+            pulseBinnacle.add(bitacoraPulso4);
+            pulseBinnacle.add(bitacoraOxigeno4);
+            pulseBinnacle.add(bitacoraPulso5);
+            pulseBinnacle.add(bitacoraOxigeno5);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        beans.add(new HomeBean("Dashboard", "", datos, datos, new SensorBean()));
+        beans.add(new HomeBean("Pulse Monitor", "", pulseBinnacle, pulseBinnacle, new SensorBean(SensorType.PO)));
+        beans.add(new HomeBean("Breath Monitor", "", new ArrayList<BitacoraDTO>(), null, new SensorBean(SensorType.BS)));
+        beans.add(new HomeBean("Temperature Monitor", "", new ArrayList<BitacoraDTO>(), null, new SensorBean(SensorType.TP)));
         fragment.setListHomeBean(beans);
         transaction.replace(R.id.content_fragment, fragment);
         transaction.commit();

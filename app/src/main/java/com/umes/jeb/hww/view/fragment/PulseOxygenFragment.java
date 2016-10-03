@@ -84,6 +84,8 @@ public class PulseOxygenFragment extends Fragment {
                 columnTemp = new Column();
                 values = new ArrayList<>();
                 columns.add(columnTemp);
+                SimpleDateFormat df = new SimpleDateFormat("MMM");
+                axisValues.add(new AxisValue(i).setLabel(df.format(bitacora.getFechaHora())));
             }
             columnTemp.setHasLabels(true);
             columnTemp.setHasLabels(true);
@@ -99,8 +101,6 @@ public class PulseOxygenFragment extends Fragment {
             value.setLabel(bitacora.getMedidaSensor().getUnidadMedida().getTitulo());
             values.add(value);
             columnTemp.setValues(values);
-            SimpleDateFormat df = new SimpleDateFormat("MMM");
-            axisValues.add(new AxisValue(i).setLabel(df.format(bitacora.getFechaHora())));
             i++;
         }
         data.setColumns(columns);

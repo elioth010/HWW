@@ -79,14 +79,11 @@ public class PulseOxygenFragment extends Fragment {
         int i= 0;
         Column columnTemp = new Column();
         List<SubcolumnValue> values = new ArrayList<>();
-        BitacoraDTO last = null;
         for(BitacoraDTO bitacora : getHomeBean().getHistorialResumenBeanList()){
             if(i%2==0){
                 columnTemp = new Column();
                 values = new ArrayList<>();
                 columns.add(columnTemp);
-                SimpleDateFormat df = new SimpleDateFormat("MMM");
-                axisValues.add(new AxisValue(i).setLabel(df.format(bitacora.getFechaHora())));
             }
             columnTemp.setHasLabels(true);
             columnTemp.setHasLabels(true);
@@ -102,8 +99,9 @@ public class PulseOxygenFragment extends Fragment {
             value.setLabel(bitacora.getMedidaSensor().getUnidadMedida().getTitulo());
             values.add(value);
             columnTemp.setValues(values);
+            SimpleDateFormat df = new SimpleDateFormat("MMM");
+            axisValues.add(new AxisValue(i).setLabel(df.format(bitacora.getFechaHora())));
             i++;
-            last = bitacora;
         }
         data.setColumns(columns);
         Axis axisX = new Axis();

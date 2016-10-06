@@ -28,9 +28,6 @@ public abstract class AbstractActivity extends ActionBarActivity {
 
     public static final String SCOPE = "trust";
     public static final String  GRANT_TYPE = "client_credentials";
-    public static final String COLECTOR ="00666";
-    public static final String CANAL="IB";
-    public static final String IDIOMA="es";
     private SugarService service;
     public DisplayMetrics metrics = new DisplayMetrics();
     private boolean attached = false;

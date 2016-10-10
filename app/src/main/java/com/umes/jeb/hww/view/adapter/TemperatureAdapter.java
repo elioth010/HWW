@@ -53,9 +53,9 @@ public class TemperatureAdapter extends RecyclerView.Adapter<TemperatureAdapter.
     public void onBindViewHolder(TemperatureViewHolder temperatureViewHolder, int position) {
         BitacoraDTO dto = cobranzaBeans.get(position);
         //loadBitmap(dto.getLogo(), temperatureViewHolder.imagenCobranza, temperatureViewHolder.progressBarImage);
-        temperatureViewHolder.nombreCategoria.setText(dto.getDato().toString());
+       /* temperatureViewHolder.nombreCategoria.setText(dto.getDato().toString());
         temperatureViewHolder.descripcionCobranza.setText(dto.getMedidaSensor().getUnidadMedida().getTitulo());
-        temperatureViewHolder.textCobranza.setText(dto.getMedidaSensor().getSensor().getTitulo());
+        temperatureViewHolder.textCobranza.setText(dto.getMedidaSensor().getSensor().getTitulo());*/
         //loadBitmap(dto.getLogoCategoria(), temperatureViewHolder.imageCategoria, temperatureViewHolder.progressBarImage);
     }
 

@@ -18,6 +18,7 @@ import com.umes.jeb.hww.view.activity.AbstractActivity;
 import com.umes.jeb.hww.view.adapter.PulseOxygenAdapter;
 import com.umes.jeb.hww.view.bean.HomeBean;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,16 +57,7 @@ public class PulseOxygenFragment extends Fragment {
         //mRecyclerView.setBackgroundColor(getResources().getColor(R.color.white));
         mRecyclerView.setHasFixedSize(true);
 
-        mAdapter = new PulseOxygenAdapter(beans, (AbstractActivity)getActivity());
-        mAdapter.setCallBack(new PulseOxygenAdapter.CallBack() {
-            @Override
-            public void onClick(View v, BitacoraDTO dto) {
 
-            }
-        });
-        mLayoutManager = new GridLayoutManager(getContext(), 1);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
         return mainLayout;
     }
 
@@ -85,7 +77,12 @@ public class PulseOxygenFragment extends Fragment {
                 values = new ArrayList<>();
                 columns.add(columnTemp);
                 SimpleDateFormat df = new SimpleDateFormat("MMM");
-                axisValues.add(new AxisValue(i/2).setLabel(df.format(bitacora.getFechaHora())));
+                SimpleDateFormat dateFormat =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                try {
+                    axisValues.add(new AxisValue(i/2).setLabel(df.format(dateFormat.parse(bitacora.getFechaHora()))));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
             columnTemp.setHasLabels(true);
             columnTemp.setHasLabels(true);

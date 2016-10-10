@@ -8,16 +8,25 @@ import java.util.Date;
  */
 
 public class BitacoraDTO implements Serializable{
+    private Integer id;
     private UsuarioDTO usuario;
     private MedidaSensorDTO medidaSensor;
     private Double dato;
-    private Date fechaHora;
+    private String fechaHora;
 
-    public BitacoraDTO(UsuarioDTO usuario, MedidaSensorDTO medidaSensor, Double dato, Date fechaHora) {
+    public BitacoraDTO(UsuarioDTO usuario, MedidaSensorDTO medidaSensor, Double dato, String fechaHora) {
         this.usuario = usuario;
         this.medidaSensor = medidaSensor;
         this.dato = dato;
         this.fechaHora = fechaHora;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public BitacoraDTO() {
@@ -48,11 +57,11 @@ public class BitacoraDTO implements Serializable{
         this.dato = dato;
     }
 
-    public Date getFechaHora() {
+    public String getFechaHora() {
         return fechaHora;
     }
 
-    public void setFechaHora(Date fechaHora) {
+    public void setFechaHora(String fechaHora) {
         this.fechaHora = fechaHora;
     }
 }

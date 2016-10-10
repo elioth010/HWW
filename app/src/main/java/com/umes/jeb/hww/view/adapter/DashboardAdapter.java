@@ -15,6 +15,7 @@ import com.umes.jeb.hww.eis.bo.dominio.SensorType;
 import com.umes.jeb.hww.eis.dto.BitacoraDTO;
 import com.umes.jeb.hww.view.activity.AbstractActivity;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -145,7 +146,13 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
             chartView.setColumnChartData(data);
         }
         dashboardViewHolder.textSensor.setText(dto.getMedidaSensor().getSensor().getTitulo());
-        dashboardViewHolder.dateSensor.setText(df.format(dto.getFechaHora()));
+        SimpleDateFormat dateFormat =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            dashboardViewHolder.dateSensor.setText(df.format(dateFormat.parse(dto.getFechaHora())));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void loadBitmap(String url, ImageView imageView, ProgressBar progressBar) {

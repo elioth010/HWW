@@ -53,9 +53,9 @@ public class BreathAdapter extends RecyclerView.Adapter<BreathAdapter.BreathView
     public void onBindViewHolder(BreathViewHolder breathViewHolder, int position) {
         BitacoraDTO dto = cobranzaBeans.get(position);
         //loadBitmap(dto.getLogo(), breathViewHolder.imagenCobranza, breathViewHolder.progressBarImage);
-        breathViewHolder.nombreCategoria.setText(dto.getDato().toString());
+        /*breathViewHolder.nombreCategoria.setText(dto.getDato().toString());
         breathViewHolder.descripcionCobranza.setText(dto.getMedidaSensor().getUnidadMedida().getTitulo());
-        breathViewHolder.textCobranza.setText(dto.getMedidaSensor().getSensor().getTitulo());
+        breathViewHolder.textCobranza.setText(dto.getMedidaSensor().getSensor().getTitulo());*/
         //loadBitmap(dto.getLogoCategoria(), breathViewHolder.imageCategoria, breathViewHolder.progressBarImage);
     }
 

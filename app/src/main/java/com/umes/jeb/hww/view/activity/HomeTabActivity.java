@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PersistableBundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.umes.jeb.hww.R;
+import com.umes.jeb.hww.bs.service.GetMonitorVivoTask;
 import com.umes.jeb.hww.eis.bo.dominio.SensorType;
 import com.umes.jeb.hww.eis.dto.BitacoraDTO;
 import com.umes.jeb.hww.eis.dto.MedidaSensorDTO;
@@ -37,6 +39,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static com.umes.jeb.hww.eis.bo.dominio.SensorType.*;
 
 /**
  * Created by elioth010 on 4/19/16.
@@ -56,7 +60,8 @@ public class HomeTabActivity extends AbstractActivity {
 
 
     private Toolbar mToolbar;
-
+    private Handler handler = new Handler();
+    private Runnable runnable;
     private String[] osArray = null;
 
     private String mActivityTitle;
@@ -128,7 +133,16 @@ public class HomeTabActivity extends AbstractActivity {
                 mDrawerToggle.syncState();
             }
         });
-        onPostExecuteTask(null);
+
+        runnable = new Runnable() {
+            public void run() {
+                new GetMonitorVivoTask(HomeTabActivity.this).execute();
+                handler.postDelayed(this, 120000);
+            }
+        };
+        runnable.run();
+
+        //onPostExecuteTask(null);
         //new InformacionCobranzaTask(this, getSession().getToken(), getSession().getUser(), getSession().getTokenType()).execute();
     }
 
@@ -217,103 +231,70 @@ public class HomeTabActivity extends AbstractActivity {
     @Override
     public void onPostExecuteTask(Object response) {
         super.onPostExecuteTask(response);
-        /*mRecyclerView = (RecyclerView) findViewById(R.id.recycle_view_home);
-        mRecyclerView.setHasFixedSize(true);
+        beans.clear();
+        List<List<BitacoraDTO>> bitacoraVivo = (List<List<BitacoraDTO>>) response;
+        if(response == null || ((List<List<BitacoraDTO>>) response).size() == 0 ){
+            return;
+        }
+        List<BitacoraDTO> historico = bitacoraVivo.get(2);
+        List<BitacoraDTO> resumen = bitacoraVivo.get(1);
 
-        mAdapter = new HomeAdapter(beans, this);
-        mAdapter.setCallBack(new HomeAdapter.CallBack() {
-            @Override
-            public void onClick(View v, HomeBean bean) {
-                Intent intent = null;
-                if (bean.getIsCategoria()) {
-                    intent = new Intent(HomeTabActivity.this, CategoriaActivity.class);
-                } else {
-                    intent = new Intent(HomeTabActivity.this, CobranzaActivity.class);
-                    intent.putExtra("activity", "HomeTabActivity");
-                }
-                intent.putExtra("homeBean", bean);
-                HomeTabActivity.this.startActivity(intent);
-                //HomeTabActivity.this.finish();
+        List<BitacoraDTO> bitacoraPulso = new ArrayList<>();
+        List<BitacoraDTO> bitacoraPulsoResumen  = new ArrayList<>();
+
+        List<BitacoraDTO> bitacoraBreath = new ArrayList<>();
+        List<BitacoraDTO> bitacoraBreathResumen  = new ArrayList<>();
+
+        List<BitacoraDTO> bitacoraTemp = new ArrayList<>();
+        List<BitacoraDTO> bitacoraTempResumen  = new ArrayList<>();
+
+        List<BitacoraDTO> bitacoraBlood = new ArrayList<>();
+        List<BitacoraDTO> bitacoraBloodResumen  = new ArrayList<>();
+        for (BitacoraDTO hist : historico){
+            switch (hist.getMedidaSensor().getSensor().getSensorType()){
+                case PO:
+                    bitacoraPulso.add(hist);
+                    break;
+                case BS:
+                    bitacoraBreath.add(hist);
+                    break;
+                case TP:
+                    bitacoraTemp.add(hist);
+                    break;
+                case BP:
+                    bitacoraBlood.add(hist);
             }
-        });
-        mLayoutManager = new GridLayoutManager(this, 2);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);*/
-        /*FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        HomeTabsColorsFragment fragment = new HomeTabsColorsFragment();
-        //fragment.setListHomeBean(beans);
-        transaction.replace(R.id.content_fragment, fragment);
-        transaction.commit();*/
+        }
+
+        for (BitacoraDTO resum : resumen){
+            switch (resum.getMedidaSensor().getSensor().getSensorType()){
+                case PO:
+                    bitacoraPulsoResumen.add(resum);
+                    break;
+                case BS:
+                    bitacoraBreathResumen.add(resum);
+                    break;
+                case TP:
+                    bitacoraTempResumen.add(resum);
+                    break;
+                case BP:
+                    bitacoraBloodResumen.add(resum);
+            }
+        }
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         HomeTabsColorsFragment fragment = new HomeTabsColorsFragment();
 
-        List<BitacoraDTO> datos = new ArrayList<>();
-
-        UsuarioDTO usuario = new UsuarioDTO(2,1,"Javier Morales", "mrlsjavi@gmail.com", "6540sd4f45640as5d4f504s0f", "Amatitlan", 42365855, 1);
-
-        SensorDTO sensorPulso = new SensorDTO(1,"Pulse And Oxigen Sensor", "Monitor de pulso y oxigeno", 1, SensorType.PO);
-        SensorDTO sensorRespiracion = new SensorDTO(2,"Airflow Sensor", "Contador de respiraciones y flujo de aire", 1, SensorType.BS);
-        SensorDTO sensorTemperatura = new SensorDTO(2,"Temperature Sensor", "Contador de respiraciones y flujo de aire", 1, SensorType.TP);
-
-        UnidadMedidaDTO unidadPulso = new UnidadMedidaDTO(1, "PRbpm", 1);
-        UnidadMedidaDTO unidadOxigeno = new UnidadMedidaDTO(2, "%SPo2", 1);
-        UnidadMedidaDTO unidadRespiracion = new UnidadMedidaDTO(2, "Bpm", 1);
-        UnidadMedidaDTO unidadTemperatura = new UnidadMedidaDTO(2, "C", 1);
-
-        MedidaSensorDTO medidaSensorPulso = new MedidaSensorDTO(1,sensorPulso,unidadPulso,1);
-        MedidaSensorDTO medidaSensorOxigeno = new MedidaSensorDTO(1,sensorPulso,unidadOxigeno,1);
-        MedidaSensorDTO medidaSensorRespiracion = new MedidaSensorDTO(1,sensorRespiracion,unidadRespiracion,1);
-        MedidaSensorDTO medidaSensorTemperatura = new MedidaSensorDTO(1,sensorTemperatura,unidadTemperatura,1);
-
-
-        BitacoraDTO bitacoraPulso = new BitacoraDTO(usuario, medidaSensorPulso, 85d, new Date());
-        BitacoraDTO bitacoraOxigeno = new BitacoraDTO(usuario, medidaSensorOxigeno, 98d, new Date());
-        BitacoraDTO bitacoraRespiracion = new BitacoraDTO(usuario, medidaSensorRespiracion, 45d, new Date());
-        BitacoraDTO bitacoraTemperatura = new BitacoraDTO(usuario, medidaSensorTemperatura, 34d, new Date());
-
-        datos.add(bitacoraPulso);
-        datos.add(bitacoraOxigeno);
-        datos.add(bitacoraRespiracion);
-        datos.add(bitacoraTemperatura);
-
-        List<BitacoraDTO> pulseBinnacle = new ArrayList<>();
-        try {
-            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-            BitacoraDTO bitacoraPulso1 = new BitacoraDTO(usuario, medidaSensorPulso, 85d, new Date());
-            BitacoraDTO bitacoraOxigeno1 = new BitacoraDTO(usuario, medidaSensorOxigeno, 98d, new Date());
-            BitacoraDTO bitacoraPulso2 = new BitacoraDTO(usuario, medidaSensorPulso, 85d, df.parse("01/09/2016 08:51"));
-            BitacoraDTO bitacoraOxigeno2 = new BitacoraDTO(usuario, medidaSensorOxigeno, 98d, df.parse("01/09/2016 08:51"));
-            BitacoraDTO bitacoraPulso3 = new BitacoraDTO(usuario, medidaSensorPulso, 85d, df.parse("01/08/2016 08:51"));
-            BitacoraDTO bitacoraOxigeno3 = new BitacoraDTO(usuario, medidaSensorOxigeno, 98d, df.parse("01/08/2016 08:51"));
-            BitacoraDTO bitacoraPulso4 = new BitacoraDTO(usuario, medidaSensorPulso, 85d, df.parse("01/07/2016 08:51"));
-            BitacoraDTO bitacoraOxigeno4 = new BitacoraDTO(usuario, medidaSensorOxigeno, 98d, df.parse("01/07/2016 08:51"));
-            BitacoraDTO bitacoraPulso5 = new BitacoraDTO(usuario, medidaSensorPulso, 85d, df.parse("01/06/2016 08:51"));
-            BitacoraDTO bitacoraOxigeno5 = new BitacoraDTO(usuario, medidaSensorOxigeno, 98d, df.parse("01/06/2016 08:51"));
-
-            pulseBinnacle.add(bitacoraPulso1);
-            pulseBinnacle.add(bitacoraOxigeno1);
-            pulseBinnacle.add(bitacoraPulso2);
-            pulseBinnacle.add(bitacoraOxigeno2);
-            pulseBinnacle.add(bitacoraPulso3);
-            pulseBinnacle.add(bitacoraOxigeno3);
-            pulseBinnacle.add(bitacoraPulso4);
-            pulseBinnacle.add(bitacoraOxigeno4);
-            pulseBinnacle.add(bitacoraPulso5);
-            pulseBinnacle.add(bitacoraOxigeno5);
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        beans.add(new HomeBean("Dashboard", "", datos, datos, new SensorBean()));
-        beans.add(new HomeBean("Pulse Monitor", "", pulseBinnacle, pulseBinnacle, new SensorBean(SensorType.PO)));
-        beans.add(new HomeBean("Breath Monitor", "", new ArrayList<BitacoraDTO>(), null, new SensorBean(SensorType.BS)));
-        beans.add(new HomeBean("Temperature Monitor", "", new ArrayList<BitacoraDTO>(), null, new SensorBean(SensorType.TP)));
+        beans.add(new HomeBean("Dashboard", "", bitacoraVivo.get(0), new ArrayList<BitacoraDTO>(), new SensorBean()));
+        beans.add(new HomeBean("Pulse Monitor", "", bitacoraPulso, bitacoraPulsoResumen, new SensorBean(PO)));
+        beans.add(new HomeBean("Breath Monitor", "", bitacoraBreath, bitacoraBreathResumen, new SensorBean(BS)));
+        beans.add(new HomeBean("Temperature Monitor", "", bitacoraTemp, bitacoraTempResumen, new SensorBean(TP)));
+        beans.add(new HomeBean("Bload Pressure", "", bitacoraBlood, bitacoraBloodResumen, new SensorBean(BP)));
         fragment.setListHomeBean(beans);
         transaction.replace(R.id.content_fragment, fragment);
         transaction.commit();
     }
+
 
     @Override
     public void onBackPressed() {
@@ -324,4 +305,10 @@ public class HomeTabActivity extends AbstractActivity {
         super.onBackPressed();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(handler!=null && runnable!=null)
+            handler.removeCallbacks(runnable);
+    }
 }

@@ -20,14 +20,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import lecho.lib.hellocharts.model.Axis;
-import lecho.lib.hellocharts.model.AxisValue;
-import lecho.lib.hellocharts.model.Column;
-import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.PieChartData;
 import lecho.lib.hellocharts.model.SliceValue;
-import lecho.lib.hellocharts.model.SubcolumnValue;
-import lecho.lib.hellocharts.view.ColumnChartView;
 import lecho.lib.hellocharts.view.PieChartView;
 
 /**
@@ -42,13 +36,13 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
         super();
     }
 
-    public BitacoraDTO getItem(int position) {
-        return sensorBeen.get(position);
-    }
-
     public DashboardAdapter(List<BitacoraDTO> sensorBeen, AbstractActivity activity) {
         this.sensorBeen = sensorBeen;
         this.mContext = activity;
+    }
+
+    public BitacoraDTO getItem(int position) {
+        return sensorBeen.get(position);
     }
 
     @Override
@@ -62,91 +56,259 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
     public void onBindViewHolder(DashboardViewHolder dashboardViewHolder, int position) {
         BitacoraDTO dto = sensorBeen.get(position);
         SimpleDateFormat df = new SimpleDateFormat("MM/dd HH:mm");
-        if(dto.getMedidaSensor().getSensor().getSensorType() == SensorType.PO){
-            PieChartData data = new PieChartData();
-            PieChartView chartView = (PieChartView) dashboardViewHolder.chartSensor;
+        //if(dto.getMedidaSensor().getSensor().getSensorType() == SensorType.PO){
+        PieChartData data = new PieChartData();
+        PieChartView chartView = (PieChartView) dashboardViewHolder.chartSensor;
 
-            List<SliceValue> values = new ArrayList<>();
-            if(Build.VERSION.SDK_INT>=23) {
-                values.add(new SliceValue(dto.getDato().floatValue(), mContext.getResources().getColor(R.color.light_blue_300, null)));
-                values.add(new SliceValue(100 - dto.getDato().floatValue(), mContext.getResources().getColor(R.color.gray_light, null)));
-                data.setCenterText1Color(mContext.getResources().getColor(R.color.primary_text, null));
-                data.setCenterText2Color(mContext.getResources().getColor(R.color.secondary_text, null));
-            } else {
-                values.add(new SliceValue(dto.getDato().floatValue(), mContext.getResources().getColor(R.color.light_blue_300)));
-                values.add(new SliceValue(100 - dto.getDato().floatValue(), mContext.getResources().getColor(R.color.gray_light)));
-                data.setCenterText1Color(mContext.getResources().getColor(R.color.primary_text));
-                data.setCenterText2Color(mContext.getResources().getColor(R.color.secondary_text));
-            }
-            data.setValues(values);
-            data.setCenterText1(dto.getDato().toString());
-            data.setCenterText2(dto.getMedidaSensor().getUnidadMedida().getTitulo());
-            data.setHasCenterCircle(true);
-            chartView.setPieChartData(data);
-            /*ViewGroup.LayoutParams params = dashboardViewHolder.chartSensor.getLayoutParams();
-            ViewGroup parent = (ViewGroup) dashboardViewHolder.chartSensor.getParent();
-            int index = parent.indexOfChild(dashboardViewHolder.chartSensor);
-            parent.removeView(dashboardViewHolder.chartSensor);
-            chartView.setLayoutParams(params);
-            chartView.startDataAnimation();
-            parent.addView(chartView, index);*/
+        List<SliceValue> values = new ArrayList<>();
+        if (dto.getMedidaSensor().getSensor().getSensorType() == SensorType.PO) {
+            if (Build.VERSION.SDK_INT >= 23) {
+                if (dto.getMedidaSensor().getUnidadMedida().getTitulo().equalsIgnoreCase("PRbpm")) {
+                    int color = 0;
+                    if (dto.getDato().floatValue() > 0 && dto.getDato().floatValue() < 60) {
+                        color = mContext.getColor(R.color.red_900);
+                    }
+                    if (dto.getDato().floatValue() > 64 && dto.getDato().floatValue() < 80) {
+                        color = mContext.getColor(R.color.green_400);
+                    }
+                    if (dto.getDato().floatValue() > 80) {
+                        color = mContext.getColor(R.color.orange);
+                    }
 
-        }else if(dto.getMedidaSensor().getSensor().getSensorType() == SensorType.TP){
-            ColumnChartData data = new ColumnChartData();
-            ColumnChartView chartView = (ColumnChartView) dashboardViewHolder.chartSensor;
-            List<Column> columns = new ArrayList<Column>();
-            Column columnTemp = new Column();
-            columnTemp.setHasLabels(true);
-            columnTemp.setHasLabels(true);
-            List<SubcolumnValue> values = new ArrayList<>();
-            if(Build.VERSION.SDK_INT>=23) {
-                values.add(new SubcolumnValue(dto.getDato().floatValue(), mContext.getColor(R.color.green_400)));
-            } else {
-                values.add(new SubcolumnValue(dto.getDato().floatValue(), mContext.getResources().getColor(R.color.green_400)));
-            }
-            columnTemp.setValues(values);
-            columns.add(columnTemp);
-            data.setColumns(columns);
-            Axis axisX = new Axis();
-            Axis axisY = new Axis().setHasLines(true);
-            List<AxisValue> axisValues = new ArrayList<>();
-            axisValues.add(new AxisValue(1));
-            axisX.setValues(axisValues);
-            axisX.setName("Temperatura Sensor");
-            axisY.setName(dto.getMedidaSensor().getUnidadMedida().getTitulo());
-            data.setAxisXBottom(axisX);
-            data.setAxisYLeft(axisY);
-            chartView.setColumnChartData(data);
-        }else if(dto.getMedidaSensor().getSensor().getSensorType() == SensorType.BS){
-            ColumnChartData data = new ColumnChartData();
-            ColumnChartView chartView = (ColumnChartView) dashboardViewHolder.chartSensor;
+                    values.add(new SliceValue(dto.getDato().floatValue(), color));
+                    //if()
+                    values.add(new SliceValue(200 - dto.getDato().floatValue(), mContext.getResources().getColor(R.color.gray_light, null)));
+                } else {
+                    int color = 0;
+                    if (dto.getDato().floatValue() > 0 && dto.getDato().floatValue() < 95) {
+                        color = mContext.getColor(R.color.red_900);
+                    }
+                    if (dto.getDato().floatValue() > 95.0 && dto.getDato().floatValue() < 98.5) {
+                        color = mContext.getColor(R.color.green_400);
+                    }
+                    if (dto.getDato().floatValue() > 98.4) {
+                        color = mContext.getColor(R.color.orange);
+                    }
 
-            List<Column> columns = new ArrayList<Column>();
-            Column columnTemp = new Column();
-            columnTemp.setHasLabels(true);
-            columnTemp.setHasLabels(true);
-            List<SubcolumnValue> values = new ArrayList<>();
-            if(Build.VERSION.SDK_INT>=23) {
-                values.add(new SubcolumnValue(dto.getDato().floatValue(), mContext.getColor(R.color.green_400)));
+                    values.add(new SliceValue(dto.getDato().floatValue(), color));
+                    //if()
+                    values.add(new SliceValue(100 - dto.getDato().floatValue(), mContext.getResources().getColor(R.color.gray_light, null)));
+                }
             } else {
-                values.add(new SubcolumnValue(dto.getDato().floatValue(), mContext.getResources().getColor(R.color.green_400)));
+                if (dto.getMedidaSensor().getUnidadMedida().getTitulo().equalsIgnoreCase("PRbpm")) {
+                    int color = 0;
+                    if (dto.getDato().floatValue() > 0 && dto.getDato().floatValue() < 60) {
+                        color = mContext.getResources().getColor(R.color.red_900);
+                    }
+                    if (dto.getDato().floatValue() > 64 && dto.getDato().floatValue() < 80) {
+                        color = mContext.getResources().getColor(R.color.green_400);
+                    }
+                    if (dto.getDato().floatValue() >= 80) {
+                        color = mContext.getResources().getColor(R.color.orange);
+                    }
+
+                    values.add(new SliceValue(dto.getDato().floatValue(), color));
+                    values.add(new SliceValue(200 - dto.getDato().floatValue(), mContext.getResources().getColor(R.color.gray_light)));
+
+                    data.setCenterText2Color(mContext.getResources().getColor(R.color.secondary_text));
+                } else {
+                    int color = 0;
+                    if (dto.getDato().floatValue() > 0 && dto.getDato().floatValue() < 95) {
+                        color = mContext.getResources().getColor(R.color.red_900);
+                    }
+                    if (dto.getDato().floatValue() > 95.0 && dto.getDato().floatValue() < 98.5) {
+                        color = mContext.getResources().getColor(R.color.green_400);
+                    }
+                    if (dto.getDato().floatValue() >= 98.5) {
+                        color = mContext.getResources().getColor(R.color.orange);
+                    }
+
+                    values.add(new SliceValue(dto.getDato().floatValue(), color));
+                    values.add(new SliceValue(100 - dto.getDato().floatValue(), mContext.getResources().getColor(R.color.gray_light)));
+
+                    data.setCenterText2Color(mContext.getResources().getColor(R.color.secondary_text));
+                }
+
             }
-            columnTemp.setValues(values);
-            columns.add(columnTemp);
-            data.setColumns(columns);
-            Axis axisX = new Axis();
-            Axis axisY = new Axis().setHasLines(true);
-            List<AxisValue> axisValues = new ArrayList<>();
-            axisValues.add(new AxisValue(1));
-            axisX.setValues(axisValues);
-            axisX.setName("Respiraciones Sensor");
-            axisY.setName(dto.getMedidaSensor().getUnidadMedida().getTitulo());
-            data.setAxisXBottom(axisX);
-            data.setAxisYLeft(axisY);
-            chartView.setColumnChartData(data);
+        } else if (dto.getMedidaSensor().getSensor().getSensorType() == SensorType.BS) {
+            if (Build.VERSION.SDK_INT >= 23) {
+
+                int color = 0;
+                if (dto.getDato().floatValue() > 0 && dto.getDato().floatValue() < 30) {
+                    color = mContext.getColor(R.color.green_400);
+                }
+                if (dto.getDato().floatValue() > 30 && dto.getDato().floatValue() <= 45) {
+                    color = mContext.getColor(R.color.orange);
+                }
+                if (dto.getDato().floatValue() > 45) {
+                    color = mContext.getColor(R.color.red_500);
+                }
+                values.add(new SliceValue(dto.getDato().floatValue(), color));
+                values.add(new SliceValue(60 - dto.getDato().floatValue(), mContext.getResources().getColor(R.color.gray_light, null)));
+
+            } else {
+                int color = 0;
+                if (dto.getDato().floatValue() > 0 && dto.getDato().floatValue() < 30) {
+                    color = mContext.getResources().getColor(R.color.green_400);
+                }
+                if (dto.getDato().floatValue() > 30 && dto.getDato().floatValue() <= 45) {
+                    color = mContext.getResources().getColor(R.color.orange);
+                }
+                if (dto.getDato().floatValue() > 45) {
+                    color = mContext.getResources().getColor(R.color.red_500);
+                }
+
+                values.add(new SliceValue(dto.getDato().floatValue(), color));
+                values.add(new SliceValue(60 - dto.getDato().floatValue(), mContext.getResources().getColor(R.color.gray_light)));
+            }
+
+        } else if (dto.getMedidaSensor().getSensor().getSensorType() == SensorType.TP) {
+            if (Build.VERSION.SDK_INT >= 23) {
+
+                int color = 0;
+                if (dto.getDato().floatValue() > 0 && dto.getDato().floatValue() < 34) {
+                    color = mContext.getColor(R.color.orange);
+                }
+                if (dto.getDato().floatValue() > 34 && dto.getDato().floatValue() < 38) {
+                    color = mContext.getColor(R.color.green_400);
+                }
+                if (dto.getDato().floatValue() >= 38) {
+                    color = mContext.getColor(R.color.red_500);
+                }
+                values.add(new SliceValue(dto.getDato().floatValue(), color));
+                values.add(new SliceValue(42 - dto.getDato().floatValue(), mContext.getResources().getColor(R.color.gray_light, null)));
+
+            } else {
+                int color = 0;
+                if (dto.getDato().floatValue() > 0 && dto.getDato().floatValue() < 34) {
+                    color = mContext.getResources().getColor(R.color.green_400);
+                }
+                if (dto.getDato().floatValue() > 34 && dto.getDato().floatValue() < 38) {
+                    color = mContext.getResources().getColor(R.color.orange);
+                }
+                if (dto.getDato().floatValue() >= 38) {
+                    color = mContext.getResources().getColor(R.color.red_500);
+                }
+
+                values.add(new SliceValue(dto.getDato().floatValue(), color));
+                values.add(new SliceValue(42 - dto.getDato().floatValue(), mContext.getResources().getColor(R.color.gray_light)));
+            }
+        } else if (dto.getMedidaSensor().getSensor().getSensorType() == SensorType.BP) {
+            if (Build.VERSION.SDK_INT >= 23) {
+                if (dto.getMedidaSensor().getUnidadMedida().getTitulo().equalsIgnoreCase("SISmmHg")) {
+                    int color = 0;
+                    if (dto.getDato().floatValue() > 0 && dto.getDato().floatValue() < 90) {
+                        color = mContext.getColor(R.color.blue_800);
+                    }
+                    if (dto.getDato().floatValue() > 90 && dto.getDato().floatValue() <= 120) {
+                        color = mContext.getColor(R.color.green_400);
+                    }
+                    if (dto.getDato().floatValue() > 120 && dto.getDato().floatValue() < 139) {
+                        color = mContext.getColor(R.color.orange);
+                    }
+                    if (dto.getDato().floatValue() >= 140 && dto.getDato().floatValue() < 159) {
+                        color = mContext.getColor(R.color.deep_orange_400);
+                    }
+                    if (dto.getDato().floatValue() >= 160 && dto.getDato().floatValue() < 179) {
+                        color = mContext.getColor(R.color.red_500);
+                    }
+                    if (dto.getDato().floatValue() > 180) {
+                        color = mContext.getColor(R.color.red_900);
+                    }
+
+                    values.add(new SliceValue(dto.getDato().floatValue(), color));
+                    values.add(new SliceValue(180 - dto.getDato().floatValue(), mContext.getResources().getColor(R.color.gray_light, null)));
+
+                } else {
+                    int color = 0;
+                    if (dto.getDato().floatValue() > 0 && dto.getDato().floatValue() < 60) {
+                        color = mContext.getColor(R.color.blue_800);
+                    }
+                    if (dto.getDato().floatValue() > 60 && dto.getDato().floatValue() <= 79) {
+                        color = mContext.getColor(R.color.green_400);
+                    }
+                    if (dto.getDato().floatValue() > 80 && dto.getDato().floatValue() < 89) {
+                        color = mContext.getColor(R.color.orange);
+                    }
+                    if (dto.getDato().floatValue() >= 90 && dto.getDato().floatValue() < 99) {
+                        color = mContext.getColor(R.color.deep_orange_400);
+                    }
+                    if (dto.getDato().floatValue() >= 100 && dto.getDato().floatValue() < 109) {
+                        color = mContext.getColor(R.color.red_500);
+                    }
+                    if (dto.getDato().floatValue() > 110) {
+                        color = mContext.getColor(R.color.red_900);
+                    }
+                    values.add(new SliceValue(dto.getDato().floatValue(), color));
+                    values.add(new SliceValue(110 - dto.getDato().floatValue(), mContext.getResources().getColor(R.color.gray_light, null)));
+                }
+
+            } else {
+                if (dto.getMedidaSensor().getUnidadMedida().getTitulo().equalsIgnoreCase("SISmmHg")) {
+                    int color = 0;
+                    if (dto.getDato().floatValue() > 0 && dto.getDato().floatValue() < 90) {
+                        color = mContext.getResources().getColor(R.color.blue_800);
+                    }
+                    if (dto.getDato().floatValue() > 90 && dto.getDato().floatValue() <= 120) {
+                        color = mContext.getResources().getColor(R.color.green_400);
+                    }
+                    if (dto.getDato().floatValue() > 120 && dto.getDato().floatValue() < 139) {
+                        color = mContext.getResources().getColor(R.color.orange);
+                    }
+                    if (dto.getDato().floatValue() >= 140 && dto.getDato().floatValue() < 159) {
+                        color = mContext.getResources().getColor(R.color.deep_orange_400);
+                    }
+                    if (dto.getDato().floatValue() >= 160 && dto.getDato().floatValue() < 179) {
+                        color = mContext.getResources().getColor(R.color.red_500);
+                    }
+                    if (dto.getDato().floatValue() > 180) {
+                        color = mContext.getResources().getColor(R.color.red_900);
+                    }
+
+                    values.add(new SliceValue(dto.getDato().floatValue(), color));
+                    values.add(new SliceValue(180 - dto.getDato().floatValue(), mContext.getResources().getColor(R.color.gray_light)));
+                } else {
+                    int color = 0;
+                    if (dto.getDato().floatValue() > 0 && dto.getDato().floatValue() < 60) {
+                        color = mContext.getResources().getColor(R.color.blue_800);
+                    }
+                    if (dto.getDato().floatValue() > 60 && dto.getDato().floatValue() <= 79) {
+                        color = mContext.getResources().getColor(R.color.green_400);
+                    }
+                    if (dto.getDato().floatValue() > 80 && dto.getDato().floatValue() < 89) {
+                        color = mContext.getResources().getColor(R.color.orange);
+                    }
+                    if (dto.getDato().floatValue() >= 90 && dto.getDato().floatValue() < 99) {
+                        color = mContext.getResources().getColor(R.color.deep_orange_400);
+                    }
+                    if (dto.getDato().floatValue() >= 100 && dto.getDato().floatValue() < 109) {
+                        color = mContext.getResources().getColor(R.color.red_500);
+                    }
+                    if (dto.getDato().floatValue() > 110) {
+                        color = mContext.getResources().getColor(R.color.red_900);
+                    }
+
+                    values.add(new SliceValue(dto.getDato().floatValue(), color));
+                    values.add(new SliceValue(110 - dto.getDato().floatValue(), mContext.getResources().getColor(R.color.gray_light)));
+                }
+            }
         }
+        if (Build.VERSION.SDK_INT >= 23) {
+            data.setCenterText1Color(mContext.getColor(R.color.primary_text));
+            data.setCenterText2Color(mContext.getColor(R.color.secondary_text));
+        } else {
+            data.setCenterText1Color(mContext.getResources().getColor(R.color.primary_text));
+            data.setCenterText2Color(mContext.getResources().getColor(R.color.secondary_text));
+        }
+
+        data.setCenterText1FontSize(14);
+        data.setValues(values);
+        data.setCenterText1(dto.getDato().toString());
+        data.setCenterText2(dto.getMedidaSensor().getUnidadMedida().getTitulo());
+        data.setHasCenterCircle(true);
+        chartView.setPieChartData(data);
         dashboardViewHolder.textSensor.setText(dto.getMedidaSensor().getSensor().getTitulo());
-        SimpleDateFormat dateFormat =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             dashboardViewHolder.dateSensor.setText(df.format(dateFormat.parse(dto.getFechaHora())));
         } catch (ParseException e) {
@@ -161,13 +323,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
 
     @Override
     public DashboardViewHolder onCreateViewHolder(ViewGroup parent, int position) {
-        if(getItem(parent.getChildCount()).getMedidaSensor().getSensor().getSensorType() == SensorType.PO){
-            View cardView = LayoutInflater.from(mContext).inflate(R.layout.fragment_cardview_pie, parent, false);
-            return new DashboardViewHolder(cardView, parent, sensorBeen);
-        }else{
-            View cardView = LayoutInflater.from(mContext).inflate(R.layout.fragment_cardview_column, parent, false);
-            return new DashboardViewHolder(cardView, parent, sensorBeen);
-        }
+        View cardView = LayoutInflater.from(mContext).inflate(R.layout.fragment_cardview_pie, parent, false);
+        return new DashboardViewHolder(cardView, parent, sensorBeen);
     }
 
     public static class DashboardViewHolder extends RecyclerView.ViewHolder {
@@ -184,7 +341,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
             chartSensor = itemView.findViewById(R.id.chart_card_view);
             textSensor = (TextView) itemView.findViewById(R.id.text_view_nombre_sensor);
             dateSensor = (TextView) itemView.findViewById(R.id.text_view_fecha_sensor);
-            items=list;
+            items = list;
             //itemView.setOnClickListener(this);
         }
 

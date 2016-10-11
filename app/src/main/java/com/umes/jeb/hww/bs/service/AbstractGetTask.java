@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.umes.jeb.hww.R;
+import com.umes.jeb.hww.bs.service.code.ResponseCodesHelper;
 import com.umes.jeb.hww.view.activity.AbstractActivity;
 
 
@@ -36,7 +37,7 @@ public abstract class AbstractGetTask<Params, Progress, Result> extends AsyncTas
 	protected void onPostExecute(Result result) {
 		super.onPostExecute(result);
 		dialog.dismiss();
-		parentActivity.onPostExecuteTask(result);
+		//parentActivity.onPostExecuteTask(result, ResponseCodesHelper.RESULT_DEFAULT_CODE);
 	}
 
 	public static HttpHeaders getHeaders(final String username, final String password) {

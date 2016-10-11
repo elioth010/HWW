@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.umes.jeb.hww.R;
+import com.umes.jeb.hww.bs.service.GetHistoricoSensorTask;
+import com.umes.jeb.hww.bs.service.GetResumenSensorTask;
 import com.umes.jeb.hww.eis.dto.BitacoraDTO;
 import com.umes.jeb.hww.view.activity.AbstractActivity;
 import com.umes.jeb.hww.view.adapter.PulseOxygenAdapter;
@@ -54,10 +56,7 @@ public class PulseOxygenFragment extends Fragment {
         mainLayout = (RelativeLayout) inflater.inflate(R.layout.fragment_historic_cardview_column, container, false);
         mRecyclerView = (RecyclerView) mainLayout.findViewById(R.id.recyclerview_list);
         mRecyclerView.setHasFixedSize(true);
-        //mRecyclerView.setBackgroundColor(getResources().getColor(R.color.white));
         mRecyclerView.setHasFixedSize(true);
-
-
         return mainLayout;
     }
 

@@ -1,10 +1,6 @@
 package com.umes.jeb.hww.bs.service;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import com.umes.jeb.hww.R;
 import com.umes.jeb.hww.bs.service.code.ResponseCodesHelper;
@@ -24,7 +20,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
-import java.lang.ref.WeakReference;
 import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,20 +28,25 @@ import java.util.List;
  * Created by elioth010 on 10/10/16.
  */
 
-public class GetMonitorVivoTask extends AbstractGetTask<Void, Void, List<BitacoraDTO>> {
+public class GetResumenSensorTask extends AbstractGetTask<Void, Void, List<BitacoraDTO>> {
 
     protected AbstractActivity parentActivity;
     protected List<BitacoraDTO> bitacora;
-    public GetMonitorVivoTask(AbstractActivity parentActivity) {
+    public GetResumenSensorTask(AbstractActivity parentActivity) {
         super(parentActivity);
         this.parentActivity = parentActivity;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        //super.onPreExecute();
     }
 
     @Override
     protected List<BitacoraDTO> doInBackground(Void... params) {
         bitacora = new ArrayList<>();
         try {
-            String url = super.BASE_URL + "bitacora/vivo";
+            String url = super.BASE_URL + "bitacora/resumen";
             System.out.println(url);
             RestTemplate restTemplate = new RestTemplate(super.clientHttpRequestFactory());
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
@@ -87,17 +87,17 @@ public class GetMonitorVivoTask extends AbstractGetTask<Void, Void, List<Bitacor
         return new ArrayList<>();
     }
 
-    @Override
-    protected void onPostExecute(List<BitacoraDTO> bitacoraDTOs) {
-        super.onPostExecute(bitacoraDTOs);
-        parentActivity.onPostExecuteTask(bitacoraDTOs, ResponseCodesHelper.RESULT_LIVE_MONITOR_CODE);
-    }
-
     public AbstractActivity getParentActivity() {
         return parentActivity;
     }
 
     public void setParentActivity(AbstractActivity parentActivity) {
         this.parentActivity = parentActivity;
+    }
+
+    @Override
+    protected void onPostExecute(List<BitacoraDTO> bitacoraDTOs) {
+        //super.onPostExecute(bitacoraDTOs);
+        parentActivity.onPostExecuteTask(bitacoraDTOs, ResponseCodesHelper.RESULT_SUMMARY_MONITOR_CODE);
     }
 }

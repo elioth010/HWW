@@ -176,7 +176,7 @@ public abstract class AbstractActivity extends ActionBarActivity {
         this.attached = attached;
     }
 
-    public void onPostExecuteTask(Object response){
+    public void onPostExecuteTask(Object response, Integer code){
 
     }
 

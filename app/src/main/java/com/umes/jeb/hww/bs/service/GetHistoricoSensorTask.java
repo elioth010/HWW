@@ -89,7 +89,7 @@ public class GetHistoricoSensorTask extends AbstractGetTask<Void, Void, List<Bit
 
     @Override
     protected void onPostExecute(List<BitacoraDTO> bitacoraDTOs) {
-        //super.onPostExecute(bitacoraDTOs);
+        //super.onPostExecute(bitacoraDTOList);
         parentActivity.onPostExecuteTask(bitacoraDTOs, ResponseCodesHelper.RESULT_HISTORICAL_MONITOR_CODE);
     }
 

@@ -13,6 +13,7 @@ import com.umes.jeb.hww.bs.service.GetImageFromURLTask;
 import com.umes.jeb.hww.eis.dto.BitacoraDTO;
 import com.umes.jeb.hww.view.activity.AbstractActivity;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -53,24 +54,15 @@ public class PulseOxygenAdapter extends RecyclerView.Adapter<PulseOxygenAdapter.
     @Override
     public void onBindViewHolder(PulseOxygenViewHolder pulseOxygenViewHolder, int position) {
         BitacoraDTO dto = bitacoraDTOList.get(position);
-        //loadBitmap(dto.getLogo(), pulseOxygenViewHolder.imagenCobranza, pulseOxygenViewHolder.progressBarImage);
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yy");
-        pulseOxygenViewHolder.textSensor.setText(dto.getMedidaSensor().getSensor().getSensorType().getValue());
-        pulseOxygenViewHolder.textFecha.setText(df.format(dto.getFechaHora()));
-        pulseOxygenViewHolder.textValor.setText(String.format("%2.2f", dto.getDato()));
-        //loadBitmap(dto.getLogoCategoria(), pulseOxygenViewHolder.imageCategoria, pulseOxygenViewHolder.progressBarImage);
-    }
-
-    public void loadBitmap(String url, ImageView imageView, ProgressBar progressBar) {
-        new GetImageFromURLTask(mContext, url, imageView, progressBar).execute();
-    }
-
-    public CallBack getCallBack() {
-        return mCallBack;
-    }
-
-    public void setCallBack(CallBack mCallBack) {
-        PulseOxygenAdapter.mCallBack = mCallBack;
+        SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        pulseOxygenViewHolder.textSensor.setText(dto.getMedidaSensor().getSensor().getTitulo());
+        try {
+            pulseOxygenViewHolder.textFecha.setText(df.format(df2.parse(dto.getFechaHora())));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        pulseOxygenViewHolder.textValor.setText(dto.getMedidaSensor().getUnidadMedida().getTitulo()+" : " +String.format("%2.2f", dto.getDato()));
     }
 
     @Override

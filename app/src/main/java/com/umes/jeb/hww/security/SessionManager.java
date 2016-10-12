@@ -4,6 +4,8 @@ package com.umes.jeb.hww.security;
 import com.umes.jeb.hww.bs.dao.SugarDAO;
 import com.umes.jeb.hww.bs.dao.impl.SugarDAOImpl;
 import com.orm.SugarApp;
+import com.umes.jeb.hww.eis.dto.ProfileDTO;
+import com.umes.jeb.hww.eis.dto.UsuarioDTO;
 
 import android.app.Application;
 import android.content.Context;
@@ -11,9 +13,7 @@ import android.support.multidex.MultiDex;
 
 public class SessionManager extends SugarApp {
 
-	private String token;
-	private String tokenType;
-	private String user;
+	private UsuarioDTO profile;
 	
 	private SugarDAO sugarDAO;
 
@@ -34,30 +34,14 @@ public class SessionManager extends SugarApp {
 		super.onTerminate();
 	}
 
-	public String getToken() {
-		return token;
+	public UsuarioDTO getProfile() {
+		return profile;
 	}
 
-	public void setToken(String token) {
-		this.token = token;
+	public void setProfile(UsuarioDTO profile) {
+		this.profile = profile;
 	}
 
-	public String getTokenType() {
-		return tokenType;
-	}
-
-	public void setTokenType(String tokenType) {
-		this.tokenType = tokenType;
-	}
-
-	public String getUser() {
-		return user;
-	}
-
-	public void setUser(String user) {
-		this.user = user;
-	}
-	
 	public SugarDAO getSugarDAO(){
 		return this.sugarDAO;
 	}

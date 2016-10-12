@@ -83,12 +83,8 @@ public class AutenticacionActivity extends AbstractActivity {
     public boolean checkIfAlreadyLogged() {
         List<UserToken> tokens = super.findAll(UserToken.class);
         if (tokens.size() != 0) {
-            this.getSession().setToken(tokens.get(0).getToken());
-            this.getSession().setTokenType(tokens.get(0).getTokenType());
-            this.getSession().setUser(tokens.get(0).getUsername());
-            //CheckLoginTask checkLoginTask = new CheckLoginTask(this, tokens.get(0).getToken(), tokens.get(0).getTokenType());
             try {
-                //return checkLoginTask.execute().get();
+                new LoginTask(this, tokens.get(0).getUsername(), tokens.get(0).getToken(), SCOPE, GRANT_TYPE).execute();
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;

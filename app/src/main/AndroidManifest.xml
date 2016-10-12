@@ -78,6 +78,9 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.HomeTabActivity" android:screenOrientation="portrait"/>
 
+        <activity android:name=".view.activity.ConfigurationActivity" android:screenOrientation="portrait">
+        </activity>
+
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyBXi7OYai8vnWbJemxIVxJ7Zhkg5GdJH3w" />

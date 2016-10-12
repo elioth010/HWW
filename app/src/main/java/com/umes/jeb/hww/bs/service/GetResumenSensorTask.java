@@ -97,7 +97,7 @@ public class GetResumenSensorTask extends AbstractGetTask<Void, Void, List<Bitac
 
     @Override
     protected void onPostExecute(List<BitacoraDTO> bitacoraDTOs) {
-        //super.onPostExecute(bitacoraDTOs);
+        //super.onPostExecute(bitacoraDTOList);
         parentActivity.onPostExecuteTask(bitacoraDTOs, ResponseCodesHelper.RESULT_SUMMARY_MONITOR_CODE);
     }
 }

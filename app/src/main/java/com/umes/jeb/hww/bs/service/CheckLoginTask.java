@@ -63,8 +63,7 @@ public class CheckLoginTask extends AbstractGetTask<Void, Void, Boolean> {
 			if (ex instanceof HttpClientErrorException) {
 				if (((HttpClientErrorException) ex).getStatusCode() == HttpStatus.UNAUTHORIZED) {
 					SessionManager sessionManager = (SessionManager) this.parentActivity.getApplicationContext();
-					sessionManager.setToken("");
-					sessionManager.setTokenType("");
+					sessionManager.setProfile(null);
 					try{
 						UserToken token = (UserToken) this.parentActivity.findAll(UserToken.class).get(0);
 						token.delete();

@@ -84,6 +84,7 @@ public class HomeTabActivity extends AbstractActivity {
     private List<BitacoraDTO> bitacoraBloodResumen  = new ArrayList<>();
 
     private List<BitacoraDTO> vivo  = new ArrayList<>();
+    private HomeTabsColorsFragment fragment;
 
 
     @Override
@@ -118,7 +119,6 @@ public class HomeTabActivity extends AbstractActivity {
 
         drawerRecyclerView = (RecyclerView) findViewById(R.id.drawer_home_recycler_view);
         drawerRecyclerView.setHasFixedSize(true);
-        getSession().setUser("Ejemplo Usuario");
         drawerAdapter = new NavigationItemsAdapter(getResources().getStringArray(R.array.nav_options), getResources().obtainTypedArray(R.array.nav_icons), getResources().getString(R.string.resouce_name), getResources().getString(R.string.resouce_secondary_text));
         drawerLayoutManager = new LinearLayoutManager(this);
         drawerRecyclerView.setLayoutManager(drawerLayoutManager);
@@ -169,7 +169,7 @@ public class HomeTabActivity extends AbstractActivity {
         beans.add(new HomeBean("Bload Pressure", "", bitacoraBlood, bitacoraBloodResumen, new SensorBean(BP)));
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        HomeTabsColorsFragment fragment = new HomeTabsColorsFragment();
+        fragment = new HomeTabsColorsFragment();
         fragment.setListHomeBean(beans);
         transaction.replace(R.id.content_fragment, fragment);
         transaction.commit();
@@ -357,6 +357,7 @@ public class HomeTabActivity extends AbstractActivity {
                 }
             }
         }
+        fragment.notifyDataChange();
     }
 
 

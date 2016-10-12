@@ -65,7 +65,8 @@ public class GetMonitorVivoTask extends AbstractGetTask<Void, Void, List<Bitacor
                     return bitacora;
                 } else if (ex.getCause() instanceof ConnectTimeoutException) {
                     onError(this.parentActivity.getResources().getString(R.string.app_toast_error_server_timeout_message), ex);
-                    return null;
+                    bitacora = new ArrayList<>();
+                    return bitacora;
                 }
             }
             if (ex instanceof HttpClientErrorException) {
@@ -76,6 +77,10 @@ public class GetMonitorVivoTask extends AbstractGetTask<Void, Void, List<Bitacor
                     Intent intent = new Intent(this.parentActivity, AutenticacionActivity.class);
                     this.parentActivity.startActivity(intent);
                     this.parentActivity.finish();
+                    return bitacora;
+                }else if(((HttpClientErrorException) ex).getStatusCode() == HttpStatus.NOT_FOUND){
+                    onError(this.parentActivity.getResources().getString(R.string.app_toast_error_not_found), ex);
+                    bitacora = new ArrayList<>();
                     return bitacora;
                 }
             } else {

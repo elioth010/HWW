@@ -44,25 +44,18 @@ public class LogOutTask extends AbstractGetTask<Void, Void, Void> {
 	@Override
 	protected Void doInBackground(Void... params) {
 		try {
-			/*final String url = super.BASE_URL+"/oauth/token/revoke";
-			RestTemplate restTemplate = new RestTemplate(super.clientHttpRequestFactory());
-			HttpEntity<String> httpEntity = new HttpEntity<String>(token, getBearerHeaders(tokenType, token));
-            ResponseEntity<Boolean> revoke = restTemplate.exchange(url, HttpMethod.POST, httpEntity, Boolean.class);
-			
-			if(revoke.getBody()){
-				Intent logout = new Intent(this.parentActivity, AutenticacionActivity.class);
-				SessionManager sessionManager = (SessionManager) this.parentActivity.getApplicationContext();
-				sessionManager.setToken("");
-				sessionManager.setTokenType("");
-				try{
-					UserToken token = (UserToken) this.parentActivity.findAll(UserToken.class).get(0);
-					token.delete();
-				}catch(Exception e){
-					Log.e(TAG, "No hay token almacenado");
-				}
-				this.parentActivity.startActivity(logout);
-				this.parentActivity.finish();
-			}*/
+
+			Intent logout = new Intent(this.parentActivity, AutenticacionActivity.class);
+			SessionManager sessionManager = (SessionManager) this.parentActivity.getApplicationContext();
+			sessionManager.setProfile(null);
+			try{
+				UserToken token = (UserToken) this.parentActivity.findAll(UserToken.class).get(0);
+				token.delete();
+			}catch(Exception e){
+				Log.e(TAG, "No hay token almacenado");
+			}
+			this.parentActivity.startActivity(logout);
+			this.parentActivity.finish();
 
 		} catch (Exception ex) {
 			if (ex instanceof ResourceAccessException) {
@@ -79,8 +72,7 @@ public class LogOutTask extends AbstractGetTask<Void, Void, Void> {
 					//TODO Cambiar por Clase a la que se va a loguear de momento apunta a menu
 					Intent logout = new Intent(this.parentActivity, AutenticacionActivity.class);
 					SessionManager sessionManager = (SessionManager) this.parentActivity.getApplicationContext();
-					sessionManager.setToken("");
-					sessionManager.setTokenType("");
+					sessionManager.setProfile(null);
 					this.parentActivity.startActivity(logout);
 					this.parentActivity.finish();
 					onError(this.parentActivity.getResources().getString(R.string.app_toast_error_login_message), ex);
@@ -98,8 +90,7 @@ public class LogOutTask extends AbstractGetTask<Void, Void, Void> {
 		dialog.cancel();
 		Intent logout = new Intent(this.parentActivity, AutenticacionActivity.class);
 		SessionManager sessionManager = (SessionManager) this.parentActivity.getApplicationContext();
-		sessionManager.setToken("");
-		sessionManager.setTokenType("");
+		sessionManager.setProfile(null);
 		this.parentActivity.startActivity(logout);
 		this.parentActivity.finish();
 	}

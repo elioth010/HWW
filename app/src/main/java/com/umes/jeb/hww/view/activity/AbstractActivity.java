@@ -84,7 +84,7 @@ public abstract class AbstractActivity extends ActionBarActivity {
 
     public void closeSession() {
         SessionManager sessionManager = (SessionManager) getApplicationContext();
-        logOutTask(this, sessionManager.getToken(), sessionManager.getTokenType()).execute();
+        logOutTask(this, sessionManager.getProfile().getPassword(), sessionManager.getProfile().getLogin()).execute();
     }
 
     private LogOutTask logOutTask(AbstractActivity parentActivity, String token, String tokenType) {

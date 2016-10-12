@@ -15,9 +15,11 @@
     <string name="app_textView_empyValue" />
     <string name="app_textview_result_name">Nombre:</string>
     <string name="app_textview_result_code">C&#243;digo:</string>
+    <string name="app_textView_config">Invervalo de Refresco</string>
     <string name="app_screns_login_title">Login</string>
     <string name="app_screns_logout_title">Logout</string>
     <string name="app_button_logout">Cerrar Sesi&#243;n</string>
+    <string name="app_button_update">Actualizar</string>
     <string name="app_alert_logout_title">Cerrar sesi&#243;n?</string>
     <string name="app_alert_logoutmessage">Se cancelara su sesion actual podria perder datos no guardados</string>
     <string name="app_alert_button_positive">Si</string>
@@ -33,6 +35,7 @@
     <string name="app_toast_error_no_such_results">No hay resultados, intenta nuevamente cambiando por palabras clave</string>
     <string name="app_toast_error_session_expired">Tu sesi&#243;n ha expirado, inicia sesi&#243;n nuevamente</string>
     <string name="app_toast_error_unauthorized">No tienes permisos para solicitar esta informaci&#243;n, contacte al administrador de sistema.</string>
+    <string name="app_toast_error_not_found">No existen datos, verifique mas tarde.</string>
 
     <!-- Splash -->
     <string name="app_textview_splash_health">Health</string>
@@ -40,12 +43,6 @@
     <string name="app_textview_splash_worries">Worries</string>
     <!-- Strings de carview -->
     <string name="generic_text_card_view">Texto imagen</string>
-
-
-    <!-- Tipo Cuentas -->
-    <string name="cuenta_ahorro">Ahorros</string>
-    <string name="cuenta_monetario">Monetario</string>
-    <string name="cuenta_prestamo">Prestamos</string>
 
     <!-- Transitions -->
     <string name="transition_account_view">transition_account_view</string>
@@ -59,90 +56,14 @@ Quam libero nulla netus eu porta curae, ut nulla bibendum facilisis et urna sed,
     <string name="app_language">es</string>
     <string name="app_country">GT</string>
 
-    <string-array name="price_recharge_array">
-        <item>$5</item>
-        <item>$10</item>
-        <item>$15</item>
-        <item>$20</item>
-        <item>$50</item>
-        <item>$100</item>
-    </string-array>
-
-    <!-- MEDIOS DE PAGOS -->
-    <string name="titulo_medios">Medios de Pago</string>
-    <string name="nombre_pago1">Sistema Clave</string>
-    <string name="nombre_pago2">Visa</string>
-    <string name="nombre_pago3">Master Card</string>
-    <string name="nombre_pago4">Monedero</string>
-
-    <string name="facturador_bac">BAC</string>
-    <string name="facturador_bg">Banco General</string>
-    <string name="facturador_co">Cable Onda</string>
-    <string name="facturador_ensa">ENSA</string>
-    <string name="facturador_dc">Digicel</string>
-    <string name="facturador_ena">ENA</string>
-
-    <!-- DATOS FACTURACION -->
-
-    <string name="boton_datos_facturacion">CONTINUAR</string>
-    <string name="boton_confirmar">CONFIRMAR</string>
-    <string name="boton_finalizar">FINALIZAR</string>
-
-    <string name="mensaje_l_1">El PAGO,</string>
-    <string name="mensaje_l_2">se ha realizado con Exito.</string>
-
-    <!-- TEXTOS DETALLE FACTURA -->
-
-    <string name="numero_factura_info">Factura</string>
-    <string name="numero_factura_detalle">F XXXXXX</string>
-    <string name="contador_factura_info">Contador</string>
-    <string name="contador_factura_detalle">XXXX-XXX</string>
-    <string name="fecha_factura_info">Fecha</string>
-    <string name="fecha_factura_detalle">dd/MM/yy</string>
-    <string name="saldo_factura_info">Saldo</string>
-    <string name="saldo_factura_detalle">$ XXX.XX</string>
-    <string name="cuenta_factura_info">Cuenta</string>
-    <string name="cuenta_factura_detalle">XXXX-XXXXX MONE</string>
-
-    <!-- DATOS AFILIACION -->
-    <string name="fecha_expiracion_afiliar_medio">Fecha Expiración</string>
-    <string name="boton_afiliar">Afiliar</string>
-    <string name="texto_finalizar_afiliacion_1">La Afiliación</string>
-    <string name="title_activity_activity_menu">activity_menu</string>
-
-    <string name="title_section1">Realizar Pago</string>
-    <string name="title_section2">Afiliar</string>
-    <string name="title_section3">Section 3</string>
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_example">Example action</string>
-    <string name="title_activity_navegacion">Navegacion</string>
-
-    <string name="drawer_open">Open navigation drawer</string>
-    <string name="drawer_close">Close navigation drawer</string>
-
-    <string name="recargas_monto">Monto</string>
-    <string name="recargas_noTelefono">No. Telefono</string>
-    <string name="recargas_continuar">CONTINUAR</string>
-
-    <string name="qr_code">qr_code</string>
-
-    <!-- DATOS FINALIZAR TRANSACCION CAJERO -->
-    <string name="title_tran_cajero">LA TRANSACCIÓN,</string>
-
-    <!-- DIALOGO PROVEEDOR -->
-    <string name="gps_network_not_enabled">Verifique que tenga acceso a Internet y active su Ubicación</string>
-    <string name="open_location_settings">ACTIVAR</string>
-    <string name="Cancel">CANCELAR</string>
-
     <!-- MENU DRAWER -->
     <string-array name="navigation_menu_items">
         <item>Cuentas</item>
     </string-array>
 
     <string name="resouce_name">Nombre Apellido</string>
+    <string name="drawer_open">Navigation Drawer is Open!</string>
+    <string name="drawer_close">Navigation Drawer is Close!</string>
 
     <string-array name="nav_options">
         <item>Perfil</item>
@@ -158,10 +79,6 @@ Quam libero nulla netus eu porta curae, ut nulla bibendum facilisis et urna sed,
         <!--<item>@mipmap/ic_intercambio</item>-->
         <!--<item>@mipmap/ic_signout</item>-->
     </string-array>
-
-    <!--PAGOS -->
-    <string name="app_textView_pago_valor_a_pagar">Valor a pagar</string>
-    <string name="app_textView_cuenta_seleccionada">Cuenta Seleccionada</string>
 
     <string name="app_tab_view_dashboard">Dashboard</string>
     <string name="app_tab_view_pulse_monitor">Pulse Monitor</string>

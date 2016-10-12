@@ -15,7 +15,6 @@ import android.widget.RelativeLayout;
 import com.umes.jeb.hww.R;
 import com.umes.jeb.hww.eis.dto.BitacoraDTO;
 import com.umes.jeb.hww.view.activity.AbstractActivity;
-import com.umes.jeb.hww.view.adapter.BreathAdapter;
 import com.umes.jeb.hww.view.adapter.PulseOxygenAdapter;
 import com.umes.jeb.hww.view.bean.HomeBean;
 
@@ -35,11 +34,11 @@ import lecho.lib.hellocharts.view.ColumnChartView;
 /**
  * Created by elioth010 on 4/19/16.
  */
-public class BreathFragment extends Fragment {
+public class BloodPressureFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private RelativeLayout mainLayout;
-    private BreathAdapter mAdapter;
+    private PulseOxygenAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private HomeBean homeBean;
 
@@ -52,7 +51,7 @@ public class BreathFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mainLayout = (RelativeLayout) inflater.inflate(R.layout.fragment_historic_cardview_column, container, false);
         mRecyclerView = (RecyclerView) mainLayout.findViewById(R.id.recyclerview_list);
-        mAdapter = new BreathAdapter(homeBean.getHistorialBeanList(), (AbstractActivity)getContext());
+        mAdapter = new PulseOxygenAdapter(homeBean.getHistorialBeanList(), (AbstractActivity)getContext());
         mLayoutManager = new GridLayoutManager(getContext(), 1);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
@@ -63,24 +62,26 @@ public class BreathFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+
         ColumnChartData data = new ColumnChartData();
         ColumnChartView chartView = (ColumnChartView) view.findViewById(R.id.chart_card_view);
         List<Column> columns = new ArrayList<>();
         List<AxisValue> axisValues = new ArrayList<>();
         int i = 0;
-        Column columnTemp;
-        List<SubcolumnValue> values;
+        Column columnTemp = new Column();
+        List<SubcolumnValue> values = new ArrayList<>();
         for (BitacoraDTO bitacora : getHomeBean().getHistorialResumenBeanList()) {
-            columnTemp = new Column();
-            values = new ArrayList<>();
-            columns.add(columnTemp);
-            SimpleDateFormat df = new SimpleDateFormat("MMM");
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            try {
-                axisValues.add(new AxisValue(i).setLabel(df.format(dateFormat.parse(bitacora.getFechaHora()))));
-            } catch (ParseException e) {
-                e.printStackTrace();
+            if (i % 2 == 0) {
+                columnTemp = new Column();
+                values = new ArrayList<>();
+                columns.add(columnTemp);
+                SimpleDateFormat df = new SimpleDateFormat("MMM");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    axisValues.add(new AxisValue(i / 2).setLabel(df.format(dateFormat.parse(bitacora.getFechaHora()))));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
             columnTemp.setHasLabels(true);
             columnTemp.setHasLabels(true);
@@ -104,69 +105,12 @@ public class BreathFragment extends Fragment {
         axisX.setValues(axisValues);
         axisX.setName(getString(R.string.chart_historic_text));
         axisX.setHasTiltedLabels(true);
-        axisY.setName(getString(R.string.sensor_breath_name));
+        axisY.setName(getString(R.string.sensor_pulse_oxigen_name));
         data.setAxisXBottom(axisX);
         data.setAxisYLeft(axisY);
         chartView.setColumnChartData(data);
 
         super.onViewCreated(view, savedInstanceState);
-    }
-
-    public void notifyDataChange() {
-        mAdapter = new BreathAdapter(homeBean.getHistorialBeanList(), (AbstractActivity)getContext());
-        mLayoutManager = new GridLayoutManager(getContext(), 1);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setHasFixedSize(true);
-        rebuildGraphs(mainLayout);
-    }
-
-    public void rebuildGraphs(View view){
-        ColumnChartData data = new ColumnChartData();
-        ColumnChartView chartView = (ColumnChartView) view.findViewById(R.id.chart_card_view);
-        List<Column> columns = new ArrayList<>();
-        List<AxisValue> axisValues = new ArrayList<>();
-        int i = 0;
-        Column columnTemp;
-        List<SubcolumnValue> values;
-        for (BitacoraDTO bitacora : getHomeBean().getHistorialResumenBeanList()) {
-            columnTemp = new Column();
-            values = new ArrayList<>();
-            columns.add(columnTemp);
-            SimpleDateFormat df = new SimpleDateFormat("MMM");
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            try {
-                axisValues.add(new AxisValue(i).setLabel(df.format(dateFormat.parse(bitacora.getFechaHora()))));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            columnTemp.setHasLabels(true);
-            columnTemp.setHasLabels(true);
-            int color = 0;
-            if (Build.VERSION.SDK_INT >= 23) {
-                Random rnd = new Random();
-                color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-            } else {
-                Random rnd = new Random();
-                color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-            }
-            SubcolumnValue value = new SubcolumnValue(bitacora.getDato().floatValue(), color);
-            value.setLabel(bitacora.getMedidaSensor().getUnidadMedida().getTitulo());
-            values.add(value);
-            columnTemp.setValues(values);
-            i++;
-        }
-        data.setColumns(columns);
-        Axis axisX = new Axis();
-        Axis axisY = new Axis().setHasLines(true);
-        axisX.setValues(axisValues);
-        axisX.setName(getString(R.string.chart_historic_text));
-        axisX.setHasTiltedLabels(true);
-        axisY.setName(getString(R.string.sensor_breath_name));
-        data.setAxisXBottom(axisX);
-        data.setAxisYLeft(axisY);
-        chartView.setColumnChartData(data);
     }
 
     public RecyclerView getmRecyclerView() {
@@ -177,11 +121,11 @@ public class BreathFragment extends Fragment {
         this.mRecyclerView = mRecyclerView;
     }
 
-    public BreathAdapter getmAdapter() {
+    public PulseOxygenAdapter getmAdapter() {
         return mAdapter;
     }
 
-    public void setmAdapter(BreathAdapter mAdapter) {
+    public void setmAdapter(PulseOxygenAdapter mAdapter) {
         this.mAdapter = mAdapter;
     }
 
@@ -199,5 +143,64 @@ public class BreathFragment extends Fragment {
 
     public void setHomeBean(HomeBean homeBean) {
         this.homeBean = homeBean;
+    }
+
+    public void notifyDataChange() {
+        mAdapter = new PulseOxygenAdapter(homeBean.getHistorialBeanList(), (AbstractActivity)getContext());
+        mLayoutManager = new GridLayoutManager(getContext(), 1);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setHasFixedSize(true);
+        rebuildGraphs(mainLayout);
+    }
+
+    public void rebuildGraphs(View view){
+        ColumnChartData data = new ColumnChartData();
+        ColumnChartView chartView = (ColumnChartView) view.findViewById(R.id.chart_card_view);
+        List<Column> columns = new ArrayList<>();
+        List<AxisValue> axisValues = new ArrayList<>();
+        int i = 0;
+        Column columnTemp = new Column();
+        List<SubcolumnValue> values = new ArrayList<>();
+        for (BitacoraDTO bitacora : getHomeBean().getHistorialResumenBeanList()) {
+            if (i % 2 == 0) {
+                columnTemp = new Column();
+                values = new ArrayList<>();
+                columns.add(columnTemp);
+                SimpleDateFormat df = new SimpleDateFormat("MMM");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    axisValues.add(new AxisValue(i / 2).setLabel(df.format(dateFormat.parse(bitacora.getFechaHora()))));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+            columnTemp.setHasLabels(true);
+            columnTemp.setHasLabels(true);
+            int color = 0;
+            if (Build.VERSION.SDK_INT >= 23) {
+                Random rnd = new Random();
+                color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+            } else {
+                Random rnd = new Random();
+                color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+            }
+            SubcolumnValue value = new SubcolumnValue(bitacora.getDato().floatValue(), color);
+            value.setLabel(bitacora.getMedidaSensor().getUnidadMedida().getTitulo());
+            values.add(value);
+            columnTemp.setValues(values);
+            i++;
+        }
+        data.setColumns(columns);
+        Axis axisX = new Axis();
+        Axis axisY = new Axis().setHasLines(true);
+        axisX.setValues(axisValues);
+        axisX.setName(getString(R.string.chart_historic_text));
+        axisX.setHasTiltedLabels(true);
+        axisY.setName(getString(R.string.sensor_blood_pressure_name));
+        data.setAxisXBottom(axisX);
+        data.setAxisYLeft(axisY);
+        chartView.setColumnChartData(data);
     }
 }

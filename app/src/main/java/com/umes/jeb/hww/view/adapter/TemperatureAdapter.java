@@ -13,6 +13,8 @@ import com.umes.jeb.hww.bs.service.GetImageFromURLTask;
 import com.umes.jeb.hww.eis.dto.BitacoraDTO;
 import com.umes.jeb.hww.view.activity.AbstractActivity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -20,7 +22,7 @@ import java.util.List;
  */
 public class TemperatureAdapter extends RecyclerView.Adapter<TemperatureAdapter.TemperatureViewHolder> {
 
-    protected List<BitacoraDTO> cobranzaBeans;
+    protected List<BitacoraDTO> bitacoraDTOList;
     private AbstractActivity mContext;
 
     static CallBack mCallBack;
@@ -34,29 +36,33 @@ public class TemperatureAdapter extends RecyclerView.Adapter<TemperatureAdapter.
     }
 
     public BitacoraDTO getItem(int position) {
-        return cobranzaBeans.get(position);
+        return bitacoraDTOList.get(position);
     }
 
-    public TemperatureAdapter(List<BitacoraDTO> cobranzaBeans, AbstractActivity activity) {
-        this.cobranzaBeans = cobranzaBeans;
+    public TemperatureAdapter(List<BitacoraDTO> bitacoraDTOList, AbstractActivity activity) {
+        this.bitacoraDTOList = bitacoraDTOList;
         this.mContext = activity;
     }
 
     @Override
     public int getItemCount() {
-        if (cobranzaBeans == null)
+        if (bitacoraDTOList == null)
             return 0;
-        return this.cobranzaBeans.size();
+        return this.bitacoraDTOList.size();
     }
 
     @Override
     public void onBindViewHolder(TemperatureViewHolder temperatureViewHolder, int position) {
-        BitacoraDTO dto = cobranzaBeans.get(position);
-        //loadBitmap(dto.getLogo(), temperatureViewHolder.imagenCobranza, temperatureViewHolder.progressBarImage);
-       /* temperatureViewHolder.nombreCategoria.setText(dto.getDato().toString());
-        temperatureViewHolder.descripcionCobranza.setText(dto.getMedidaSensor().getUnidadMedida().getTitulo());
-        temperatureViewHolder.textCobranza.setText(dto.getMedidaSensor().getSensor().getTitulo());*/
-        //loadBitmap(dto.getLogoCategoria(), temperatureViewHolder.imageCategoria, temperatureViewHolder.progressBarImage);
+        BitacoraDTO dto = bitacoraDTOList.get(position);
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yy");
+        SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        temperatureViewHolder.textSensor.setText(dto.getMedidaSensor().getSensor().getSensorType().getValue());
+        try {
+            temperatureViewHolder.textFecha.setText(df.format(df2.parse(dto.getFechaHora())));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        temperatureViewHolder.textValor.setText(dto.getMedidaSensor().getUnidadMedida().getTitulo()+" : " +String.format("%2.2f", dto.getDato()));
     }
 
     public void loadBitmap(String url, ImageView imageView, ProgressBar progressBar) {
@@ -73,31 +79,24 @@ public class TemperatureAdapter extends RecyclerView.Adapter<TemperatureAdapter.
 
     @Override
     public TemperatureViewHolder onCreateViewHolder(ViewGroup parent, int position) {
-        View cardView = LayoutInflater.from(mContext).inflate(R.layout.fragment_cardview_pie, parent, false);
-        (cardView.findViewById(R.id.relative_cardview)).setBackground(this.mContext.getResources().getDrawable(R.color.icons));
-
-        return new TemperatureViewHolder(cardView, parent, cobranzaBeans);
+        View cardView = LayoutInflater.from(mContext).inflate(R.layout.fragment_list_items, parent, false);
+        return new TemperatureViewHolder(cardView, parent, bitacoraDTOList);
     }
 
     public static class TemperatureViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        protected View chartSensor;
-        protected ImageView imagenCobranza;
-        protected TextView textCobranza;
-
-        protected TextView nombreCategoria;
-        protected TextView descripcionCobranza;
-
+        protected TextView textSensor;
+        protected TextView textValor;
+        protected TextView textFecha;
 
         //private ViewGroup parent;
         protected List<BitacoraDTO> items;
 
         public TemperatureViewHolder(View itemView, ViewGroup parent, List<BitacoraDTO> list) {
             super(itemView);
-            chartSensor  = (View) itemView.findViewById(R.id.chart_card_view);
-            imagenCobranza = (ImageView) itemView.findViewById(R.id.image_card_view);
-            //nombreCategoria= (TextView) itemView.findViewById(R.id.text_view_nombre_cat);
-            textCobranza = (TextView) itemView.findViewById(R.id.text_card_view);
+            textSensor = (TextView) itemView.findViewById(R.id.list_items_sensor);
+            textValor = (TextView) itemView.findViewById(R.id.list_items_valor);
+            textFecha = (TextView) itemView.findViewById(R.id.list_items_fecha);
             items=list;
             itemView.setOnClickListener(this);
         }

@@ -71,7 +71,8 @@ public abstract class AbstractGetTask<Params, Progress, Result> extends AsyncTas
 		if (e != null) {
 			Log.e(TAG, "Exception: ", e);
 		}
-		parentActivity.handleException(e); // muestra mensaje de error
+		parentActivity.show(msg);
+		//parentActivity.handleException(e); // muestra mensaje de error
 	}
 
 	public ProgressDialog getDialog() {

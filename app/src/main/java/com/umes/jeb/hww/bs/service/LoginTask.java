@@ -2,12 +2,24 @@ package com.umes.jeb.hww.bs.service;
 
 import java.io.IOException;
 import java.net.ConnectException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.http.conn.ConnectTimeoutException;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.FormHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
@@ -17,6 +29,12 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.umes.jeb.hww.R;
+import com.umes.jeb.hww.eis.bo.BaseBO;
+import com.umes.jeb.hww.eis.bo.UserToken;
+import com.umes.jeb.hww.eis.dto.ProfileDTO;
+import com.umes.jeb.hww.eis.dto.RolDTO;
+import com.umes.jeb.hww.eis.dto.UsuarioDTO;
+import com.umes.jeb.hww.security.SessionManager;
 import com.umes.jeb.hww.view.activity.AbstractActivity;
 import com.umes.jeb.hww.view.activity.HomeTabActivity;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -50,18 +68,28 @@ public class LoginTask extends AbstractGetTask<Void, Void, Boolean> {
 	@Override
 	protected Boolean doInBackground(Void... params) {
 		try {
-			/*final String url = super.BASE_URL+"/oauth/token?grant_type=" + this.grantType + "&scope=" + this.scope;
+			final String url = super.BASE_URL+"/login/entrar";
 			RestTemplate restTemplate = new RestTemplate(super.clientHttpRequestFactory());
-			ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<String>(getHeaders(this.user, this.password)), String.class);
-			Map<String, String> tokenInfo = fetchToken(restTemplate, response);
-
+			HttpMessageConverter formHttpMessageConverter = new FormHttpMessageConverter();
+			HttpMessageConverter stringHttpMessageConverternew = new StringHttpMessageConverter();
+			List<HttpMessageConverter<?>> converters = new ArrayList<>();
+			converters.add(formHttpMessageConverter);
+			converters.add(stringHttpMessageConverternew);
+			restTemplate.setMessageConverters(converters);
+			MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
+			map.add("login", this.user);
+			map.add("password", this.password);
+			String response =restTemplate.postForObject(url, map, String.class);
+			UsuarioDTO profileDTO = fetchUser(response, this.password);
+			System.out.println(response);
 			SessionManager manager = this.parentActivity.getSession();
-			manager.setToken(tokenInfo.get("token"));
-			manager.setUser(user);
-			manager.setTokenType(tokenInfo.get("tokenType"));
+			manager.setProfile(profileDTO);
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-			UserToken userLogged = new UserToken(1, user, manager.getToken(), manager.getTokenType(), dateFormat.format(new GregorianCalendar().getTime()));
-			this.parentActivity.save(userLogged);*/
+			if(parentActivity.findAll(UserToken.class).size()>0){
+				parentActivity.delete((BaseBO) parentActivity.findAll(UserToken.class).get(0));
+			}
+			UserToken userLogged = new UserToken(1, user, manager.getProfile().getPassword(), manager.getProfile().getLogin(), dateFormat.format(new GregorianCalendar().getTime()));
+			this.parentActivity.save(userLogged);
 			return true;
 		} catch (Exception ex) {
 			if (ex instanceof ResourceAccessException) {
@@ -88,38 +116,27 @@ public class LoginTask extends AbstractGetTask<Void, Void, Boolean> {
 		return false;
 	}
 
-	private Map<String, String> fetchToken(RestTemplate restTemplate, ResponseEntity<String> response) throws IOException {
+	private UsuarioDTO fetchUser(String response, String password) throws IOException {
 		HashMap<?, ?> myMap;
 		ObjectMapper objectMapper = new ObjectMapper();
-		String token = null;
-		String tokenType = null;
-		String userID = null;
+		UsuarioDTO usuario = null;
 		try {
-			myMap = objectMapper.readValue(response.getBody().toString(),HashMap.class);
+			myMap = objectMapper.readValue(response,HashMap.class);
 			System.out.println("Map: " + myMap);
-			token = (String) myMap.get("access_token");
-			tokenType = (String) myMap.get("token_type");
-			userID = (String) myMap.get("user_id");
+			HashMap<?,?> mapUser = (HashMap<?, ?>) ((ArrayList) myMap.get("data")).get(0);
+			usuario = new UsuarioDTO();
+			usuario.setId(Integer.parseInt(String.valueOf(mapUser.get("id"))));
+			usuario.setRol(Integer.parseInt(String.valueOf(mapUser.get("rol"))));
+			usuario.setDireccion(String.valueOf(mapUser.get("direccion")));
+			usuario.setLogin(String.valueOf(mapUser.get("login")));
+			usuario.setPassword(password);
+			usuario.setTelefono(Integer.parseInt(String.valueOf(mapUser.get("telefono"))));
+			usuario.setEstado(Integer.parseInt(String.valueOf(mapUser.get("telefono"))));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		Map<String, String> tokenInfo = new HashMap<String, String>();
-		tokenInfo.put("token", token);
-		tokenInfo.put("tokenType", tokenType);
-		tokenInfo.put("userId", userID);
-
-		/*Intent intent = new Intent(this.parentActivity, CardViewActivity.class);
-		this.parentActivity.startActivity(intent);
-		this.parentActivity.finish();*/
-		try {
-			this.finalize();
-		} catch (Throwable e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		// System.out.println("Token: " + token);
-		return tokenInfo;
+		return usuario;
 	}
 
 	@Override

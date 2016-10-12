@@ -28,6 +28,7 @@ import android.view.ViewGroup;
 
 import com.umes.jeb.hww.R;
 import com.umes.jeb.hww.eis.bo.dominio.SensorType;
+import com.umes.jeb.hww.view.adapter.BreathAdapter;
 import com.umes.jeb.hww.view.bean.HomeBean;
 import com.umes.jeb.hww.view.res.SlidingTabLayout;
 import com.umes.jeb.hww.view.res.TabPagerItem;
@@ -43,6 +44,12 @@ import java.util.List;
 public class HomeTabsColorsFragment extends Fragment {
 
     private List<HomeBean> listHomeBean;
+
+    protected DashboardFragment dashboardFragment;
+    protected PulseOxygenFragment pulseOxygenFragment;
+    protected TemperatureFragment temperatureFragment;
+    protected BreathFragment breathFragment;
+    protected BloodPressureFragment bloodPressureFragment;
 
     /**
      * This class represents a tab to be displayed by {@link ViewPager} and it's associated
@@ -156,6 +163,48 @@ public class HomeTabsColorsFragment extends Fragment {
             }
 
         });
+        mSlidingTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                HomeBean bean = getHomeBean(position);
+                if (bean.getSensorBean().getType()==null) {
+                    if(dashboardFragment!=null){
+                        dashboardFragment.setHomeBean(bean);
+                        dashboardFragment.notifyDataChange();
+                    }
+                }else if(bean.getSensorBean().getType() == SensorType.PO){
+                    if(pulseOxygenFragment!=null){
+                        pulseOxygenFragment.setHomeBean(bean);
+                        pulseOxygenFragment.notifyDataChange();
+                    }
+                }else if(bean.getSensorBean().getType() == SensorType.BS){
+                    if(breathFragment!=null){
+                        breathFragment.setHomeBean(bean);
+                        breathFragment.notifyDataChange();
+                    }
+                }else if(bean.getSensorBean().getType() == SensorType.TP){
+                    if(temperatureFragment!=null){
+                        temperatureFragment.setHomeBean(bean);
+                        temperatureFragment.notifyDataChange();
+                    }
+                }else if(bean.getSensorBean().getType() == SensorType.BP){
+                    if(bloodPressureFragment!=null){
+                        bloodPressureFragment.setHomeBean(bean);
+                        bloodPressureFragment.notifyDataChange();
+                    }
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         // END_INCLUDE (tab_colorizer)
         // END_INCLUDE (setup_slidingtablayout)
     }
@@ -175,6 +224,13 @@ public class HomeTabsColorsFragment extends Fragment {
             super(fm);
         }
 
+        @Override
+        public void notifyDataSetChanged() {
+            super.notifyDataSetChanged();
+        }
+
+
+
         /**
          * Return the {@link android.support.v4.app.Fragment} to be displayed at {@code position}.
          * <p/>
@@ -185,21 +241,25 @@ public class HomeTabsColorsFragment extends Fragment {
             //return mTabs.get(i).createFragment();
             HomeBean bean = getHomeBean(i);
             if (bean.getSensorBean().getType()==null) {
-                DashboardFragment fragment = new DashboardFragment();
-                fragment.setHomeBean(bean);
-                return fragment;
+                dashboardFragment = new DashboardFragment();
+                dashboardFragment.setHomeBean(bean);
+                return dashboardFragment;
             }else if(bean.getSensorBean().getType() == SensorType.PO){
-                PulseOxygenFragment fragment = new PulseOxygenFragment();
-                fragment.setHomeBean(bean);
-                return fragment;
+                pulseOxygenFragment = new PulseOxygenFragment();
+                pulseOxygenFragment.setHomeBean(bean);
+                return pulseOxygenFragment;
             }else if(bean.getSensorBean().getType() == SensorType.BS){
-                BreathFragment fragment = new BreathFragment();
-                fragment.setHomeBean(bean);
-                return fragment;
+                breathFragment = new BreathFragment();
+                breathFragment.setHomeBean(bean);
+                return breathFragment;
             }else if(bean.getSensorBean().getType() == SensorType.TP){
-                TemperatureFragment fragment = new TemperatureFragment();
-                fragment.setHomeBean(bean);
-                return fragment;
+                temperatureFragment = new TemperatureFragment();
+                temperatureFragment.setHomeBean(bean);
+                return temperatureFragment;
+            }else if(bean.getSensorBean().getType() == SensorType.BP){
+                bloodPressureFragment = new BloodPressureFragment();
+                bloodPressureFragment.setHomeBean(bean);
+                return bloodPressureFragment;
             }
             return new Fragment();
         }
@@ -223,6 +283,24 @@ public class HomeTabsColorsFragment extends Fragment {
         }
         // END_INCLUDE (pageradapter_getpagetitle)
 
+    }
+
+    public void notifyDataChange(){
+        if(pulseOxygenFragment!=null){
+            pulseOxygenFragment.notifyDataChange();
+        }
+        if(dashboardFragment!=null){
+            dashboardFragment.notifyDataChange();
+        }
+        if(temperatureFragment!=null){
+            temperatureFragment.notifyDataChange();
+        }
+        if(breathFragment!=null){
+            breathFragment.notifyDataChange();
+        }
+        if(bloodPressureFragment!=null){
+            bloodPressureFragment.notifyDataChange();
+        }
     }
 
     protected HomeBean getHomeBean(Integer i){

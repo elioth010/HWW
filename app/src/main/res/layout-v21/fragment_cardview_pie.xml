@@ -53,6 +53,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/nombre_categoria"
                     android:id="@+id/text_view_nombre_sensor"
+                    android:layout_marginLeft="@dimen/margin_short"
                     android:textColor="@color/primary_text"
                     android:textStyle="bold"
                     android:textSize="20sp" />
@@ -62,6 +63,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/nombre_categoria"
                     android:id="@+id/text_view_fecha_sensor"
+                    android:layout_marginRight="@dimen/margin_short"
                     android:textColor="@color/secondary_text"
                     android:textStyle="bold"
                     android:textSize="16sp"

@@ -52,9 +52,12 @@ public class PulseOxygenFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        List<BitacoraDTO> beans = homeBean.getHistorialBeanList();
         mainLayout = (RelativeLayout) inflater.inflate(R.layout.fragment_historic_cardview_column, container, false);
         mRecyclerView = (RecyclerView) mainLayout.findViewById(R.id.recyclerview_list);
+        mAdapter = new PulseOxygenAdapter(homeBean.getHistorialBeanList(), (AbstractActivity)getContext());
+        mLayoutManager = new GridLayoutManager(getContext(), 1);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setHasFixedSize(true);
         return mainLayout;
@@ -67,18 +70,18 @@ public class PulseOxygenFragment extends Fragment {
         ColumnChartView chartView = (ColumnChartView) view.findViewById(R.id.chart_card_view);
         List<Column> columns = new ArrayList<>();
         List<AxisValue> axisValues = new ArrayList<>();
-        int i= 0;
+        int i = 0;
         Column columnTemp = new Column();
         List<SubcolumnValue> values = new ArrayList<>();
-        for(BitacoraDTO bitacora : getHomeBean().getHistorialResumenBeanList()){
-            if(i%2==0){
+        for (BitacoraDTO bitacora : getHomeBean().getHistorialResumenBeanList()) {
+            if (i % 2 == 0) {
                 columnTemp = new Column();
                 values = new ArrayList<>();
                 columns.add(columnTemp);
                 SimpleDateFormat df = new SimpleDateFormat("MMM");
-                SimpleDateFormat dateFormat =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 try {
-                    axisValues.add(new AxisValue(i/2).setLabel(df.format(dateFormat.parse(bitacora.getFechaHora()))));
+                    axisValues.add(new AxisValue(i / 2).setLabel(df.format(dateFormat.parse(bitacora.getFechaHora()))));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -86,7 +89,7 @@ public class PulseOxygenFragment extends Fragment {
             columnTemp.setHasLabels(true);
             columnTemp.setHasLabels(true);
             int color = 0;
-            if(Build.VERSION.SDK_INT>=23) {
+            if (Build.VERSION.SDK_INT >= 23) {
                 Random rnd = new Random();
                 color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
             } else {
@@ -143,5 +146,64 @@ public class PulseOxygenFragment extends Fragment {
 
     public void setHomeBean(HomeBean homeBean) {
         this.homeBean = homeBean;
+    }
+
+    public void notifyDataChange() {
+        mAdapter = new PulseOxygenAdapter(homeBean.getHistorialBeanList(), (AbstractActivity)getContext());
+        mLayoutManager = new GridLayoutManager(getContext(), 1);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setHasFixedSize(true);
+        rebuildGraphs(mainLayout);
+    }
+
+    public void rebuildGraphs(View view){
+        ColumnChartData data = new ColumnChartData();
+        ColumnChartView chartView = (ColumnChartView) view.findViewById(R.id.chart_card_view);
+        List<Column> columns = new ArrayList<>();
+        List<AxisValue> axisValues = new ArrayList<>();
+        int i = 0;
+        Column columnTemp = new Column();
+        List<SubcolumnValue> values = new ArrayList<>();
+        for (BitacoraDTO bitacora : getHomeBean().getHistorialResumenBeanList()) {
+            if (i % 2 == 0) {
+                columnTemp = new Column();
+                values = new ArrayList<>();
+                columns.add(columnTemp);
+                SimpleDateFormat df = new SimpleDateFormat("MMM");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    axisValues.add(new AxisValue(i / 2).setLabel(df.format(dateFormat.parse(bitacora.getFechaHora()))));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+            columnTemp.setHasLabels(true);
+            columnTemp.setHasLabels(true);
+            int color = 0;
+            if (Build.VERSION.SDK_INT >= 23) {
+                Random rnd = new Random();
+                color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+            } else {
+                Random rnd = new Random();
+                color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+            }
+            SubcolumnValue value = new SubcolumnValue(bitacora.getDato().floatValue(), color);
+            value.setLabel(bitacora.getMedidaSensor().getUnidadMedida().getTitulo());
+            values.add(value);
+            columnTemp.setValues(values);
+            i++;
+        }
+        data.setColumns(columns);
+        Axis axisX = new Axis();
+        Axis axisY = new Axis().setHasLines(true);
+        axisX.setValues(axisValues);
+        axisX.setName(getString(R.string.chart_historic_text));
+        axisX.setHasTiltedLabels(true);
+        axisY.setName(getString(R.string.sensor_pulse_oxigen_name));
+        data.setAxisXBottom(axisX);
+        data.setAxisYLeft(axisY);
+        chartView.setColumnChartData(data);
     }
 }

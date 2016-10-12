@@ -4,12 +4,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.umes.jeb.hww.R;
-import com.umes.jeb.hww.bs.service.GetImageFromURLTask;
 import com.umes.jeb.hww.eis.dto.BitacoraDTO;
 import com.umes.jeb.hww.view.activity.AbstractActivity;
 
@@ -20,7 +17,7 @@ import java.util.List;
 /**
  * Created by Ccalito on 06/04/2016.
  */
-public class BreathAdapter extends RecyclerView.Adapter<BreathAdapter.BreathViewHolder> {
+public class BloodPressureAdapter extends RecyclerView.Adapter<BloodPressureAdapter.BloodPressureHolder> {
 
     protected List<BitacoraDTO> bitacoraDTOList;
     private AbstractActivity mContext;
@@ -31,7 +28,7 @@ public class BreathAdapter extends RecyclerView.Adapter<BreathAdapter.BreathView
         void onClick(View v, BitacoraDTO dto);
     }
 
-    public BreathAdapter() {
+    public BloodPressureAdapter() {
         super();
     }
 
@@ -39,7 +36,7 @@ public class BreathAdapter extends RecyclerView.Adapter<BreathAdapter.BreathView
         return bitacoraDTOList.get(position);
     }
 
-    public BreathAdapter(List<BitacoraDTO> bitacoraDTOList, AbstractActivity activity) {
+    public BloodPressureAdapter(List<BitacoraDTO> bitacoraDTOList, AbstractActivity activity) {
         this.bitacoraDTOList = bitacoraDTOList;
         this.mContext = activity;
     }
@@ -52,50 +49,36 @@ public class BreathAdapter extends RecyclerView.Adapter<BreathAdapter.BreathView
     }
 
     @Override
-    public void onBindViewHolder(BreathViewHolder breathViewHolder, int position) {
+    public void onBindViewHolder(BloodPressureHolder bloodPressureHolder, int position) {
         BitacoraDTO dto = bitacoraDTOList.get(position);
-        if(dto==null){
-            return;
-        }
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yy");
         SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        breathViewHolder.textSensor.setText(dto.getMedidaSensor().getSensor().getTitulo());
+        bloodPressureHolder.textSensor.setText(dto.getMedidaSensor().getSensor().getTitulo());
         try {
-            breathViewHolder.textFecha.setText(df.format(df2.parse(dto.getFechaHora())));
+            bloodPressureHolder.textFecha.setText(df.format(df2.parse(dto.getFechaHora())));
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        breathViewHolder.textValor.setText(dto.getMedidaSensor().getUnidadMedida().getTitulo()+" : " +String.format("%2.2f", dto.getDato()));
-    }
-
-    public void loadBitmap(String url, ImageView imageView, ProgressBar progressBar) {
-        new GetImageFromURLTask(mContext, url, imageView, progressBar).execute();
-    }
-
-    public CallBack getCallBack() {
-        return mCallBack;
-    }
-
-    public void setCallBack(CallBack mCallBack) {
-        BreathAdapter.mCallBack = mCallBack;
+        bloodPressureHolder.textValor.setText(dto.getMedidaSensor().getUnidadMedida().getTitulo()+" : " +String.format("%2.2f", dto.getDato()));
     }
 
     @Override
-    public BreathViewHolder onCreateViewHolder(ViewGroup parent, int position) {
+    public BloodPressureHolder onCreateViewHolder(ViewGroup parent, int position) {
         View cardView = LayoutInflater.from(mContext).inflate(R.layout.fragment_list_items, parent, false);
-        return new BreathViewHolder(cardView, parent, bitacoraDTOList);
+        return new BloodPressureHolder(cardView, parent, bitacoraDTOList);
     }
 
-    public static class BreathViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class BloodPressureHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         protected TextView textSensor;
         protected TextView textValor;
         protected TextView textFecha;
 
+
         //private ViewGroup parent;
         protected List<BitacoraDTO> items;
 
-        public BreathViewHolder(View itemView, ViewGroup parent, List<BitacoraDTO> list) {
+        public BloodPressureHolder(View itemView, ViewGroup parent, List<BitacoraDTO> list) {
             super(itemView);
             textSensor = (TextView) itemView.findViewById(R.id.list_items_sensor);
             textValor = (TextView) itemView.findViewById(R.id.list_items_valor);

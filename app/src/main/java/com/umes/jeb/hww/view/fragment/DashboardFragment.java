@@ -77,4 +77,11 @@ public class DashboardFragment extends Fragment {
     public void setHomeBean(HomeBean homeBean) {
         this.homeBean = homeBean;
     }
+
+    public void notifyDataChange(){
+        mAdapter = new DashboardAdapter(homeBean.getHistorialBeanList(), (AbstractActivity)getContext());
+        mLayoutManager = new GridLayoutManager(getContext(), 1);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
+    }
 }

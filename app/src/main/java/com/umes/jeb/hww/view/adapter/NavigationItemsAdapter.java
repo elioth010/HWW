@@ -1,6 +1,7 @@
 package com.umes.jeb.hww.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -17,7 +18,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.umes.jeb.hww.R;
+import com.umes.jeb.hww.eis.bo.Configuration;
 import com.umes.jeb.hww.view.activity.AbstractActivity;
+import com.umes.jeb.hww.view.activity.ConfigurationActivity;
 
 
 public class NavigationItemsAdapter extends	RecyclerView.Adapter<NavigationItemsAdapter.ViewHolder> {
@@ -136,15 +139,11 @@ public class NavigationItemsAdapter extends	RecyclerView.Adapter<NavigationItems
 			//Toast.makeText(context, "The position :" + getPosition(), Toast.LENGTH_SHORT).show();
 
 			if(getPosition() == 1){
-                //Intent intent = new Intent(context, MedioPagoAfiliarActivity.class);
-                //context.startActivity(intent);
-                //((AbstractActivity)context).finish();
+                Intent intent = new Intent(context, ConfigurationActivity.class);
+                context.startActivity(intent);
+                ((AbstractActivity)context).finish();
             }
             if(getPosition() == 2){
-				//((HomeActivity)context).scanBarCode();
-				//((AbstractActivity)context).closeSession();
-			}
-			if (getPosition() == 3){
 				((AbstractActivity)context).closeSession();
 			}
 

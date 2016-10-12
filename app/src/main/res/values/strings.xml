@@ -66,14 +66,12 @@ Quam libero nulla netus eu porta curae, ut nulla bibendum facilisis et urna sed,
     <string name="drawer_close">Navigation Drawer is Close!</string>
 
     <string-array name="nav_options">
-        <item>Perfil</item>
         <item>Configuraciones</item>
     <!--    <item>Leer QR</item>
         <item>Transferencias</item> -->
         <item>Salir</item>
     </string-array>
     <string-array name="nav_icons">
-        <item>@drawable/ic_profile</item>
         <item>@drawable/ic_setting_light</item>
         <item>@mipmap/ic_signout</item>
         <!--<item>@mipmap/ic_intercambio</item>-->

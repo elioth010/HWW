@@ -25,27 +25,22 @@ import com.umes.jeb.hww.bs.service.GetHistoricoSensorTask;
 import com.umes.jeb.hww.bs.service.GetMonitorVivoTask;
 import com.umes.jeb.hww.bs.service.GetResumenSensorTask;
 import com.umes.jeb.hww.bs.service.code.ResponseCodesHelper;
-import com.umes.jeb.hww.eis.bo.dominio.SensorType;
 import com.umes.jeb.hww.eis.dto.BitacoraDTO;
-import com.umes.jeb.hww.eis.dto.MedidaSensorDTO;
-import com.umes.jeb.hww.eis.dto.SensorDTO;
-import com.umes.jeb.hww.eis.dto.UnidadMedidaDTO;
-import com.umes.jeb.hww.eis.dto.UsuarioDTO;
 import com.umes.jeb.hww.view.adapter.HomeAdapter;
 import com.umes.jeb.hww.view.adapter.NavigationItemsAdapter;
 import com.umes.jeb.hww.view.bean.HomeBean;
 import com.umes.jeb.hww.view.bean.SensorBean;
 import com.umes.jeb.hww.view.fragment.HomeTabsColorsFragment;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
-import static com.umes.jeb.hww.eis.bo.dominio.SensorType.*;
+import static com.umes.jeb.hww.eis.bo.dominio.SensorType.BP;
+import static com.umes.jeb.hww.eis.bo.dominio.SensorType.BS;
+import static com.umes.jeb.hww.eis.bo.dominio.SensorType.PO;
+import static com.umes.jeb.hww.eis.bo.dominio.SensorType.TP;
 
 /**
  * Created by elioth010 on 4/19/16.
@@ -72,18 +67,18 @@ public class HomeTabActivity extends AbstractActivity {
     private List<HomeBean> beans = new ArrayList<>();
 
     private List<BitacoraDTO> bitacoraPulso = new ArrayList<>();
-    private List<BitacoraDTO> bitacoraPulsoResumen  = new ArrayList<>();
+    private List<BitacoraDTO> bitacoraPulsoResumen = new ArrayList<>();
 
     private List<BitacoraDTO> bitacoraBreath = new ArrayList<>();
-    private List<BitacoraDTO> bitacoraBreathResumen  = new ArrayList<>();
+    private List<BitacoraDTO> bitacoraBreathResumen = new ArrayList<>();
 
     private List<BitacoraDTO> bitacoraTemp = new ArrayList<>();
-    private List<BitacoraDTO> bitacoraTempResumen  = new ArrayList<>();
+    private List<BitacoraDTO> bitacoraTempResumen = new ArrayList<>();
 
     private List<BitacoraDTO> bitacoraBlood = new ArrayList<>();
-    private List<BitacoraDTO> bitacoraBloodResumen  = new ArrayList<>();
+    private List<BitacoraDTO> bitacoraBloodResumen = new ArrayList<>();
 
-    private List<BitacoraDTO> vivo  = new ArrayList<>();
+    private List<BitacoraDTO> vivo = new ArrayList<>();
     private HomeTabsColorsFragment fragment;
 
 
@@ -152,14 +147,26 @@ public class HomeTabActivity extends AbstractActivity {
             }
         });
 
-        runnable = new Runnable() {
-            public void run() {
-                new GetMonitorVivoTask(HomeTabActivity.this).execute();
-                new GetHistoricoSensorTask(HomeTabActivity.this).execute();
-                new GetResumenSensorTask(HomeTabActivity.this).execute();
-                handler.postDelayed(this, 120000);
-            }
-        };
+        final List<com.umes.jeb.hww.eis.bo.Configuration> config = findAll(com.umes.jeb.hww.eis.bo.Configuration.class);
+        if(config!=null && config.size()>0){
+            runnable = new Runnable() {
+                public void run() {
+                    new GetMonitorVivoTask(HomeTabActivity.this).execute();
+                    new GetHistoricoSensorTask(HomeTabActivity.this).execute();
+                    new GetResumenSensorTask(HomeTabActivity.this).execute();
+                    handler.postDelayed(this, config.get(0).getTimeToRefresh());
+                }
+            };
+        }else{
+            runnable = new Runnable() {
+                public void run() {
+                    new GetMonitorVivoTask(HomeTabActivity.this).execute();
+                    new GetHistoricoSensorTask(HomeTabActivity.this).execute();
+                    new GetResumenSensorTask(HomeTabActivity.this).execute();
+                    handler.postDelayed(this, 120000);
+                }
+            };
+        }
         runnable.run();
 
         beans.add(new HomeBean("Dashboard", "", vivo, new ArrayList<BitacoraDTO>(), new SensorBean()));
@@ -265,13 +272,13 @@ public class HomeTabActivity extends AbstractActivity {
         super.onPostExecuteTask(response, code);
         //beans.clear();
         //
-        if(response == null || ((List<BitacoraDTO>) response).size() == 0 ){
+        if (response == null || ((List<BitacoraDTO>) response).size() == 0) {
             return;
         }
 
         List<BitacoraDTO> bitacora = (List<BitacoraDTO>) response;
 
-        if(code == ResponseCodesHelper.RESULT_LIVE_MONITOR_CODE){
+        if (code == ResponseCodesHelper.RESULT_LIVE_MONITOR_CODE) {
             vivo.clear();
             vivo.addAll(bitacora);
             Collections.sort(vivo, new Comparator<BitacoraDTO>() {
@@ -280,13 +287,13 @@ public class HomeTabActivity extends AbstractActivity {
                     return lhs.getMedidaSensor().getSensor().getId().compareTo(rhs.getMedidaSensor().getSensor().getId());
                 }
             });
-        }else if(code == ResponseCodesHelper.RESULT_HISTORICAL_MONITOR_CODE){
+        } else if (code == ResponseCodesHelper.RESULT_HISTORICAL_MONITOR_CODE) {
             bitacoraPulso.clear();
             bitacoraBreath.clear();
             bitacoraTemp.clear();
             bitacoraBlood.clear();
-            for (BitacoraDTO hist : bitacora){
-                switch (hist.getMedidaSensor().getSensor().getSensorType()){
+            for (BitacoraDTO hist : bitacora) {
+                switch (hist.getMedidaSensor().getSensor().getSensorType()) {
                     case PO:
                         bitacoraPulso.add(hist);
                         break;
@@ -301,10 +308,10 @@ public class HomeTabActivity extends AbstractActivity {
                 }
             }
 
-            for(HomeBean bean: beans){
-                if(bean.getSensorBean().getType() ==null)
+            for (HomeBean bean : beans) {
+                if (bean.getSensorBean().getType() == null)
                     continue;
-                switch (bean.getSensorBean().getType()){
+                switch (bean.getSensorBean().getType()) {
                     case PO:
                         bean.setHistorialBeanList(bitacoraPulso);
                         break;
@@ -318,13 +325,13 @@ public class HomeTabActivity extends AbstractActivity {
                         bean.setHistorialBeanList(bitacoraBlood);
                 }
             }
-        }else if(code == ResponseCodesHelper.RESULT_SUMMARY_MONITOR_CODE){
+        } else if (code == ResponseCodesHelper.RESULT_SUMMARY_MONITOR_CODE) {
             bitacoraPulsoResumen.clear();
             bitacoraBreathResumen.clear();
             bitacoraTempResumen.clear();
             bitacoraBloodResumen.clear();
-            for (BitacoraDTO resum : bitacora){
-                switch (resum.getMedidaSensor().getSensor().getSensorType()){
+            for (BitacoraDTO resum : bitacora) {
+                switch (resum.getMedidaSensor().getSensor().getSensorType()) {
                     case PO:
                         bitacoraPulsoResumen.add(resum);
                         break;
@@ -339,10 +346,10 @@ public class HomeTabActivity extends AbstractActivity {
                 }
             }
 
-                for(HomeBean bean: beans){
-                if(bean.getSensorBean().getType() ==null)
+            for (HomeBean bean : beans) {
+                if (bean.getSensorBean().getType() == null)
                     continue;
-                switch (bean.getSensorBean().getType()){
+                switch (bean.getSensorBean().getType()) {
                     case PO:
                         bean.setHistorialResumenBeanList(bitacoraPulsoResumen);
                         break;
@@ -373,7 +380,7 @@ public class HomeTabActivity extends AbstractActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(handler!=null && runnable!=null)
+        if (handler != null && runnable != null)
             handler.removeCallbacks(runnable);
     }
 }

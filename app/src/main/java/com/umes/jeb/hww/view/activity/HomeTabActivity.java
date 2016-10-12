@@ -191,6 +191,35 @@ public class HomeTabActivity extends AbstractActivity {
         this.mDrawerToggle.syncState();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(handler!=null && runnable!=null){
+            handler.removeCallbacks(runnable);
+        }
+
+        final List<com.umes.jeb.hww.eis.bo.Configuration> config = findAll(com.umes.jeb.hww.eis.bo.Configuration.class);
+        if(config!=null && config.size()>0){
+            runnable = new Runnable() {
+                public void run() {
+                    new GetMonitorVivoTask(HomeTabActivity.this).execute();
+                    new GetHistoricoSensorTask(HomeTabActivity.this).execute();
+                    new GetResumenSensorTask(HomeTabActivity.this).execute();
+                    handler.postDelayed(this, config.get(0).getTimeToRefresh());
+                }
+            };
+        }else{
+            runnable = new Runnable() {
+                public void run() {
+                    new GetMonitorVivoTask(HomeTabActivity.this).execute();
+                    new GetHistoricoSensorTask(HomeTabActivity.this).execute();
+                    new GetResumenSensorTask(HomeTabActivity.this).execute();
+                    handler.postDelayed(this, 120000);
+                }
+            };
+        }
+        runnable.run();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -232,11 +261,6 @@ public class HomeTabActivity extends AbstractActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
     }
 
     @Override

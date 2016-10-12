@@ -100,7 +100,7 @@ public class ConfigurationActivity extends AbstractActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(ConfigurationActivity.this, message, Toast.LENGTH_SHORT);
+                Toast.makeText(ConfigurationActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -129,9 +129,10 @@ public class LoginTask extends AbstractGetTask<Void, Void, Boolean> {
 			usuario.setRol(Integer.parseInt(String.valueOf(mapUser.get("rol"))));
 			usuario.setDireccion(String.valueOf(mapUser.get("direccion")));
 			usuario.setLogin(String.valueOf(mapUser.get("login")));
+			usuario.setNombre(String.valueOf(mapUser.get("nombre")));
 			usuario.setPassword(password);
 			usuario.setTelefono(Integer.parseInt(String.valueOf(mapUser.get("telefono"))));
-			usuario.setEstado(Integer.parseInt(String.valueOf(mapUser.get("telefono"))));
+			usuario.setEstado(Integer.parseInt(String.valueOf(mapUser.get("estado"))));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

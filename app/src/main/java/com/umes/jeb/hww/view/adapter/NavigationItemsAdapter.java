@@ -219,9 +219,9 @@ public class NavigationItemsAdapter extends	RecyclerView.Adapter<NavigationItems
 			// en este caso el cliente
 			holder.profile.setImageResource(profile);
 			// se coloca el nombre el recurso
-			holder.Name.setText(((AbstractActivity) holder.context).getSession().getProfile().getNombre());
+			holder.Name.setText(name);
 			// e informacion adicional que se desea agregar
-			holder.secondaryText.setText(((AbstractActivity) holder.context).getSession().getProfile().getLogin());
+			holder.secondaryText.setText(secondaryText);
 		}
 	}
 

@@ -114,7 +114,7 @@ public class HomeTabActivity extends AbstractActivity {
 
         drawerRecyclerView = (RecyclerView) findViewById(R.id.drawer_home_recycler_view);
         drawerRecyclerView.setHasFixedSize(true);
-        drawerAdapter = new NavigationItemsAdapter(getResources().getStringArray(R.array.nav_options), getResources().obtainTypedArray(R.array.nav_icons), getResources().getString(R.string.resouce_name), getResources().getString(R.string.resouce_secondary_text));
+        drawerAdapter = new NavigationItemsAdapter(getResources().getStringArray(R.array.nav_options), getResources().obtainTypedArray(R.array.nav_icons), getSession().getProfile().getNombre(), getSession().getProfile().getLogin());
         drawerLayoutManager = new LinearLayoutManager(this);
         drawerRecyclerView.setLayoutManager(drawerLayoutManager);
         drawerRecyclerView.setAdapter(drawerAdapter);

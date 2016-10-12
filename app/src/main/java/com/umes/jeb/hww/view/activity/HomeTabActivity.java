@@ -154,7 +154,7 @@ public class HomeTabActivity extends AbstractActivity {
                     new GetMonitorVivoTask(HomeTabActivity.this).execute();
                     new GetHistoricoSensorTask(HomeTabActivity.this).execute();
                     new GetResumenSensorTask(HomeTabActivity.this).execute();
-                    handler.postDelayed(this, config.get(0).getTimeToRefresh());
+                    handler.postDelayed(this, config.get(0).getTimeToRefresh()*1000);
                 }
             };
         }else{

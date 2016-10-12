@@ -141,7 +141,6 @@ public class NavigationItemsAdapter extends	RecyclerView.Adapter<NavigationItems
 			if(getPosition() == 1){
                 Intent intent = new Intent(context, ConfigurationActivity.class);
                 context.startActivity(intent);
-                ((AbstractActivity)context).finish();
             }
             if(getPosition() == 2){
 				((AbstractActivity)context).closeSession();

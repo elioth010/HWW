@@ -208,7 +208,6 @@ public class HomeTabActivity extends AbstractActivity {
                     new GetResumenSensorTask(HomeTabActivity.this).execute();
                     int refresh = config.get(0).getTimeToRefresh().intValue()*1000;
                     handler.postDelayed(this, (refresh));
-                    handler.postDelayed(this, config.get(0).getTimeToRefresh());
                 }
             };
         }else{

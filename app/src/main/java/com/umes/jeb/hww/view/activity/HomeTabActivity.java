@@ -154,7 +154,8 @@ public class HomeTabActivity extends AbstractActivity {
                     new GetMonitorVivoTask(HomeTabActivity.this).execute();
                     new GetHistoricoSensorTask(HomeTabActivity.this).execute();
                     new GetResumenSensorTask(HomeTabActivity.this).execute();
-                    handler.postDelayed(this, config.get(0).getTimeToRefresh()*1000);
+                    int refresh = config.get(0).getTimeToRefresh().intValue()*1000;
+                    handler.postDelayed(this, (refresh));
                 }
             };
         }else{
@@ -205,6 +206,8 @@ public class HomeTabActivity extends AbstractActivity {
                     new GetMonitorVivoTask(HomeTabActivity.this).execute();
                     new GetHistoricoSensorTask(HomeTabActivity.this).execute();
                     new GetResumenSensorTask(HomeTabActivity.this).execute();
+                    int refresh = config.get(0).getTimeToRefresh().intValue()*1000;
+                    handler.postDelayed(this, (refresh));
                     handler.postDelayed(this, config.get(0).getTimeToRefresh());
                 }
             };

@@ -65,13 +65,13 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
             if (Build.VERSION.SDK_INT >= 23) {
                 if (dto.getMedidaSensor().getUnidadMedida().getTitulo().equalsIgnoreCase("PRbpm")) {
                     int color = 0;
-                    if (dto.getDato().floatValue() > 0 && dto.getDato().floatValue() < 60) {
+                    if (dto.getDato().floatValue() >= 0 && dto.getDato().floatValue() < 60) {
                         color = mContext.getColor(R.color.red_900);
                     }
-                    if (dto.getDato().floatValue() > 64 && dto.getDato().floatValue() < 80) {
+                    if (dto.getDato().floatValue() >= 64 && dto.getDato().floatValue() < 80) {
                         color = mContext.getColor(R.color.green_400);
                     }
-                    if (dto.getDato().floatValue() > 80) {
+                    if (dto.getDato().floatValue() >= 80) {
                         color = mContext.getColor(R.color.orange);
                     }
 
@@ -80,13 +80,13 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
                     values.add(new SliceValue(200 - dto.getDato().floatValue(), mContext.getResources().getColor(R.color.gray_light, null)));
                 } else {
                     int color = 0;
-                    if (dto.getDato().floatValue() > 0 && dto.getDato().floatValue() < 95) {
+                    if (dto.getDato().floatValue() >= 0 && dto.getDato().floatValue() < 95) {
                         color = mContext.getColor(R.color.red_900);
                     }
-                    if (dto.getDato().floatValue() > 95.0 && dto.getDato().floatValue() < 98.5) {
+                    if (dto.getDato().floatValue() >= 95.0 && dto.getDato().floatValue() < 98.5) {
                         color = mContext.getColor(R.color.green_400);
                     }
-                    if (dto.getDato().floatValue() > 98.4) {
+                    if (dto.getDato().floatValue() >= 98.4) {
                         color = mContext.getColor(R.color.orange);
                     }
 
@@ -97,10 +97,10 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
             } else {
                 if (dto.getMedidaSensor().getUnidadMedida().getTitulo().equalsIgnoreCase("PRbpm")) {
                     int color = 0;
-                    if (dto.getDato().floatValue() > 0 && dto.getDato().floatValue() < 60) {
+                    if (dto.getDato().floatValue() >= 0 && dto.getDato().floatValue() < 60) {
                         color = mContext.getResources().getColor(R.color.red_900);
                     }
-                    if (dto.getDato().floatValue() > 64 && dto.getDato().floatValue() < 80) {
+                    if (dto.getDato().floatValue() >= 64 && dto.getDato().floatValue() < 80) {
                         color = mContext.getResources().getColor(R.color.green_400);
                     }
                     if (dto.getDato().floatValue() >= 80) {
@@ -113,10 +113,10 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
                     data.setCenterText2Color(mContext.getResources().getColor(R.color.secondary_text));
                 } else {
                     int color = 0;
-                    if (dto.getDato().floatValue() > 0 && dto.getDato().floatValue() < 95) {
+                    if (dto.getDato().floatValue() >= 0 && dto.getDato().floatValue() < 95) {
                         color = mContext.getResources().getColor(R.color.red_900);
                     }
-                    if (dto.getDato().floatValue() > 95.0 && dto.getDato().floatValue() < 98.5) {
+                    if (dto.getDato().floatValue() >= 95.0 && dto.getDato().floatValue() < 98.5) {
                         color = mContext.getResources().getColor(R.color.green_400);
                     }
                     if (dto.getDato().floatValue() >= 98.5) {
@@ -134,13 +134,13 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
             if (Build.VERSION.SDK_INT >= 23) {
 
                 int color = 0;
-                if (dto.getDato().floatValue() > 0 && dto.getDato().floatValue() < 30) {
+                if (dto.getDato().floatValue() >= 0 && dto.getDato().floatValue() < 30) {
                     color = mContext.getColor(R.color.green_400);
                 }
-                if (dto.getDato().floatValue() > 30 && dto.getDato().floatValue() <= 45) {
+                if (dto.getDato().floatValue() >= 30 && dto.getDato().floatValue() <= 45) {
                     color = mContext.getColor(R.color.orange);
                 }
-                if (dto.getDato().floatValue() > 45) {
+                if (dto.getDato().floatValue() >= 45) {
                     color = mContext.getColor(R.color.red_500);
                 }
                 values.add(new SliceValue(dto.getDato().floatValue(), color));
@@ -148,13 +148,13 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
 
             } else {
                 int color = 0;
-                if (dto.getDato().floatValue() > 0 && dto.getDato().floatValue() < 30) {
+                if (dto.getDato().floatValue() >= 0 && dto.getDato().floatValue() < 30) {
                     color = mContext.getResources().getColor(R.color.green_400);
                 }
-                if (dto.getDato().floatValue() > 30 && dto.getDato().floatValue() <= 45) {
+                if (dto.getDato().floatValue() >= 30 && dto.getDato().floatValue() <= 45) {
                     color = mContext.getResources().getColor(R.color.orange);
                 }
-                if (dto.getDato().floatValue() > 45) {
+                if (dto.getDato().floatValue() >= 45) {
                     color = mContext.getResources().getColor(R.color.red_500);
                 }
 
@@ -166,10 +166,10 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
             if (Build.VERSION.SDK_INT >= 23) {
 
                 int color = 0;
-                if (dto.getDato().floatValue() > 0 && dto.getDato().floatValue() < 34) {
+                if (dto.getDato().floatValue() >= 0 && dto.getDato().floatValue() < 34) {
                     color = mContext.getColor(R.color.orange);
                 }
-                if (dto.getDato().floatValue() > 34 && dto.getDato().floatValue() < 38) {
+                if (dto.getDato().floatValue() >= 34 && dto.getDato().floatValue() < 38) {
                     color = mContext.getColor(R.color.green_400);
                 }
                 if (dto.getDato().floatValue() >= 38) {
@@ -180,10 +180,10 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
 
             } else {
                 int color = 0;
-                if (dto.getDato().floatValue() > 0 && dto.getDato().floatValue() < 34) {
+                if (dto.getDato().floatValue() >= 0 && dto.getDato().floatValue() < 34) {
                     color = mContext.getResources().getColor(R.color.green_400);
                 }
-                if (dto.getDato().floatValue() > 34 && dto.getDato().floatValue() < 38) {
+                if (dto.getDato().floatValue() >= 34 && dto.getDato().floatValue() < 38) {
                     color = mContext.getResources().getColor(R.color.orange);
                 }
                 if (dto.getDato().floatValue() >= 38) {
@@ -197,13 +197,13 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
             if (Build.VERSION.SDK_INT >= 23) {
                 if (dto.getMedidaSensor().getUnidadMedida().getTitulo().equalsIgnoreCase("SISmmHg")) {
                     int color = 0;
-                    if (dto.getDato().floatValue() > 0 && dto.getDato().floatValue() < 90) {
+                    if (dto.getDato().floatValue() >= 0 && dto.getDato().floatValue() < 90) {
                         color = mContext.getColor(R.color.blue_800);
                     }
-                    if (dto.getDato().floatValue() > 90 && dto.getDato().floatValue() <= 120) {
+                    if (dto.getDato().floatValue() >= 90 && dto.getDato().floatValue() <= 120) {
                         color = mContext.getColor(R.color.green_400);
                     }
-                    if (dto.getDato().floatValue() > 120 && dto.getDato().floatValue() < 139) {
+                    if (dto.getDato().floatValue() >= 120 && dto.getDato().floatValue() < 139) {
                         color = mContext.getColor(R.color.orange);
                     }
                     if (dto.getDato().floatValue() >= 140 && dto.getDato().floatValue() < 159) {
@@ -212,7 +212,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
                     if (dto.getDato().floatValue() >= 160 && dto.getDato().floatValue() < 179) {
                         color = mContext.getColor(R.color.red_500);
                     }
-                    if (dto.getDato().floatValue() > 180) {
+                    if (dto.getDato().floatValue() >= 180) {
                         color = mContext.getColor(R.color.red_900);
                     }
 
@@ -221,13 +221,13 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
 
                 } else {
                     int color = 0;
-                    if (dto.getDato().floatValue() > 0 && dto.getDato().floatValue() < 60) {
+                    if (dto.getDato().floatValue() >= 0 && dto.getDato().floatValue() < 60) {
                         color = mContext.getColor(R.color.blue_800);
                     }
-                    if (dto.getDato().floatValue() > 60 && dto.getDato().floatValue() <= 79) {
+                    if (dto.getDato().floatValue() >= 60 && dto.getDato().floatValue() <= 79) {
                         color = mContext.getColor(R.color.green_400);
                     }
-                    if (dto.getDato().floatValue() > 80 && dto.getDato().floatValue() < 89) {
+                    if (dto.getDato().floatValue() >= 80 && dto.getDato().floatValue() < 89) {
                         color = mContext.getColor(R.color.orange);
                     }
                     if (dto.getDato().floatValue() >= 90 && dto.getDato().floatValue() < 99) {
@@ -236,7 +236,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
                     if (dto.getDato().floatValue() >= 100 && dto.getDato().floatValue() < 109) {
                         color = mContext.getColor(R.color.red_500);
                     }
-                    if (dto.getDato().floatValue() > 110) {
+                    if (dto.getDato().floatValue() >= 110) {
                         color = mContext.getColor(R.color.red_900);
                     }
                     values.add(new SliceValue(dto.getDato().floatValue(), color));
@@ -246,13 +246,13 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
             } else {
                 if (dto.getMedidaSensor().getUnidadMedida().getTitulo().equalsIgnoreCase("SISmmHg")) {
                     int color = 0;
-                    if (dto.getDato().floatValue() > 0 && dto.getDato().floatValue() < 90) {
+                    if (dto.getDato().floatValue() >= 0 && dto.getDato().floatValue() < 90) {
                         color = mContext.getResources().getColor(R.color.blue_800);
                     }
-                    if (dto.getDato().floatValue() > 90 && dto.getDato().floatValue() <= 120) {
+                    if (dto.getDato().floatValue() >= 90 && dto.getDato().floatValue() <= 120) {
                         color = mContext.getResources().getColor(R.color.green_400);
                     }
-                    if (dto.getDato().floatValue() > 120 && dto.getDato().floatValue() < 139) {
+                    if (dto.getDato().floatValue() >= 120 && dto.getDato().floatValue() < 139) {
                         color = mContext.getResources().getColor(R.color.orange);
                     }
                     if (dto.getDato().floatValue() >= 140 && dto.getDato().floatValue() < 159) {
@@ -261,7 +261,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
                     if (dto.getDato().floatValue() >= 160 && dto.getDato().floatValue() < 179) {
                         color = mContext.getResources().getColor(R.color.red_500);
                     }
-                    if (dto.getDato().floatValue() > 180) {
+                    if (dto.getDato().floatValue() >= 180) {
                         color = mContext.getResources().getColor(R.color.red_900);
                     }
 
@@ -269,13 +269,13 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
                     values.add(new SliceValue(180 - dto.getDato().floatValue(), mContext.getResources().getColor(R.color.gray_light)));
                 } else {
                     int color = 0;
-                    if (dto.getDato().floatValue() > 0 && dto.getDato().floatValue() < 60) {
+                    if (dto.getDato().floatValue() >= 0 && dto.getDato().floatValue() < 60) {
                         color = mContext.getResources().getColor(R.color.blue_800);
                     }
-                    if (dto.getDato().floatValue() > 60 && dto.getDato().floatValue() <= 79) {
+                    if (dto.getDato().floatValue() >= 60 && dto.getDato().floatValue() < 79) {
                         color = mContext.getResources().getColor(R.color.green_400);
                     }
-                    if (dto.getDato().floatValue() > 80 && dto.getDato().floatValue() < 89) {
+                    if (dto.getDato().floatValue() >= 80 && dto.getDato().floatValue() < 89) {
                         color = mContext.getResources().getColor(R.color.orange);
                     }
                     if (dto.getDato().floatValue() >= 90 && dto.getDato().floatValue() < 99) {
@@ -284,7 +284,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
                     if (dto.getDato().floatValue() >= 100 && dto.getDato().floatValue() < 109) {
                         color = mContext.getResources().getColor(R.color.red_500);
                     }
-                    if (dto.getDato().floatValue() > 110) {
+                    if (dto.getDato().floatValue() >= 110) {
                         color = mContext.getResources().getColor(R.color.red_900);
                     }
 

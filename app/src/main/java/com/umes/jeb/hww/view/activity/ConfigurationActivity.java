@@ -79,6 +79,7 @@ public class ConfigurationActivity extends AbstractActivity {
                 try{
                     update(configuration);
                     this.show("Configuracion actualizada exitosamente");
+                    this.finish();
                 }catch(Exception e){
                     handleException(e);
                 }
@@ -87,6 +88,7 @@ public class ConfigurationActivity extends AbstractActivity {
                 try{
                     save(configuration);
                     this.show("Configuracion actualizada exitosamente");
+                    this.finish();
                 }catch(Exception e){
                     handleException(e);
                 }

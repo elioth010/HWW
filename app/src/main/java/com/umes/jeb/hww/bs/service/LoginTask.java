@@ -147,7 +147,7 @@ public class LoginTask extends AbstractGetTask<Void, Void, Boolean> {
 			try {
 				Intent intent = new Intent(parentActivity, HomeTabActivity.class);
 				parentActivity.startActivity(intent);
-				this.finalize();
+				parentActivity.finish();
 			} catch (Throwable e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

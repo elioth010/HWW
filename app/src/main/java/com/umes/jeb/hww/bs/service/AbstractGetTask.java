@@ -19,7 +19,7 @@ import com.umes.jeb.hww.view.activity.AbstractActivity;
 public abstract class AbstractGetTask<Params, Progress, Result> extends AsyncTask <Params, Progress, Result> {
 
 	protected static final String TAG = "ActivityTask";
-	protected final String BASE_URL = "http://172.16.5.76/salud/";
+	protected final String BASE_URL = "http://52.36.27.188/salud/";
 	protected AbstractActivity parentActivity;
 	private ProgressDialog dialog;
 

@@ -14,6 +14,7 @@ import android.support.multidex.MultiDex;
 public class SessionManager extends SugarApp {
 
 	private UsuarioDTO profile;
+	private String fcmToken;
 	
 	private SugarDAO sugarDAO;
 
@@ -46,4 +47,11 @@ public class SessionManager extends SugarApp {
 		return this.sugarDAO;
 	}
 
+	public String getFcmToken() {
+		return fcmToken;
+	}
+
+	public void setFcmToken(String fcmToken) {
+		this.fcmToken = fcmToken;
+	}
 }

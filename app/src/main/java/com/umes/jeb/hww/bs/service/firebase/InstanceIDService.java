@@ -4,6 +4,10 @@ import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.umes.jeb.hww.eis.bo.TokenFCM;
+import com.umes.jeb.hww.security.SessionManager;
+
+import java.util.List;
 
 /**
  * Created by elioth010 on 9/27/16.
@@ -38,5 +42,14 @@ public class InstanceIDService extends FirebaseInstanceIdService {
      */
     private void sendRegistrationToServer(String token) {
         // TODO: Call to php page to update token per user.
+        TokenFCM tokenFCM = new TokenFCM(token);
+        List<TokenFCM> tokens = ((SessionManager)getApplication()).getSugarDAO().findAll(TokenFCM.class);
+        if(tokens!=null && tokens.size()>0){
+            TokenFCM fcm = tokens.get(0);
+            fcm.setToken(token);
+            ((SessionManager)getApplication()).getSugarDAO().update(tokenFCM);
+        }else{
+            ((SessionManager)getApplication()).getSugarDAO().save(tokenFCM);
+        }
     }
 }

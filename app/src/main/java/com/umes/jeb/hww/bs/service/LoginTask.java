@@ -30,6 +30,7 @@ import android.util.Log;
 
 import com.umes.jeb.hww.R;
 import com.umes.jeb.hww.eis.bo.BaseBO;
+import com.umes.jeb.hww.eis.bo.TokenFCM;
 import com.umes.jeb.hww.eis.bo.UserToken;
 import com.umes.jeb.hww.eis.dto.ProfileDTO;
 import com.umes.jeb.hww.eis.dto.RolDTO;
@@ -68,7 +69,8 @@ public class LoginTask extends AbstractGetTask<Void, Void, Boolean> {
 	@Override
 	protected Boolean doInBackground(Void... params) {
 		try {
-			final String url = super.BASE_URL+"/login/entrar";
+			final String url = super.BASE_URL+"login/entrar";
+			SessionManager manager = this.parentActivity.getSession();
 			RestTemplate restTemplate = new RestTemplate(super.clientHttpRequestFactory());
 			HttpMessageConverter formHttpMessageConverter = new FormHttpMessageConverter();
 			HttpMessageConverter stringHttpMessageConverternew = new StringHttpMessageConverter();
@@ -79,11 +81,12 @@ public class LoginTask extends AbstractGetTask<Void, Void, Boolean> {
 			MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
 			map.add("login", this.user);
 			map.add("password", this.password);
+			TokenFCM tokens = (TokenFCM) parentActivity.findById(TokenFCM.class, 1);
+			map.add("registro", tokens!=null ? tokens.getToken(): "");
 			String response =restTemplate.postForObject(url, map, String.class);
 			UsuarioDTO profileDTO = fetchUser(response, this.password);
-			System.out.println(response);
-			SessionManager manager = this.parentActivity.getSession();
 			manager.setProfile(profileDTO);
+			System.out.println(response);
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			if(parentActivity.findAll(UserToken.class).size()>0){
 				parentActivity.delete((BaseBO) parentActivity.findAll(UserToken.class).get(0));
@@ -131,7 +134,7 @@ public class LoginTask extends AbstractGetTask<Void, Void, Boolean> {
 			usuario.setLogin(String.valueOf(mapUser.get("login")));
 			usuario.setNombre(String.valueOf(mapUser.get("nombre")));
 			usuario.setPassword(password);
-			usuario.setTelefono(Integer.parseInt(String.valueOf(mapUser.get("telefono"))));
+			usuario.setTelefono(Integer.parseInt(String.valueOf(mapUser.get("telefono") == null ? "" : mapUser.get("telefono"))));
 			usuario.setEstado(Integer.parseInt(String.valueOf(mapUser.get("estado"))));
 		} catch (IOException e) {
 			e.printStackTrace();
